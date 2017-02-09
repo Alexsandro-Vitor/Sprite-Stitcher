@@ -2,6 +2,6 @@
 Gerador de Sprites RTP
 
 Para usar:
-* Crie uma pasta "imagens"
-* Dentro da pasta "imagens", crie as pastas: "corpos", "elmos", "cabelos", "olhos", "faces", "roupas", "costas" e "sprites"
-* Dentro de cada pasta, coloque as partes do sprite que queira usar.
+* Ao abrir o programa pela primeira vez, ele gerará uma pasta "imagens", com algumas pastas dentro.
+* Na pasta "imagens" ficam as partes que serão usadas na construção do sprite.
+* O programa salva os sprites gerados na pasta "imagens/sprites".
