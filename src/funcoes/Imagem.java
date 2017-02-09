@@ -60,22 +60,17 @@ public class Imagem {
 		int[][] saida = new int[largura][altura];
 		for (int coluna = 0; coluna < largura; coluna++) {
 			for (int linha = 0; linha < altura; linha++) {
-				saida[coluna][linha] = sobreporCor(acima[coluna][linha], abaixo[coluna][linha]);//transparente(acima[coluna][linha]) ? abaixo[coluna][linha] : acima[coluna][linha];
+				saida[coluna][linha] = sobreporCor(acima[coluna][linha], abaixo[coluna][linha]);
 			}
 		}
 		return saida;
 	}
 	
-	private static boolean transparente(int argb) {
-		//Checa se argb possui alguma opacidade (se os 8 bits mais significativos de argb sao diferentes de 0)
-		return alfa(argb) == 0;
-	}
-	
 	private static int sobreporCor(int acima, int abaixo) {
-		int alfa = 255;
-		byte red = (byte)((alfa(acima) * red(acima) + (255 - alfa(acima)) * red(abaixo)) / 255);
-		byte green = (byte)((alfa(acima) * green(acima) + (255 - alfa(acima)) * green(abaixo)) / 255);
-		byte blue = (byte)((alfa(acima) * blue(acima) + (255 - alfa(acima)) * blue(abaixo)) / 255);
+		short alfa = 255;
+		int red = Integer.divideUnsigned((alfa(acima) * red(acima) + (255 - alfa(acima)) * red(abaixo)), 255);
+		int green = Integer.divideUnsigned((alfa(acima) * green(acima) + (255 - alfa(acima)) * green(abaixo)), 255);
+		int blue = Integer.divideUnsigned((alfa(acima) * blue(acima) + (255 - alfa(acima)) * blue(abaixo)), 255);
 		return ((alfa * 256 + red) * 256 + green) * 256 + blue;
 	}
 	
