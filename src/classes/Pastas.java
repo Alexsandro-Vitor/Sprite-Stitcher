@@ -11,18 +11,26 @@ public class Pastas {
 	public File[] roupas;
 	public File[] costas;
 	
+	//Cria e abre as pastas com as imagens do programa
 	public Pastas() {
-		corpos = abrirOuCriar("corpos");
-		elmos = abrirOuCriar("elmos");
-		cabelos = abrirOuCriar("cabelos");
-		olhos = abrirOuCriar("olhos");
-		faces = abrirOuCriar("faces");
-		roupas = abrirOuCriar("roupas");
-		costas = abrirOuCriar("costas");
+		corpos = abrir("corpos");
+		elmos = abrir("elmos");
+		cabelos = abrir("cabelos");
+		olhos = abrir("olhos");
+		faces = abrir("faces");
+		roupas = abrir("roupas");
+		costas = abrir("costas");
+		criar("sprites");
 	}
 	
-	private static File[] abrirOuCriar(String pasta) {
-		if (new File("imagens\\"+pasta).listFiles() == null) new File("imagens\\"+pasta).mkdirs();	//Se as pastas das partes nao existem, as cria
+	//Abre a pasta
+	private static File[] abrir(String pasta) {
+		criar(pasta);
 		return new File("imagens\\"+pasta).listFiles();
+	}
+	
+	//Cria a pasta se ela nao existir
+	private static void criar(String pasta) {
+		if (new File("imagens\\"+pasta).listFiles() == null) new File("imagens\\"+pasta).mkdirs();	
 	}
 }
