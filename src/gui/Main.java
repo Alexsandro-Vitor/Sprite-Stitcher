@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.HeadlessException;
 import java.awt.Image;
 
 import java.awt.event.ItemListener;
@@ -9,12 +10,9 @@ import java.awt.event.ItemEvent;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -26,6 +24,7 @@ import javax.swing.SwingConstants;
 
 import javax.swing.border.EmptyBorder;
 
+import funcoes.Arquivo;
 import funcoes.Imagem;
 
 import java.awt.event.MouseAdapter;
@@ -38,7 +37,7 @@ import javax.swing.event.ChangeEvent;
 
 @SuppressWarnings("serial")
 public class Main extends JFrame {
-	
+
 	private File[] corpos = new File("imagens\\corpos").listFiles();
 	private File[] elmos = new File("imagens\\elmos").listFiles();
 	private File[] cabelos = new File("imagens\\cabelos").listFiles();
@@ -48,7 +47,7 @@ public class Main extends JFrame {
 	private File[] costas = new File("imagens\\costas").listFiles();
 	private BufferedImage buffer;
 	private static Random random = new Random();
-	
+
 	private JPanel contentPane;
 	private JComboBox<String> cmbCorpo;
 	private JSpinner spinCorpo;
@@ -112,18 +111,18 @@ public class Main extends JFrame {
 		});
 		cmbCorpo.setBounds(70, 11, 252, 20);
 		contentPane.add(cmbCorpo);
-		
+
 		spinCorpo = new JSpinner();
 		spinCorpo.setEnabled(false);
 		spinCorpo.setToolTipText("Opacidade do Sprite");
 		spinCorpo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinCorpo.setBounds(332, 11, 50, 20);
 		contentPane.add(spinCorpo);
-		
+
 		JLabel lblElmo = new JLabel("Elmo");
 		lblElmo.setBounds(10, 42, 50, 20);
 		contentPane.add(lblElmo);
-		
+
 		cmbElmo = new JComboBox(nomesArquivos(elmos));
 		cmbElmo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -137,7 +136,7 @@ public class Main extends JFrame {
 		cmbElmo.setBackground(Color.WHITE);
 		cmbElmo.setBounds(70, 42, 252, 20);
 		contentPane.add(cmbElmo);
-		
+
 		spinElmo = new JSpinner();
 		spinElmo.setToolTipText("Opacidade do elmo");
 		spinElmo.addChangeListener(new ChangeListener() {
@@ -188,11 +187,11 @@ public class Main extends JFrame {
 		});
 		cmbOlhos.setBounds(70, 104, 252, 20);
 		contentPane.add(cmbOlhos);
-		
+
 		JLabel lblFace = new JLabel("Face");
 		lblFace.setBounds(10, 135, 50, 20);
 		contentPane.add(lblFace);
-		
+
 		cmbFace = new JComboBox(nomesArquivos(faces));
 		cmbFace.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -206,7 +205,7 @@ public class Main extends JFrame {
 		cmbFace.setBackground(Color.WHITE);
 		cmbFace.setBounds(70, 135, 252, 20);
 		contentPane.add(cmbFace);
-		
+
 		spinFace = new JSpinner();
 		spinFace.setToolTipText("Opacidade do item da face");
 		spinFace.addChangeListener(new ChangeListener() {
@@ -239,14 +238,7 @@ public class Main extends JFrame {
 		});
 		cmbRoupa.setBounds(70, 166, 252, 20);
 		contentPane.add(cmbRoupa);
-		
-		JButton btnAleatorio = new JButton("Aleat\u00F3rio");
-		btnAleatorio.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent arg0) {
-				spriteAleatorio();
-			}
-		});
-		
+
 		spinRoupa = new JSpinner();
 		spinRoupa.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -261,25 +253,47 @@ public class Main extends JFrame {
 		spinRoupa.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinRoupa.setBounds(332, 166, 50, 20);
 		contentPane.add(spinRoupa);
-		
+
 		JLabel lblCostas = new JLabel("Costas");
 		lblCostas.setEnabled(false);
 		lblCostas.setBounds(10, 197, 50, 20);
 		contentPane.add(lblCostas);
-		
+
 		cmbCostas = new JComboBox(nomesArquivos(costas));
 		cmbCostas.setEnabled(false);
 		cmbCostas.setBackground(Color.WHITE);
 		cmbCostas.setBounds(70, 197, 252, 20);
 		contentPane.add(cmbCostas);
-		
+
 		spinCostas = new JSpinner();
 		spinCostas.setEnabled(false);
 		spinCostas.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinCostas.setBounds(332, 197, 50, 20);
 		contentPane.add(spinCostas);
+
+		JButton btnAleatorio = new JButton("Aleat\u00F3rio");
+		btnAleatorio.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				spriteAleatorio();
+			}
+		});
 		btnAleatorio.setBounds(10, 228, 372, 20);
 		contentPane.add(btnAleatorio);
+
+		lblSprite = new JLabel("");
+		lblSprite.setBackground(Color.WHITE);
+		lblSprite.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSprite.setBounds(392, 11, 192, 256);
+		contentPane.add(lblSprite);
+
+		JLabel lblNomeDoSprite = new JLabel("Nome do Sprite");
+		lblNomeDoSprite.setBounds(10, 259, 90, 20);
+		contentPane.add(lblNomeDoSprite);
+
+		txtNomeSprite = new JTextField();
+		txtNomeSprite.setBounds(110, 259, 182, 20);
+		contentPane.add(txtNomeSprite);
+		txtNomeSprite.setColumns(10);
 
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addMouseListener(new MouseAdapter() {
@@ -291,23 +305,8 @@ public class Main extends JFrame {
 				}
 			}
 		});
-		
-		txtNomeSprite = new JTextField();
-		txtNomeSprite.setBounds(110, 259, 182, 20);
-		contentPane.add(txtNomeSprite);
-		txtNomeSprite.setColumns(10);
 		btnSalvar.setBounds(302, 259, 80, 20);
 		contentPane.add(btnSalvar);
-
-		lblSprite = new JLabel("");
-		lblSprite.setBackground(Color.WHITE);
-		lblSprite.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSprite.setBounds(392, 11, 192, 256);
-		contentPane.add(lblSprite);
-		
-		JLabel lblNomeDoSprite = new JLabel("Nome do Sprite");
-		lblNomeDoSprite.setBounds(10, 259, 90, 20);
-		contentPane.add(lblNomeDoSprite);
 	}
 
 	private static String[] nomesArquivos(File[] array) {
@@ -318,10 +317,10 @@ public class Main extends JFrame {
 		}
 		return saida;
 	}
-	
+
 	//Atualiza o sprite com as partes selecionadas
 	private void atualizaSprite() throws IOException {
-		int[][] imagemCorpo = selecionarImagem(corpos, cmbCorpo, 255);
+		int[][] imagemCorpo = Arquivo.selecionarImagem(corpos, cmbCorpo, 255);
 		imagemCorpo = sobreporImagemArquivo(imagemCorpo, olhos, cmbOlhos, 255);
 		imagemCorpo = sobreporImagemArquivo(imagemCorpo, roupas, cmbRoupa, (int)spinRoupa.getValue());
 		imagemCorpo = sobreporImagemArquivo(imagemCorpo, faces, cmbFace, (int)spinFace.getValue());
@@ -330,24 +329,12 @@ public class Main extends JFrame {
 		buffer = Imagem.matrizParaBuffer(imagemCorpo);
 		lblSprite.setIcon(new ImageIcon(buffer.getScaledInstance(192, 256, Image.SCALE_AREA_AVERAGING)));
 	}
-	
+
 	//Sobrepoe a imagem
 	private int[][] sobreporImagemArquivo(int[][] base, File[] array, JComboBox<String> cmb, int alfa) throws IOException {
-		int[][] acima = selecionarImagem(array, cmb, alfa);
-		return Imagem.sobreporImagem(acima, base);
+		return Imagem.sobreporImagem(Arquivo.selecionarImagem(array, cmb, alfa), base);
 	}
-	
-	//Pega a imagem selecionada pelo comboBox
-	private int[][] selecionarImagem(File[] array, JComboBox<String> cmb, int alfa) throws IOException {
-		int[][] matriz;
-		try {
-			matriz = Imagem.lerImagem(array[cmb.getSelectedIndex() - 1], alfa);
-		} catch (ArrayIndexOutOfBoundsException e) {
-			matriz = Imagem.gerarTransparencia();
-		}
-		return matriz;
-	}
-	
+
 	//Seleciona aleatoriamente partes do sprite para criar um sprite aleatorio
 	private void spriteAleatorio() {
 		cmbCorpo.setSelectedIndex(random.nextInt(cmbCorpo.getItemCount()));
@@ -358,28 +345,7 @@ public class Main extends JFrame {
 		cmbRoupa.setSelectedIndex(random.nextInt(cmbRoupa.getItemCount()));
 	}
 	
-	//Salva o sprite gerado e exibe uma mensagem avisando
-	private void salvarSprite() throws IOException {
-		String nome = nomeSprite();
-		ImageIO.write(buffer, "PNG", new File("imagens\\sprites\\" + nome));
-		JOptionPane.showMessageDialog(null, "Sprite salvo com o nome \"" + nome + "\"");
-	}
-	
-	//Determina o nome com o qual o sprite será salvo
-	@SuppressWarnings("resource")
-	private String nomeSprite() {
-		try {
-			new FileReader("imagens\\sprites\\" + txtNomeSprite.getText() + ".png");
-			for (int i = 2; ; i++) {
-				try {
-					new FileReader("imagens\\sprites\\" + txtNomeSprite.getText() + '('+ i + ").png");
-				} catch (FileNotFoundException e) {
-					return txtNomeSprite.getText() + '(' + i + ").png";
-				}
-			}
-		} catch (FileNotFoundException e) {
-			return txtNomeSprite.getText() + ".png";
-		}
-		
+	private void salvarSprite() throws HeadlessException, IOException {
+		JOptionPane.showMessageDialog(null, "Sprite salvo com o nome \"" + Arquivo.salvarSprite(txtNomeSprite.getText(), buffer) + "\"");
 	}
 }
