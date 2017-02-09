@@ -62,11 +62,15 @@ public class Imagem {
 	}
 	
 	private static int sobreporCor(int acima, int abaixo) {
-		short alfa = 255;
-		int red = Integer.divideUnsigned((alfa(acima) * red(acima) + (255 - alfa(acima)) * red(abaixo)), 255);
-		int green = Integer.divideUnsigned((alfa(acima) * green(acima) + (255 - alfa(acima)) * green(abaixo)), 255);
-		int blue = Integer.divideUnsigned((alfa(acima) * blue(acima) + (255 - alfa(acima)) * blue(abaixo)), 255);
+		int alfa = 255 - Integer.divideUnsigned((255 - alfa(acima)) * (255 - alfa(abaixo)), 255);
+		int red = media(alfa(acima), red(acima), red(abaixo));
+		int green = media(alfa(acima), green(acima), green(abaixo));
+		int blue = media(alfa(acima), blue(acima), blue(abaixo));
 		return ((alfa * 256 + red) * 256 + green) * 256 + blue;
+	}
+	
+	private static int media(int pesoA, int valorA, int valorB) {
+		return Integer.divideUnsigned((pesoA * valorA + (255 - pesoA) * valorB), 255);
 	}
 	
 	private static int alfa(int argb) {
