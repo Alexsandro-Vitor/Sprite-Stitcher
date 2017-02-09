@@ -250,18 +250,33 @@ public class Main extends JFrame {
 		contentPane.add(spinRoupa);
 
 		JLabel lblCostas = new JLabel("Costas");
-		lblCostas.setEnabled(false);
 		lblCostas.setBounds(10, 197, 50, 20);
 		contentPane.add(lblCostas);
 
 		cmbCostas = new JComboBox(Arquivo.nomesArquivos(pastas.costas));
-		cmbCostas.setEnabled(false);
+		cmbCostas.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				try {
+					atualizaSprite();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		cmbCostas.setBackground(Color.WHITE);
 		cmbCostas.setBounds(70, 197, 252, 20);
 		contentPane.add(cmbCostas);
 
 		spinCostas = new JSpinner();
-		spinCostas.setEnabled(false);
+		spinCostas.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				try {
+					atualizaSprite();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		spinCostas.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinCostas.setBounds(332, 197, 50, 20);
 		contentPane.add(spinCostas);
@@ -306,13 +321,16 @@ public class Main extends JFrame {
 
 	//Atualiza o sprite com as partes selecionadas
 	private void atualizaSprite() throws IOException {
-		int[][] imagemCorpo = Arquivo.selecionarImagem(pastas.corpos, cmbCorpo, 255);
-		imagemCorpo = sobreporImagemArquivo(imagemCorpo, pastas.olhos, cmbOlhos, 255);
-		imagemCorpo = sobreporImagemArquivo(imagemCorpo, pastas.roupas, cmbRoupa, (int)spinRoupa.getValue());
-		imagemCorpo = sobreporImagemArquivo(imagemCorpo, pastas.faces, cmbFace, (int)spinFace.getValue());
-		imagemCorpo = sobreporImagemArquivo(imagemCorpo, pastas.cabelos, cmbCabelo, 255);
-		imagemCorpo = sobreporImagemArquivo(imagemCorpo, pastas.elmos, cmbElmo, (int)spinElmo.getValue());
-		buffer = Imagem.matrizParaBuffer(imagemCorpo);
+		int[][] costas = Arquivo.selecionarImagem(pastas.costas, cmbCostas, (int)spinCostas.getValue());
+		int[][] sprite = Imagem.capaAtras(costas);
+		sprite = sobreporImagemArquivo(sprite, pastas.corpos, cmbCorpo, 255);
+		sprite = sobreporImagemArquivo(sprite, pastas.olhos, cmbOlhos, 255);
+		sprite = sobreporImagemArquivo(sprite, pastas.roupas, cmbRoupa, (int)spinRoupa.getValue());
+		sprite = sobreporImagemArquivo(sprite, pastas.faces, cmbFace, (int)spinFace.getValue());
+		sprite = sobreporImagemArquivo(sprite, pastas.cabelos, cmbCabelo, 255);
+		sprite = sobreporImagemArquivo(sprite, pastas.elmos, cmbElmo, (int)spinElmo.getValue());
+		sprite = Imagem.sobreporImagem(Imagem.capaFrente(costas), sprite);
+		buffer = Imagem.matrizParaBuffer(sprite);
 		lblSprite.setIcon(new ImageIcon(buffer.getScaledInstance(192, 256, Image.SCALE_AREA_AVERAGING)));
 	}
 

@@ -94,4 +94,24 @@ public class Imagem {
 		}
 		return saida;
 	}
+	
+	public static int[][] capaAtras(int[][] entrada) {
+		int[][] saida = new int[entrada.length][entrada[0].length];
+		for (int i = 0; i < entrada.length; i++) {
+			for (int j = 0; j < entrada[0].length; j++) {
+				saida[i][j] = (j < 96) ? entrada[i][j] : 0;
+			}
+		}
+		return saida;
+	}
+	
+	public static int[][] capaFrente(int[][] entrada) {
+		int[][] saida = new int[entrada.length][entrada[0].length];
+		for (int i = 0; i < entrada.length; i++) {
+			for (int j = 0; j < entrada[0].length; j++) {
+				saida[i][j] = (j >= 96) ? entrada[i][j] : 0;
+			}
+		}
+		return saida;
+	}
 }
