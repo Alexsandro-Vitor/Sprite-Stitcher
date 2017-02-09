@@ -8,7 +8,6 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -32,15 +31,14 @@ import funcoes.Imagem;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
-import javax.swing.JCheckBox;
-import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
+@SuppressWarnings("serial")
 public class Main extends JFrame {
-
+	
 	private File[] corpos = new File("imagens\\corpos").listFiles();
 	private File[] elmos = new File("imagens\\elmos").listFiles();
 	private File[] cabelos = new File("imagens\\cabelos").listFiles();
@@ -52,12 +50,18 @@ public class Main extends JFrame {
 	private static Random random = new Random();
 	
 	private JPanel contentPane;
-	private JComboBox cmbCorpo;
+	private JComboBox<String> cmbCorpo;
 	private JSpinner spinCorpo;
-	private JComboBox cmbCabelo;
-	private JComboBox cmbOlhos;
-	private JComboBox cmbRoupa;
+	private JComboBox<String> cmbElmo;
+	private JSpinner spinElmo;
+	private JComboBox<String> cmbCabelo;
+	private JComboBox<String> cmbOlhos;
+	private JComboBox<String> cmbFace;
+	private JSpinner spinFace;
+	private JComboBox<String> cmbRoupa;
 	private JSpinner spinRoupa;
+	private JComboBox<String> cmbCostas;
+	private JSpinner spinCostas;
 	private JLabel lblSprite;
 	private JTextField txtNomeSprite;
 
@@ -80,6 +84,7 @@ public class Main extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public Main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 319);
@@ -109,24 +114,41 @@ public class Main extends JFrame {
 		contentPane.add(cmbCorpo);
 		
 		spinCorpo = new JSpinner();
+		spinCorpo.setEnabled(false);
 		spinCorpo.setToolTipText("Opacidade do Sprite");
 		spinCorpo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinCorpo.setBounds(332, 11, 50, 20);
 		contentPane.add(spinCorpo);
 		
 		JLabel lblElmo = new JLabel("Elmo");
-		lblElmo.setEnabled(false);
 		lblElmo.setBounds(10, 42, 50, 20);
 		contentPane.add(lblElmo);
 		
-		JComboBox cmbElmo = new JComboBox(nomesArquivos(elmos));
-		cmbElmo.setEnabled(false);
+		cmbElmo = new JComboBox(nomesArquivos(elmos));
+		cmbElmo.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		cmbElmo.setBackground(Color.WHITE);
 		cmbElmo.setBounds(70, 42, 252, 20);
 		contentPane.add(cmbElmo);
 		
-		JSpinner spinElmo = new JSpinner();
-		spinElmo.setEnabled(false);
+		spinElmo = new JSpinner();
+		spinElmo.setToolTipText("Opacidade do elmo");
+		spinElmo.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		spinElmo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinElmo.setBounds(332, 42, 50, 20);
 		contentPane.add(spinElmo);
@@ -168,18 +190,34 @@ public class Main extends JFrame {
 		contentPane.add(cmbOlhos);
 		
 		JLabel lblFace = new JLabel("Face");
-		lblFace.setEnabled(false);
 		lblFace.setBounds(10, 135, 50, 20);
 		contentPane.add(lblFace);
 		
-		JComboBox cmbFace = new JComboBox(nomesArquivos(faces));
-		cmbFace.setEnabled(false);
+		cmbFace = new JComboBox(nomesArquivos(faces));
+		cmbFace.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				try {
+					atualizaSprite();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		cmbFace.setBackground(Color.WHITE);
 		cmbFace.setBounds(70, 135, 252, 20);
 		contentPane.add(cmbFace);
 		
-		JSpinner spinFace = new JSpinner();
-		spinFace.setEnabled(false);
+		spinFace = new JSpinner();
+		spinFace.setToolTipText("Opacidade do item da face");
+		spinFace.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				try {
+					atualizaSprite();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		spinFace.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinFace.setBounds(332, 135, 50, 20);
 		contentPane.add(spinFace);
@@ -229,13 +267,13 @@ public class Main extends JFrame {
 		lblCostas.setBounds(10, 197, 50, 20);
 		contentPane.add(lblCostas);
 		
-		JComboBox cmbCostas = new JComboBox(nomesArquivos(costas));
+		cmbCostas = new JComboBox(nomesArquivos(costas));
 		cmbCostas.setEnabled(false);
 		cmbCostas.setBackground(Color.WHITE);
 		cmbCostas.setBounds(70, 197, 252, 20);
 		contentPane.add(cmbCostas);
 		
-		JSpinner spinCostas = new JSpinner();
+		spinCostas = new JSpinner();
 		spinCostas.setEnabled(false);
 		spinCostas.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinCostas.setBounds(332, 197, 50, 20);
@@ -286,20 +324,21 @@ public class Main extends JFrame {
 		int[][] imagemCorpo = selecionarImagem(corpos, cmbCorpo, 255);
 		imagemCorpo = sobreporImagemArquivo(imagemCorpo, olhos, cmbOlhos, 255);
 		imagemCorpo = sobreporImagemArquivo(imagemCorpo, roupas, cmbRoupa, (int)spinRoupa.getValue());
-		System.out.println("alfa = " + (int)spinRoupa.getValue());
+		imagemCorpo = sobreporImagemArquivo(imagemCorpo, faces, cmbFace, (int)spinFace.getValue());
 		imagemCorpo = sobreporImagemArquivo(imagemCorpo, cabelos, cmbCabelo, 255);
+		imagemCorpo = sobreporImagemArquivo(imagemCorpo, elmos, cmbElmo, (int)spinElmo.getValue());
 		buffer = Imagem.matrizParaBuffer(imagemCorpo);
 		lblSprite.setIcon(new ImageIcon(buffer.getScaledInstance(192, 256, Image.SCALE_AREA_AVERAGING)));
 	}
 	
 	//Sobrepoe a imagem
-	private int[][] sobreporImagemArquivo(int[][] base, File[] array, JComboBox cmb, int alfa) throws IOException {
+	private int[][] sobreporImagemArquivo(int[][] base, File[] array, JComboBox<String> cmb, int alfa) throws IOException {
 		int[][] acima = selecionarImagem(array, cmb, alfa);
 		return Imagem.sobreporImagem(acima, base);
 	}
 	
 	//Pega a imagem selecionada pelo comboBox
-	private int[][] selecionarImagem(File[] array, JComboBox cmb, int alfa) throws IOException {
+	private int[][] selecionarImagem(File[] array, JComboBox<String> cmb, int alfa) throws IOException {
 		int[][] matriz;
 		try {
 			matriz = Imagem.lerImagem(array[cmb.getSelectedIndex() - 1], alfa);
@@ -312,8 +351,10 @@ public class Main extends JFrame {
 	//Seleciona aleatoriamente partes do sprite para criar um sprite aleatorio
 	private void spriteAleatorio() {
 		cmbCorpo.setSelectedIndex(random.nextInt(cmbCorpo.getItemCount()));
+		cmbElmo.setSelectedIndex(random.nextInt(cmbElmo.getItemCount()));
 		cmbCabelo.setSelectedIndex(random.nextInt(cmbCabelo.getItemCount()));
 		cmbOlhos.setSelectedIndex(random.nextInt(cmbOlhos.getItemCount()));
+		cmbFace.setSelectedIndex(random.nextInt(cmbFace.getItemCount()));
 		cmbRoupa.setSelectedIndex(random.nextInt(cmbRoupa.getItemCount()));
 	}
 	
@@ -325,6 +366,7 @@ public class Main extends JFrame {
 	}
 	
 	//Determina o nome com o qual o sprite será salvo
+	@SuppressWarnings("resource")
 	private String nomeSprite() {
 		try {
 			new FileReader("imagens\\sprites\\" + txtNomeSprite.getText() + ".png");
