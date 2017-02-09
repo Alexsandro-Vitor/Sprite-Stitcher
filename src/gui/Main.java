@@ -98,7 +98,7 @@ public class Main extends JFrame {
 		lblCorpo.setBounds(10, 11, 50, 20);
 		contentPane.add(lblCorpo);
 
-		cmbCorpo = new JComboBox(nomesArquivos(corpos));
+		cmbCorpo = new JComboBox(Arquivo.nomesArquivos(corpos));
 		cmbCorpo.setBackground(Color.WHITE);
 		cmbCorpo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -123,7 +123,7 @@ public class Main extends JFrame {
 		lblElmo.setBounds(10, 42, 50, 20);
 		contentPane.add(lblElmo);
 
-		cmbElmo = new JComboBox(nomesArquivos(elmos));
+		cmbElmo = new JComboBox(Arquivo.nomesArquivos(elmos));
 		cmbElmo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				try {
@@ -156,7 +156,7 @@ public class Main extends JFrame {
 		lblCabelo.setBounds(10, 73, 50, 20);
 		contentPane.add(lblCabelo);
 
-		cmbCabelo = new JComboBox(nomesArquivos(cabelos));
+		cmbCabelo = new JComboBox(Arquivo.nomesArquivos(cabelos));
 		cmbCabelo.setBackground(Color.WHITE);
 		cmbCabelo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -174,7 +174,7 @@ public class Main extends JFrame {
 		lblOlhos.setBounds(10, 104, 50, 20);
 		contentPane.add(lblOlhos);
 
-		cmbOlhos = new JComboBox(nomesArquivos(olhos));
+		cmbOlhos = new JComboBox(Arquivo.nomesArquivos(olhos));
 		cmbOlhos.setBackground(Color.WHITE);
 		cmbOlhos.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -192,7 +192,7 @@ public class Main extends JFrame {
 		lblFace.setBounds(10, 135, 50, 20);
 		contentPane.add(lblFace);
 
-		cmbFace = new JComboBox(nomesArquivos(faces));
+		cmbFace = new JComboBox(Arquivo.nomesArquivos(faces));
 		cmbFace.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				try {
@@ -225,7 +225,7 @@ public class Main extends JFrame {
 		lblRoupa.setBounds(10, 166, 50, 20);
 		contentPane.add(lblRoupa);
 
-		cmbRoupa = new JComboBox(nomesArquivos(roupas));
+		cmbRoupa = new JComboBox(Arquivo.nomesArquivos(roupas));
 		cmbRoupa.setBackground(Color.WHITE);
 		cmbRoupa.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -259,7 +259,7 @@ public class Main extends JFrame {
 		lblCostas.setBounds(10, 197, 50, 20);
 		contentPane.add(lblCostas);
 
-		cmbCostas = new JComboBox(nomesArquivos(costas));
+		cmbCostas = new JComboBox(Arquivo.nomesArquivos(costas));
 		cmbCostas.setEnabled(false);
 		cmbCostas.setBackground(Color.WHITE);
 		cmbCostas.setBounds(70, 197, 252, 20);
@@ -307,15 +307,6 @@ public class Main extends JFrame {
 		});
 		btnSalvar.setBounds(302, 259, 80, 20);
 		contentPane.add(btnSalvar);
-	}
-
-	private static String[] nomesArquivos(File[] array) {
-		String[] saida = new String[array.length + 1];
-		saida[0] = "[Vazio]";
-		for (int i = 1; i < saida.length; i++) {
-			saida[i] = array[i-1].getName();
-		}
-		return saida;
 	}
 
 	//Atualiza o sprite com as partes selecionadas

@@ -12,7 +12,7 @@ public class Imagem {
 		return bufferParaMatriz(imagem, alfa);
 	}
 	
-	public static int[][] bufferParaMatriz(BufferedImage imagem, int alfa) {
+	private static int[][] bufferParaMatriz(BufferedImage imagem, int alfa) {
 		int largura = imagem.getWidth(), altura = imagem.getHeight();			//Dimensoes da imagem
 		int[] pixels = imagem.getRGB(0, 0, largura, altura, null, 0, largura);	//Transformação da imagem em array de pixels
 		return arrayParaMatriz(pixels, largura, altura, alfa);
@@ -29,11 +29,6 @@ public class Imagem {
 			}
 		}
 		return matriz;
-	}
-	
-	public static void produzirPng(int[][] pixels, File arquivo) throws IOException {
-		BufferedImage imagem = matrizParaBuffer(pixels);
-		ImageIO.write(imagem, "PNG", arquivo);
 	}
 	
 	public static BufferedImage matrizParaBuffer(int[][] matriz) {

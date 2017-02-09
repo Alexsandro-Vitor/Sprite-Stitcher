@@ -11,6 +11,16 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class Arquivo {
+	//Pega o nome de cada arquivo de uma pasta e coloca em um array
+	public static String[] nomesArquivos(File[] array) {
+		String[] saida = new String[array.length + 1];
+		saida[0] = "[Vazio]";
+		for (int i = 1; i < saida.length; i++) {
+			saida[i] = array[i-1].getName();
+		}
+		return saida;
+	}
+	
 	//Pega a imagem selecionada pelo comboBox
 	public static int[][] selecionarImagem(File[] array, JComboBox<String> cmb, int alfa) throws IOException {
 		int[][] matriz;
