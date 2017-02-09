@@ -24,27 +24,22 @@ import javax.swing.SwingConstants;
 
 import javax.swing.border.EmptyBorder;
 
-import funcoes.Arquivo;
-import funcoes.Imagem;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeListener;
+
+import classes.*;
+import funcoes.*;
+
 import javax.swing.event.ChangeEvent;
 
 @SuppressWarnings("serial")
 public class Main extends JFrame {
 
-	private File[] corpos = new File("imagens\\corpos").listFiles();
-	private File[] elmos = new File("imagens\\elmos").listFiles();
-	private File[] cabelos = new File("imagens\\cabelos").listFiles();
-	private File[] olhos = new File("imagens\\olhos").listFiles();
-	private File[] faces = new File("imagens\\faces").listFiles();
-	private File[] roupas = new File("imagens\\roupas").listFiles();
-	private File[] costas = new File("imagens\\costas").listFiles();
+	private Pastas pastas = new Pastas();
 	private BufferedImage buffer;
 	private static Random random = new Random();
 
@@ -98,7 +93,7 @@ public class Main extends JFrame {
 		lblCorpo.setBounds(10, 11, 50, 20);
 		contentPane.add(lblCorpo);
 
-		cmbCorpo = new JComboBox(Arquivo.nomesArquivos(corpos));
+		cmbCorpo = new JComboBox(Arquivo.nomesArquivos(pastas.corpos));
 		cmbCorpo.setBackground(Color.WHITE);
 		cmbCorpo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -123,7 +118,7 @@ public class Main extends JFrame {
 		lblElmo.setBounds(10, 42, 50, 20);
 		contentPane.add(lblElmo);
 
-		cmbElmo = new JComboBox(Arquivo.nomesArquivos(elmos));
+		cmbElmo = new JComboBox(Arquivo.nomesArquivos(pastas.elmos));
 		cmbElmo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				try {
@@ -156,7 +151,7 @@ public class Main extends JFrame {
 		lblCabelo.setBounds(10, 73, 50, 20);
 		contentPane.add(lblCabelo);
 
-		cmbCabelo = new JComboBox(Arquivo.nomesArquivos(cabelos));
+		cmbCabelo = new JComboBox(Arquivo.nomesArquivos(pastas.cabelos));
 		cmbCabelo.setBackground(Color.WHITE);
 		cmbCabelo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -174,7 +169,7 @@ public class Main extends JFrame {
 		lblOlhos.setBounds(10, 104, 50, 20);
 		contentPane.add(lblOlhos);
 
-		cmbOlhos = new JComboBox(Arquivo.nomesArquivos(olhos));
+		cmbOlhos = new JComboBox(Arquivo.nomesArquivos(pastas.olhos));
 		cmbOlhos.setBackground(Color.WHITE);
 		cmbOlhos.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -192,7 +187,7 @@ public class Main extends JFrame {
 		lblFace.setBounds(10, 135, 50, 20);
 		contentPane.add(lblFace);
 
-		cmbFace = new JComboBox(Arquivo.nomesArquivos(faces));
+		cmbFace = new JComboBox(Arquivo.nomesArquivos(pastas.faces));
 		cmbFace.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				try {
@@ -225,7 +220,7 @@ public class Main extends JFrame {
 		lblRoupa.setBounds(10, 166, 50, 20);
 		contentPane.add(lblRoupa);
 
-		cmbRoupa = new JComboBox(Arquivo.nomesArquivos(roupas));
+		cmbRoupa = new JComboBox(Arquivo.nomesArquivos(pastas.roupas));
 		cmbRoupa.setBackground(Color.WHITE);
 		cmbRoupa.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -259,7 +254,7 @@ public class Main extends JFrame {
 		lblCostas.setBounds(10, 197, 50, 20);
 		contentPane.add(lblCostas);
 
-		cmbCostas = new JComboBox(Arquivo.nomesArquivos(costas));
+		cmbCostas = new JComboBox(Arquivo.nomesArquivos(pastas.costas));
 		cmbCostas.setEnabled(false);
 		cmbCostas.setBackground(Color.WHITE);
 		cmbCostas.setBounds(70, 197, 252, 20);
@@ -311,12 +306,12 @@ public class Main extends JFrame {
 
 	//Atualiza o sprite com as partes selecionadas
 	private void atualizaSprite() throws IOException {
-		int[][] imagemCorpo = Arquivo.selecionarImagem(corpos, cmbCorpo, 255);
-		imagemCorpo = sobreporImagemArquivo(imagemCorpo, olhos, cmbOlhos, 255);
-		imagemCorpo = sobreporImagemArquivo(imagemCorpo, roupas, cmbRoupa, (int)spinRoupa.getValue());
-		imagemCorpo = sobreporImagemArquivo(imagemCorpo, faces, cmbFace, (int)spinFace.getValue());
-		imagemCorpo = sobreporImagemArquivo(imagemCorpo, cabelos, cmbCabelo, 255);
-		imagemCorpo = sobreporImagemArquivo(imagemCorpo, elmos, cmbElmo, (int)spinElmo.getValue());
+		int[][] imagemCorpo = Arquivo.selecionarImagem(pastas.corpos, cmbCorpo, 255);
+		imagemCorpo = sobreporImagemArquivo(imagemCorpo, pastas.olhos, cmbOlhos, 255);
+		imagemCorpo = sobreporImagemArquivo(imagemCorpo, pastas.roupas, cmbRoupa, (int)spinRoupa.getValue());
+		imagemCorpo = sobreporImagemArquivo(imagemCorpo, pastas.faces, cmbFace, (int)spinFace.getValue());
+		imagemCorpo = sobreporImagemArquivo(imagemCorpo, pastas.cabelos, cmbCabelo, 255);
+		imagemCorpo = sobreporImagemArquivo(imagemCorpo, pastas.elmos, cmbElmo, (int)spinElmo.getValue());
 		buffer = Imagem.matrizParaBuffer(imagemCorpo);
 		lblSprite.setIcon(new ImageIcon(buffer.getScaledInstance(192, 256, Image.SCALE_AREA_AVERAGING)));
 	}
