@@ -31,6 +31,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeListener;
 
+import excecoes.TamanhoErradoException;
 import funcoes.*;
 
 import javax.swing.event.ChangeEvent;
@@ -97,6 +98,7 @@ public class Main extends JFrame {
 			public void itemStateChanged(ItemEvent arg0) {
 				try {
 					atualizaSprite();
+					System.out.print("Chamou atualiza");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -329,7 +331,12 @@ public class Main extends JFrame {
 
 	//Atualiza o sprite com as partes selecionadas
 	private void atualizaSprite() throws IOException {
-		int[][] costas = Arquivo.selecionarImagem(pastas.costas, cmbCostas, (int)spinCostas.getValue());
+		int[][] costas;
+		try {
+			costas = Arquivo.selecionarImagem(pastas.costas, cmbCostas, (int)spinCostas.getValue());
+		} catch (TamanhoErradoException e) {
+			costas = e.tratar(Imagem.gerarTransparencia());
+		}
 		int[][] sprite = Imagem.capaAtras(costas);
 		sprite = sobreporImagemArquivo(sprite, pastas.corpos, cmbCorpo, 255);
 		sprite = sobreporImagemArquivo(sprite, pastas.olhos, cmbOlhos, 255);
@@ -344,7 +351,11 @@ public class Main extends JFrame {
 
 	//Sobrepoe a imagem
 	private int[][] sobreporImagemArquivo(int[][] base, File[] array, JComboBox<String> cmb, int alfa) throws IOException {
-		return Imagem.sobreporImagem(Arquivo.selecionarImagem(array, cmb, alfa), base);
+		try {
+			return Imagem.sobreporImagem(Arquivo.selecionarImagem(array, cmb, alfa), base);
+		} catch (TamanhoErradoException e) {
+			return e.tratar(base);
+		}
 	}
 
 	private void atualizaPastas() {

@@ -7,6 +7,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Imagem {
+	public static final short LARGURA = 96;
+	public static final short ALTURA = 128;
+	
 	public static int[][] lerImagem(File arquivo, int alfa) throws IOException {
 		BufferedImage imagem = ImageIO.read(arquivo);							//Le o arquivo
 		return bufferParaMatriz(imagem, alfa);

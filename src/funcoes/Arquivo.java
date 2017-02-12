@@ -9,6 +9,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JComboBox;
 
+import excecoes.TamanhoErradoException;
+
 public class Arquivo {
 	//Pega o nome de cada arquivo de uma pasta e coloca em um array
 	public static String[] nomesArquivos(File[] array) {
@@ -21,10 +23,11 @@ public class Arquivo {
 	}
 	
 	//Pega a imagem selecionada pelo comboBox
-	public static int[][] selecionarImagem(File[] array, JComboBox<String> cmb, int alfa) throws IOException {
+	public static int[][] selecionarImagem(File[] array, JComboBox<String> cmb, int alfa) throws IOException, TamanhoErradoException {
 		int[][] matriz;
 		try {
 			matriz = Imagem.lerImagem(array[cmb.getSelectedIndex() - 1], alfa);
+			if (matriz.length != 96 || matriz[0].length != 128) throw new TamanhoErradoException((String)cmb.getSelectedItem());
 		} catch (ArrayIndexOutOfBoundsException e) {
 			matriz = Imagem.gerarTransparencia();
 		}
