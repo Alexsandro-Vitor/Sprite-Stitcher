@@ -31,7 +31,6 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeListener;
 
-import classes.*;
 import funcoes.*;
 
 import javax.swing.event.ChangeEvent;

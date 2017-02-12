@@ -36,13 +36,13 @@ public class Arquivo {
 	public static String salvarSprite(String nomeArquivo, BufferedImage buffer) throws IOException {
 		String nome = Arquivo.nomeSprite(nomeArquivo);
 		ImageIO.write(buffer, "PNG", new File("imagens\\sprites\\" + nome));
-		JOptionPane.showMessageDialog(null, "Sprite salvo com o nome \"" + nome + "\"");
 		return nome;
 	}
 
 	//Determina o nome com o qual o sprite será salvo
 	@SuppressWarnings("resource")
 	public static String nomeSprite(String nomeImagem) {
+		Pastas.criar("sprites");
 		try {
 			new FileReader("imagens\\sprites\\" + nomeImagem + ".png");
 			for (int i = 2; ; i++) {
