@@ -8,7 +8,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 
 public class Arquivo {
 	//Pega o nome de cada arquivo de uma pasta e coloca em um array

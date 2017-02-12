@@ -77,7 +77,6 @@ public class Main extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	@SuppressWarnings({"unchecked", "rawtypes"})
 	public Main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 319);
@@ -92,7 +91,7 @@ public class Main extends JFrame {
 		lblCorpo.setBounds(10, 11, 50, 20);
 		contentPane.add(lblCorpo);
 
-		cmbCorpo = new JComboBox(Arquivo.nomesArquivos(pastas.corpos));
+		cmbCorpo = new JComboBox<String>(Arquivo.nomesArquivos(pastas.corpos));
 		cmbCorpo.setBackground(Color.WHITE);
 		cmbCorpo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -117,7 +116,7 @@ public class Main extends JFrame {
 		lblElmo.setBounds(10, 42, 50, 20);
 		contentPane.add(lblElmo);
 
-		cmbElmo = new JComboBox(Arquivo.nomesArquivos(pastas.elmos));
+		cmbElmo = new JComboBox<String>(Arquivo.nomesArquivos(pastas.elmos));
 		cmbElmo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				try {
@@ -150,7 +149,7 @@ public class Main extends JFrame {
 		lblCabelo.setBounds(10, 73, 50, 20);
 		contentPane.add(lblCabelo);
 
-		cmbCabelo = new JComboBox(Arquivo.nomesArquivos(pastas.cabelos));
+		cmbCabelo = new JComboBox<String>(Arquivo.nomesArquivos(pastas.cabelos));
 		cmbCabelo.setBackground(Color.WHITE);
 		cmbCabelo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -168,7 +167,7 @@ public class Main extends JFrame {
 		lblOlhos.setBounds(10, 104, 50, 20);
 		contentPane.add(lblOlhos);
 
-		cmbOlhos = new JComboBox(Arquivo.nomesArquivos(pastas.olhos));
+		cmbOlhos = new JComboBox<String>(Arquivo.nomesArquivos(pastas.olhos));
 		cmbOlhos.setBackground(Color.WHITE);
 		cmbOlhos.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -186,7 +185,7 @@ public class Main extends JFrame {
 		lblFace.setBounds(10, 135, 50, 20);
 		contentPane.add(lblFace);
 
-		cmbFace = new JComboBox(Arquivo.nomesArquivos(pastas.faces));
+		cmbFace = new JComboBox<String>(Arquivo.nomesArquivos(pastas.faces));
 		cmbFace.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				try {
@@ -219,7 +218,7 @@ public class Main extends JFrame {
 		lblRoupa.setBounds(10, 166, 50, 20);
 		contentPane.add(lblRoupa);
 
-		cmbRoupa = new JComboBox(Arquivo.nomesArquivos(pastas.roupas));
+		cmbRoupa = new JComboBox<String>(Arquivo.nomesArquivos(pastas.roupas));
 		cmbRoupa.setBackground(Color.WHITE);
 		cmbRoupa.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -252,7 +251,7 @@ public class Main extends JFrame {
 		lblCostas.setBounds(10, 197, 50, 20);
 		contentPane.add(lblCostas);
 
-		cmbCostas = new JComboBox(Arquivo.nomesArquivos(pastas.costas));
+		cmbCostas = new JComboBox<String>(Arquivo.nomesArquivos(pastas.costas));
 		cmbCostas.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				try {
@@ -280,13 +279,23 @@ public class Main extends JFrame {
 		spinCostas.setBounds(332, 197, 50, 20);
 		contentPane.add(spinCostas);
 
+		JButton btnAtualizarPastas = new JButton("Atualizar pastas");
+		btnAtualizarPastas.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				atualizaPastas();
+			}
+		});
+		btnAtualizarPastas.setBounds(10, 228, 181, 20);
+		contentPane.add(btnAtualizarPastas);
+
 		JButton btnAleatorio = new JButton("Aleat\u00F3rio");
 		btnAleatorio.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				spriteAleatorio();
 			}
 		});
-		btnAleatorio.setBounds(10, 228, 372, 20);
+		btnAleatorio.setBounds(201, 228, 181, 20);
 		contentPane.add(btnAleatorio);
 
 		lblSprite = new JLabel("");
@@ -338,6 +347,17 @@ public class Main extends JFrame {
 		return Imagem.sobreporImagem(Arquivo.selecionarImagem(array, cmb, alfa), base);
 	}
 
+	private void atualizaPastas() {
+		pastas = new Pastas();
+		cmbCorpo = new JComboBox<String>(Arquivo.nomesArquivos(pastas.corpos));
+		cmbElmo = new JComboBox<String>(Arquivo.nomesArquivos(pastas.elmos));
+		cmbCabelo = new JComboBox<String>(Arquivo.nomesArquivos(pastas.cabelos));
+		cmbOlhos = new JComboBox<String>(Arquivo.nomesArquivos(pastas.olhos));
+		cmbFace = new JComboBox<String>(Arquivo.nomesArquivos(pastas.faces));
+		cmbRoupa = new JComboBox<String>(Arquivo.nomesArquivos(pastas.roupas));
+		cmbCostas = new JComboBox<String>(Arquivo.nomesArquivos(pastas.costas));
+	}
+
 	//Seleciona aleatoriamente partes do sprite para criar um sprite aleatorio
 	private void spriteAleatorio() {
 		cmbCorpo.setSelectedIndex(random.nextInt(cmbCorpo.getItemCount()));
@@ -346,8 +366,9 @@ public class Main extends JFrame {
 		cmbOlhos.setSelectedIndex(random.nextInt(cmbOlhos.getItemCount()));
 		cmbFace.setSelectedIndex(random.nextInt(cmbFace.getItemCount()));
 		cmbRoupa.setSelectedIndex(random.nextInt(cmbRoupa.getItemCount()));
+		cmbCostas.setSelectedIndex(random.nextInt(cmbCostas.getItemCount()));
 	}
-	
+
 	private void salvarSprite() throws HeadlessException, IOException {
 		JOptionPane.showMessageDialog(null, "Sprite salvo com o nome \"" + Arquivo.salvarSprite(txtNomeSprite.getText(), buffer) + "\"");
 	}
