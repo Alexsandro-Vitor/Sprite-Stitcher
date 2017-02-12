@@ -98,7 +98,6 @@ public class Main extends JFrame {
 			public void itemStateChanged(ItemEvent arg0) {
 				try {
 					atualizaSprite();
-					System.out.print("Chamou atualiza");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -342,9 +341,9 @@ public class Main extends JFrame {
 		sprite = sobreporImagemArquivo(sprite, pastas.olhos, cmbOlhos, 255);
 		sprite = sobreporImagemArquivo(sprite, pastas.roupas, cmbRoupa, (int)spinRoupa.getValue());
 		sprite = sobreporImagemArquivo(sprite, pastas.faces, cmbFace, (int)spinFace.getValue());
+		sprite = Imagem.sobreporImagem(Imagem.capaFrente(costas), sprite);
 		sprite = sobreporImagemArquivo(sprite, pastas.cabelos, cmbCabelo, 255);
 		sprite = sobreporImagemArquivo(sprite, pastas.elmos, cmbElmo, (int)spinElmo.getValue());
-		sprite = Imagem.sobreporImagem(Imagem.capaFrente(costas), sprite);
 		buffer = Imagem.matrizParaBuffer(sprite);
 		lblSprite.setIcon(new ImageIcon(buffer.getScaledInstance(192, 256, Image.SCALE_AREA_AVERAGING)));
 	}

@@ -1,9 +1,9 @@
 package excecoes;
 
+import funcoes.Imagem;
 import javax.swing.JOptionPane;
 
-import funcoes.Imagem;
-
+@SuppressWarnings("serial")
 public class TamanhoErradoException extends Exception {
 	
 	public TamanhoErradoException(String imagem) {
@@ -12,7 +12,6 @@ public class TamanhoErradoException extends Exception {
 	
 	public int[][] tratar(int[][] imagem) {
 		JOptionPane.showMessageDialog(null, getMessage());
-		printStackTrace();
 		return imagem;
 	}
 }
