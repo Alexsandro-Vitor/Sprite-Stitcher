@@ -620,34 +620,35 @@ public class Main extends JFrame {
 	private void atualizaSprite() throws IOException {
 		int[][] costas;
 		try {
-			costas = Arquivo.selecionarImagem(pastas.costas, cmbCostas, (int)spinRedCostas.getValue(), (int)spinGreenCostas.getValue(),
-					(int)spinBlueCostas.getValue(), (int)spinAlfaCostas.getValue());
+			costas = Arquivo.selecionarImagem(pastas.costas, cmbCostas,
+				new CorARGB((int)spinAlfaCostas.getValue(), (int)spinRedCostas.getValue(), (int)spinGreenCostas.getValue(),
+				(int)spinBlueCostas.getValue()));
 		} catch (TamanhoErradoException e) {
 			costas = e.tratar(Imagem.gerarTransparencia());
 		}
 		int[][] sprite = Imagem.capaAtras(costas);
-		sprite = sobreporImagemArquivo(sprite, pastas.corpos, cmbCorpo, 255, 255, 255, 255);
-		sprite = sobreporImagemArquivo(sprite, pastas.olhos, cmbOlhos, (int)spinRedOlhos.getValue(), (int)spinGreenOlhos.getValue(),
-				(int)spinBlueOlhos.getValue(), 255);
-		sprite = sobreporImagemArquivo(sprite, pastas.roupas, cmbRoupa, (int)spinRedRoupa.getValue(), (int)spinGreenRoupa.getValue(),
-				(int)spinBlueRoupa.getValue(), (int)spinAlfaRoupa.getValue());
-		sprite = sobreporImagemArquivo(sprite, pastas.faces, cmbFace, (int)spinRedFace.getValue(), (int)spinGreenFace.getValue(),
-				(int)spinBlueFace.getValue(), (int)spinAlfaFace.getValue());
+		sprite = sobreporImagemArquivo(sprite, pastas.corpos, cmbCorpo, new CorARGB(255, 255, 255, 255));
+		sprite = sobreporImagemArquivo(sprite, pastas.olhos, cmbOlhos,
+			new CorARGB(255, (int)spinRedOlhos.getValue(), (int)spinGreenOlhos.getValue(), (int)spinBlueOlhos.getValue()));
+		sprite = sobreporImagemArquivo(sprite, pastas.roupas, cmbRoupa,
+			new CorARGB((int)spinAlfaRoupa.getValue(), (int)spinRedRoupa.getValue(), (int)spinGreenRoupa.getValue(), (int)spinBlueRoupa.getValue()));
+		sprite = sobreporImagemArquivo(sprite, pastas.faces, cmbFace,
+			new CorARGB((int)spinAlfaFace.getValue(), (int)spinRedFace.getValue(), (int)spinGreenFace.getValue(), (int)spinBlueFace.getValue()));
 		sprite = Imagem.sobreporImagem(Imagem.capaFrente(costas), sprite);
-		sprite = sobreporImagemArquivo(sprite, pastas.cabelos, cmbCabelo, (int)spinRedCabelo.getValue(), (int)spinGreenCabelo.getValue(),
-				(int)spinBlueCabelo.getValue(), 255);
-		sprite = sobreporImagemArquivo(sprite, pastas.elmos, cmbElmo, (int)spinRedElmo.getValue(), (int)spinGreenElmo.getValue(),
-				(int)spinBlueElmo.getValue(), (int)spinAlfaElmo.getValue());
+		sprite = sobreporImagemArquivo(sprite, pastas.cabelos, cmbCabelo,
+			new CorARGB(255, (int)spinRedCabelo.getValue(), (int)spinGreenCabelo.getValue(), (int)spinBlueCabelo.getValue()));
+		sprite = sobreporImagemArquivo(sprite, pastas.elmos, cmbElmo,
+			new CorARGB((int)spinAlfaElmo.getValue(), (int)spinRedElmo.getValue(), (int)spinGreenElmo.getValue(), (int)spinBlueElmo.getValue()));
 		buffer = Imagem.matrizParaBuffer(sprite);
 		lblSprite.setIcon(new ImageIcon(buffer.getScaledInstance(192, 256, Image.SCALE_AREA_AVERAGING)));
 	}
 
 	//Sobrepoe a imagem
-	private static int[][] sobreporImagemArquivo(int[][] base, File[] array, JComboBox<String> cmb, int red, int green, int blue, int alfa)
+	private static int[][] sobreporImagemArquivo(int[][] base, File[] array, JComboBox<String> cmb, CorARGB cor)
 			throws IOException {
 		try {
 			
-			return Imagem.sobreporImagem(Arquivo.selecionarImagem(array, cmb, red, green, blue, alfa), base);
+			return Imagem.sobreporImagem(Arquivo.selecionarImagem(array, cmb, cor), base);
 		} catch (TamanhoErradoException e) {
 			return e.tratar(base);
 		}

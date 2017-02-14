@@ -6,31 +6,30 @@ public class Imagem {
 	public static final short LARGURA = 96;
 	public static final short ALTURA = 128;
 	
-	protected static int[][] bufferParaMatriz(BufferedImage imagem, int red, int green, int blue, int alfa) {
+	protected static int[][] bufferParaMatriz(BufferedImage imagem, CorARGB cor) {
 		int[] pixels = imagem.getRGB(0, 0, LARGURA, ALTURA, null, 0, LARGURA);	//Transformação da imagem em array de pixels
-		return arrayParaMatriz(pixels, red, green, blue, alfa);
+		return arrayParaMatriz(pixels, cor);
 	}
 	
-	private static int[][] arrayParaMatriz(int[] array, int red, int green, int blue, int alfa) {
+	private static int[][] arrayParaMatriz(int[] array, CorARGB cor) {
 		int[][] matriz = new int[LARGURA][ALTURA];
 		for (int coluna = 0; coluna < LARGURA; coluna++) {
 			for (int linha = 0; linha < ALTURA; linha++) {
 				matriz[coluna][linha] = array[LARGURA * linha + coluna];
-				if (alfa(matriz[coluna][linha]) > 0) {
-					matriz[coluna][linha] = alfa * 16777216 + (Integer.remainderUnsigned(matriz[coluna][linha], 16777216));
-					matriz[coluna][linha] = filtrarCor(matriz[coluna][linha], red, green, blue);
+				if (CorARGB.alfa(matriz[coluna][linha]) > 0) {
+					matriz[coluna][linha] = cor.alfa * 16777216 + (Integer.remainderUnsigned(matriz[coluna][linha], 16777216));
+					matriz[coluna][linha] = filtrarCor(matriz[coluna][linha], cor);
 				} else matriz[coluna][linha] = 0;
 			}
 		}
 		return matriz;
 	}
 	
-	private static int filtrarCor(int cor, int red, int green, int blue) {
-		if (red(cor) == green(cor) && red(cor) == blue(cor)) {
-			red = Integer.divideUnsigned(red * red(cor), 255);
-			green = Integer.divideUnsigned(green * green(cor), 255);
-			blue = Integer.divideUnsigned(blue * blue(cor), 255);
-			return ((alfa(cor) * 256 + red) * 256 + green) * 256 + blue;
+	private static int filtrarCor(int cor, CorARGB filtro) {
+		CorARGB original = new CorARGB(cor);
+		if (original.red == original.green && original.green == original.blue) {
+			original.filtrar(filtro);
+			return original.formarCor();
 		} else return cor;
 	}
 	
@@ -55,38 +54,10 @@ public class Imagem {
 		int[][] saida = new int[LARGURA][ALTURA];
 		for (int coluna = 0; coluna < LARGURA; coluna++) {
 			for (int linha = 0; linha < ALTURA; linha++) {
-				saida[coluna][linha] = sobreporCor(acima[coluna][linha], abaixo[coluna][linha]);
+				saida[coluna][linha] = CorARGB.sobreporCor(acima[coluna][linha], abaixo[coluna][linha]);
 			}
 		}
 		return saida;
-	}
-	
-	private static int sobreporCor(int acima, int abaixo) {
-		int alfa = 255 - Integer.divideUnsigned((255 - alfa(acima)) * (255 - alfa(abaixo)), 255);
-		int red = media(alfa(acima), red(acima), red(abaixo));
-		int green = media(alfa(acima), green(acima), green(abaixo));
-		int blue = media(alfa(acima), blue(acima), blue(abaixo));
-		return ((alfa * 256 + red) * 256 + green) * 256 + blue;
-	}
-	
-	private static int media(int pesoA, int valorA, int valorB) {
-		return Integer.divideUnsigned((pesoA * valorA + (255 - pesoA) * valorB), 255);
-	}
-	
-	private static int alfa(int argb) {
-		return Integer.divideUnsigned(argb, 16777216);
-	}
-	
-	private static int red(int argb) {
-		return Integer.remainderUnsigned(Integer.divideUnsigned(argb, 65536), 256);
-	}
-	
-	private static int green(int argb) {
-		return Integer.remainderUnsigned(Integer.divideUnsigned(argb, 256), 256);
-	}
-	
-	private static int blue(int argb) {
-		return Integer.remainderUnsigned(argb, 256);
 	}
 	
 	public static int[][] gerarTransparencia() {
