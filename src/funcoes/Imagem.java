@@ -6,22 +6,32 @@ public class Imagem {
 	public static final short LARGURA = 96;
 	public static final short ALTURA = 128;
 	
-	protected static int[][] bufferParaMatriz(BufferedImage imagem, int alfa) {
+	protected static int[][] bufferParaMatriz(BufferedImage imagem, int red, int green, int blue, int alfa) {
 		int[] pixels = imagem.getRGB(0, 0, LARGURA, ALTURA, null, 0, LARGURA);	//Transformação da imagem em array de pixels
-		return arrayParaMatriz(pixels, alfa);
+		return arrayParaMatriz(pixels, red, green, blue, alfa);
 	}
 	
-	private static int[][] arrayParaMatriz(int[] array, int alfa) {
+	private static int[][] arrayParaMatriz(int[] array, int red, int green, int blue, int alfa) {
 		int[][] matriz = new int[LARGURA][ALTURA];
 		for (int coluna = 0; coluna < LARGURA; coluna++) {
 			for (int linha = 0; linha < ALTURA; linha++) {
 				matriz[coluna][linha] = array[LARGURA * linha + coluna];
-				if (alfa(matriz[coluna][linha]) > 0) 
+				if (alfa(matriz[coluna][linha]) > 0) {
 					matriz[coluna][linha] = alfa * 16777216 + (Integer.remainderUnsigned(matriz[coluna][linha], 16777216));
-				else matriz[coluna][linha] = 0;
+					matriz[coluna][linha] = filtrarCor(matriz[coluna][linha], red, green, blue);
+				} else matriz[coluna][linha] = 0;
 			}
 		}
 		return matriz;
+	}
+	
+	private static int filtrarCor(int cor, int red, int green, int blue) {
+		if (red(cor) == green(cor) && red(cor) == blue(cor)) {
+			red = Integer.divideUnsigned(red * red(cor), 255);
+			green = Integer.divideUnsigned(green * green(cor), 255);
+			blue = Integer.divideUnsigned(blue * blue(cor), 255);
+			return ((alfa(cor) * 256 + red) * 256 + green) * 256 + blue;
+		} else return cor;
 	}
 	
 	public static BufferedImage matrizParaBuffer(int[][] matriz) {
@@ -88,7 +98,7 @@ public class Imagem {
 		}
 		return saida;
 	}
-	
+
 	public static int[][] capaAtras(int[][] entrada) {
 		int[][] saida = new int[LARGURA][ALTURA];
 		for (int i = 0; i < LARGURA; i++) {

@@ -46,7 +46,6 @@ public class Main extends JFrame {
 
 	private JPanel contentPane;
 	private JComboBox<String> cmbCorpo;
-	private JSpinner spinAlfaCorpo;
 	private JComboBox<String> cmbElmo;
 	private JSpinner spinRedElmo;
 	private JSpinner spinGreenElmo;
@@ -128,15 +127,9 @@ public class Main extends JFrame {
 		contentPane.add(cmbCorpo);
 		
 		JLabel lblCoresRgba = new JLabel("Cores RGBA");
-		lblCoresRgba.setBounds(280, 11, 170, 20);
+		lblCoresRgba.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCoresRgba.setBounds(280, 11, 230, 20);
 		contentPane.add(lblCoresRgba);
-
-		spinAlfaCorpo = new JSpinner();
-		spinAlfaCorpo.setEnabled(false);
-		spinAlfaCorpo.setToolTipText("Opacidade do Sprite");
-		spinAlfaCorpo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinAlfaCorpo.setBounds(460, 11, 50, 20);
-		contentPane.add(spinAlfaCorpo);
 
 		JLabel lblElmo = new JLabel("Elmo");
 		lblElmo.setBounds(10, 42, 50, 20);
@@ -157,21 +150,45 @@ public class Main extends JFrame {
 		contentPane.add(cmbElmo);
 		
 		spinRedElmo = new JSpinner();
-		spinRedElmo.setEnabled(false);
+		spinRedElmo.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		spinRedElmo.setToolTipText("Cor vermelha do elmo");
 		spinRedElmo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinRedElmo.setBounds(280, 42, 50, 20);
 		contentPane.add(spinRedElmo);
 		
 		spinGreenElmo = new JSpinner();
-		spinGreenElmo.setEnabled(false);
+		spinGreenElmo.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		spinGreenElmo.setToolTipText("Cor verde do elmo");
 		spinGreenElmo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinGreenElmo.setBounds(340, 42, 50, 20);
 		contentPane.add(spinGreenElmo);
 		
 		spinBlueElmo = new JSpinner();
-		spinBlueElmo.setEnabled(false);
+		spinBlueElmo.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		spinBlueElmo.setToolTipText("Cor azul do elmo");
 		spinBlueElmo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinBlueElmo.setBounds(400, 42, 50, 20);
@@ -211,21 +228,45 @@ public class Main extends JFrame {
 		contentPane.add(cmbCabelo);
 
 		spinRedCabelo = new JSpinner();
-		spinRedCabelo.setEnabled(false);
+		spinRedCabelo.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		spinRedCabelo.setToolTipText("Cor vermelha do cabelo");
 		spinRedCabelo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinRedCabelo.setBounds(280, 73, 50, 20);
 		contentPane.add(spinRedCabelo);
 		
 		spinGreenCabelo = new JSpinner();
-		spinGreenCabelo.setEnabled(false);
+		spinGreenCabelo.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		spinGreenCabelo.setToolTipText("Cor verde do cabelo");
 		spinGreenCabelo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinGreenCabelo.setBounds(340, 73, 50, 20);
 		contentPane.add(spinGreenCabelo);
 		
 		spinBlueCabelo = new JSpinner();
-		spinBlueCabelo.setEnabled(false);
+		spinBlueCabelo.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		spinBlueCabelo.setToolTipText("Cor azul do cabelo");
 		spinBlueCabelo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinBlueCabelo.setBounds(400, 73, 50, 20);
@@ -250,21 +291,45 @@ public class Main extends JFrame {
 		contentPane.add(cmbOlhos);
 
 		spinRedOlhos = new JSpinner();
-		spinRedOlhos.setEnabled(false);
+		spinRedOlhos.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		spinRedOlhos.setToolTipText("Cor vermelha dos olhos");
 		spinRedOlhos.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinRedOlhos.setBounds(280, 104, 50, 20);
 		contentPane.add(spinRedOlhos);
 		
 		spinGreenOlhos = new JSpinner();
-		spinGreenOlhos.setEnabled(false);
+		spinGreenOlhos.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		spinGreenOlhos.setToolTipText("Cor verde dos olhos");
 		spinGreenOlhos.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinGreenOlhos.setBounds(340, 104, 50, 20);
 		contentPane.add(spinGreenOlhos);
 		
 		spinBlueOlhos = new JSpinner();
-		spinBlueOlhos.setEnabled(false);
+		spinBlueOlhos.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		spinBlueOlhos.setToolTipText("Cor azul dos olhos");
 		spinBlueOlhos.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinBlueOlhos.setBounds(400, 104, 50, 20);
@@ -289,21 +354,45 @@ public class Main extends JFrame {
 		contentPane.add(cmbFace);
 
 		spinRedFace = new JSpinner();
-		spinRedFace.setEnabled(false);
+		spinRedFace.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		spinRedFace.setToolTipText("Cor vermelha do item da face");
 		spinRedFace.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinRedFace.setBounds(280, 135, 50, 20);
 		contentPane.add(spinRedFace);
 		
 		spinGreenFace = new JSpinner();
-		spinGreenFace.setEnabled(false);
+		spinGreenFace.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		spinGreenFace.setToolTipText("Cor verde do item da face");
 		spinGreenFace.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinGreenFace.setBounds(340, 135, 50, 20);
 		contentPane.add(spinGreenFace);
 		
 		spinBlueFace = new JSpinner();
-		spinBlueFace.setEnabled(false);
+		spinBlueFace.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		spinBlueFace.setToolTipText("Cor azul do item da face");
 		spinBlueFace.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinBlueFace.setBounds(400, 135, 50, 20);
@@ -343,21 +432,45 @@ public class Main extends JFrame {
 		contentPane.add(cmbRoupa);
 
 		spinRedRoupa = new JSpinner();
-		spinRedRoupa.setEnabled(false);
+		spinRedRoupa.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		spinRedRoupa.setToolTipText("Cor vermelha da roupa");
 		spinRedRoupa.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinRedRoupa.setBounds(280, 166, 50, 20);
 		contentPane.add(spinRedRoupa);
 		
 		spinGreenRoupa = new JSpinner();
-		spinGreenRoupa.setEnabled(false);
+		spinGreenRoupa.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		spinGreenRoupa.setToolTipText("Cor verde da roupa");
 		spinGreenRoupa.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinGreenRoupa.setBounds(340, 166, 50, 20);
 		contentPane.add(spinGreenRoupa);
 		
 		spinBlueRoupa = new JSpinner();
-		spinBlueRoupa.setEnabled(false);
+		spinBlueRoupa.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		spinBlueRoupa.setToolTipText("Cor azul da roupa");
 		spinBlueRoupa.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinBlueRoupa.setBounds(400, 166, 50, 20);
@@ -397,21 +510,45 @@ public class Main extends JFrame {
 		contentPane.add(cmbCostas);
 
 		spinRedCostas = new JSpinner();
-		spinRedCostas.setEnabled(false);
+		spinRedCostas.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		spinRedCostas.setToolTipText("Cor vermelha do item das costas");
 		spinRedCostas.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinRedCostas.setBounds(280, 197, 50, 20);
 		contentPane.add(spinRedCostas);
 		
 		spinGreenCostas = new JSpinner();
-		spinGreenCostas.setEnabled(false);
+		spinGreenCostas.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		spinGreenCostas.setToolTipText("Cor verde do item das costas");
 		spinGreenCostas.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinGreenCostas.setBounds(340, 197, 50, 20);
 		contentPane.add(spinGreenCostas);
 		
 		spinBlueCostas = new JSpinner();
-		spinBlueCostas.setEnabled(false);
+		spinBlueCostas.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				try {
+					atualizaSprite();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		spinBlueCostas.setToolTipText("Cor azul do item das costas");
 		spinBlueCostas.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinBlueCostas.setBounds(400, 197, 50, 20);
@@ -483,26 +620,34 @@ public class Main extends JFrame {
 	private void atualizaSprite() throws IOException {
 		int[][] costas;
 		try {
-			costas = Arquivo.selecionarImagem(pastas.costas, cmbCostas, (int)spinAlfaCostas.getValue());
+			costas = Arquivo.selecionarImagem(pastas.costas, cmbCostas, (int)spinRedCostas.getValue(), (int)spinGreenCostas.getValue(),
+					(int)spinBlueCostas.getValue(), (int)spinAlfaCostas.getValue());
 		} catch (TamanhoErradoException e) {
 			costas = e.tratar(Imagem.gerarTransparencia());
 		}
 		int[][] sprite = Imagem.capaAtras(costas);
-		sprite = sobreporImagemArquivo(sprite, pastas.corpos, cmbCorpo, 255);
-		sprite = sobreporImagemArquivo(sprite, pastas.olhos, cmbOlhos, 255);
-		sprite = sobreporImagemArquivo(sprite, pastas.roupas, cmbRoupa, (int)spinAlfaRoupa.getValue());
-		sprite = sobreporImagemArquivo(sprite, pastas.faces, cmbFace, (int)spinAlfaFace.getValue());
+		sprite = sobreporImagemArquivo(sprite, pastas.corpos, cmbCorpo, 255, 255, 255, 255);
+		sprite = sobreporImagemArquivo(sprite, pastas.olhos, cmbOlhos, (int)spinRedOlhos.getValue(), (int)spinGreenOlhos.getValue(),
+				(int)spinBlueOlhos.getValue(), 255);
+		sprite = sobreporImagemArquivo(sprite, pastas.roupas, cmbRoupa, (int)spinRedRoupa.getValue(), (int)spinGreenRoupa.getValue(),
+				(int)spinBlueRoupa.getValue(), (int)spinAlfaRoupa.getValue());
+		sprite = sobreporImagemArquivo(sprite, pastas.faces, cmbFace, (int)spinRedFace.getValue(), (int)spinGreenFace.getValue(),
+				(int)spinBlueFace.getValue(), (int)spinAlfaFace.getValue());
 		sprite = Imagem.sobreporImagem(Imagem.capaFrente(costas), sprite);
-		sprite = sobreporImagemArquivo(sprite, pastas.cabelos, cmbCabelo, 255);
-		sprite = sobreporImagemArquivo(sprite, pastas.elmos, cmbElmo, (int)spinAlfaElmo.getValue());
+		sprite = sobreporImagemArquivo(sprite, pastas.cabelos, cmbCabelo, (int)spinRedCabelo.getValue(), (int)spinGreenCabelo.getValue(),
+				(int)spinBlueCabelo.getValue(), 255);
+		sprite = sobreporImagemArquivo(sprite, pastas.elmos, cmbElmo, (int)spinRedElmo.getValue(), (int)spinGreenElmo.getValue(),
+				(int)spinBlueElmo.getValue(), (int)spinAlfaElmo.getValue());
 		buffer = Imagem.matrizParaBuffer(sprite);
 		lblSprite.setIcon(new ImageIcon(buffer.getScaledInstance(192, 256, Image.SCALE_AREA_AVERAGING)));
 	}
 
 	//Sobrepoe a imagem
-	private int[][] sobreporImagemArquivo(int[][] base, File[] array, JComboBox<String> cmb, int alfa) throws IOException {
+	private static int[][] sobreporImagemArquivo(int[][] base, File[] array, JComboBox<String> cmb, int red, int green, int blue, int alfa)
+			throws IOException {
 		try {
-			return Imagem.sobreporImagem(Arquivo.selecionarImagem(array, cmb, alfa), base);
+			
+			return Imagem.sobreporImagem(Arquivo.selecionarImagem(array, cmb, red, green, blue, alfa), base);
 		} catch (TamanhoErradoException e) {
 			return e.tratar(base);
 		}

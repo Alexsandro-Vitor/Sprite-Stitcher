@@ -23,20 +23,21 @@ public class Arquivo {
 	}
 	
 	//Pega a imagem selecionada pelo comboBox
-	public static int[][] selecionarImagem(File[] array, JComboBox<String> cmb, int alfa) throws IOException, TamanhoErradoException {
+	public static int[][] selecionarImagem(File[] array, JComboBox<String> cmb, int red, int green, int blue, int alfa)
+			throws IOException, TamanhoErradoException {
 		int[][] matriz;
 		try {
-			matriz = lerImagem(array[cmb.getSelectedIndex() - 1], alfa);
+			matriz = lerImagem(array[cmb.getSelectedIndex() - 1], red, green, blue, alfa);
 		} catch (ArrayIndexOutOfBoundsException e) {
 			matriz = Imagem.gerarTransparencia();
 		}
 		return matriz;
 	}
 	
-	public static int[][] lerImagem(File arquivo, int alfa) throws IOException, TamanhoErradoException {
+	public static int[][] lerImagem(File arquivo, int red, int green, int blue, int alfa) throws IOException, TamanhoErradoException {
 		BufferedImage imagem = ImageIO.read(arquivo);	//Le o arquivo
 		if (imagem.getWidth() != Imagem.LARGURA || imagem.getHeight() != Imagem.ALTURA) throw new TamanhoErradoException(arquivo.getName());
-		return Imagem.bufferParaMatriz(imagem, alfa);
+		return Imagem.bufferParaMatriz(imagem, red, green, blue, alfa);
 	}
 
 	//Salva o sprite gerado e exibe uma mensagem avisando
