@@ -26,11 +26,14 @@ public class Arquivo {
 	
 	//Pega a imagem selecionada pelo comboBox
 	public static int[][] selecionarImagem(File[] array, ParteSprite parte)
-			throws IOException, TamanhoErradoException {
+			throws TamanhoErradoException {
 		int[][] matriz;
 		try {
 			matriz = lerImagem(array[parte.cmb.getSelectedIndex() - 1], new CorARGB(parte));
 		} catch (ArrayIndexOutOfBoundsException e) {
+			matriz = Imagem.gerarTransparencia();
+		} catch (IOException e) {
+			e.printStackTrace();
 			matriz = Imagem.gerarTransparencia();
 		}
 		return matriz;
