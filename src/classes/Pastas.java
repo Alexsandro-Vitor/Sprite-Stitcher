@@ -8,7 +8,8 @@ public class Pastas {
 	public File[] cabelos;
 	public File[] olhos;
 	public File[] faces;
-	public File[] roupas;
+	public File[] camisas;
+	public File[] calcas;
 	public File[] costas;
 	
 	//Cria e abre as pastas com as imagens do programa
@@ -18,7 +19,8 @@ public class Pastas {
 		cabelos = abrir("cabelos");
 		olhos = abrir("olhos");
 		faces = abrir("faces");
-		roupas = abrir("roupas");
+		camisas = abrir("camisas");
+		calcas = abrir("calcas");
 		costas = abrir("costas");
 	}
 	

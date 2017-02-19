@@ -49,7 +49,10 @@ public class Main extends JFrame {
 	private ParteSprite cabelo;
 	private ParteSprite olhos;
 	private ParteSprite face;
-	private ParteSprite roupa;
+	private ParteSprite camisaA;
+	private ParteSprite camisaB;
+	private ParteSprite calcaA;
+	private ParteSprite calcaB;
 	private ParteSprite costas;
 	private boolean deveAtualizar = true;
 
@@ -407,7 +410,7 @@ public class Main extends JFrame {
 		lblCamisaA.setBounds(10, 166, 60, 20);
 		contentPane.add(lblCamisaA);
 
-		JComboBox<String> cmbCamisaA = new JComboBox(Arquivo.nomesArquivos(pastas.roupas));
+		JComboBox<String> cmbCamisaA = new JComboBox(Arquivo.nomesArquivos(pastas.camisas));
 		cmbCamisaA.setBackground(Color.WHITE);
 		cmbCamisaA.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -431,7 +434,7 @@ public class Main extends JFrame {
 				}
 			}
 		});
-		spinRedCamisaA.setToolTipText("Cor vermelha da camisa A");
+		spinRedCamisaA.setToolTipText("Cor vermelha da camisaA A");
 		spinRedCamisaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinRedCamisaA.setBounds(290, 166, 50, 20);
 		contentPane.add(spinRedCamisaA);
@@ -446,7 +449,7 @@ public class Main extends JFrame {
 				}
 			}
 		});
-		spinGreenCamisaA.setToolTipText("Cor verde da camisa A");
+		spinGreenCamisaA.setToolTipText("Cor verde da camisaA A");
 		spinGreenCamisaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinGreenCamisaA.setBounds(350, 166, 50, 20);
 		contentPane.add(spinGreenCamisaA);
@@ -461,7 +464,7 @@ public class Main extends JFrame {
 				}
 			}
 		});
-		spinBlueCamisaA.setToolTipText("Cor azul da camisa A");
+		spinBlueCamisaA.setToolTipText("Cor azul da camisaA A");
 		spinBlueCamisaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinBlueCamisaA.setBounds(410, 166, 50, 20);
 		contentPane.add(spinBlueCamisaA);
@@ -476,53 +479,53 @@ public class Main extends JFrame {
 				}
 			}
 		});
-		spinAlfaCamisaA.setToolTipText("Opacidade da camisa A");
+		spinAlfaCamisaA.setToolTipText("Opacidade da camisaA A");
 		spinAlfaCamisaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinAlfaCamisaA.setBounds(470, 166, 50, 20);
 		contentPane.add(spinAlfaCamisaA);
 		
-		roupa = new ParteSprite(cmbCamisaA, spinRedCamisaA, spinGreenCamisaA, spinBlueCamisaA, spinAlfaCamisaA);
+		camisaA = new ParteSprite(cmbCamisaA, spinRedCamisaA, spinGreenCamisaA, spinBlueCamisaA, spinAlfaCamisaA);
 		
 		JLabel lblCamisaB = new JLabel("Camisa B");
 		lblCamisaB.setBounds(10, 197, 60, 20);
 		contentPane.add(lblCamisaB);
 		
-		JComboBox<String> cmbCamisaB = new JComboBox(new Object[]{});
+		JComboBox<String> cmbCamisaB = new JComboBox(Arquivo.nomesArquivos(pastas.camisas));
 		cmbCamisaB.setBackground(Color.WHITE);
 		cmbCamisaB.setBounds(80, 197, 200, 20);
 		contentPane.add(cmbCamisaB);
 		
 		JSpinner spinRedCamisaB = new JSpinner();
-		spinRedCamisaB.setToolTipText("Cor vermelha da camisa B");
+		spinRedCamisaB.setToolTipText("Cor vermelha da camisaA B");
 		spinRedCamisaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinRedCamisaB.setBounds(290, 197, 50, 20);
 		contentPane.add(spinRedCamisaB);
 		
 		JSpinner spinGreenCamisaB = new JSpinner();
-		spinGreenCamisaB.setToolTipText("Cor verde da camisa B");
+		spinGreenCamisaB.setToolTipText("Cor verde da camisaA B");
 		spinGreenCamisaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinGreenCamisaB.setBounds(350, 197, 50, 20);
 		contentPane.add(spinGreenCamisaB);
 		
 		JSpinner spinBlueCamisaB = new JSpinner();
-		spinBlueCamisaB.setToolTipText("Cor azul da camisa B");
+		spinBlueCamisaB.setToolTipText("Cor azul da camisaA B");
 		spinBlueCamisaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinBlueCamisaB.setBounds(410, 197, 50, 20);
 		contentPane.add(spinBlueCamisaB);
 		
 		JSpinner spinAlfaCamisaB = new JSpinner();
-		spinAlfaCamisaB.setToolTipText("Opacidade da camisa B");
+		spinAlfaCamisaB.setToolTipText("Opacidade da camisaA B");
 		spinAlfaCamisaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinAlfaCamisaB.setBounds(470, 197, 50, 20);
 		contentPane.add(spinAlfaCamisaB);
 		
-		//Camisa B
+		camisaB = new ParteSprite(cmbCamisaB, spinRedCamisaB, spinGreenCamisaB, spinBlueCamisaB, spinAlfaCamisaB);
 		
 		JLabel lblCalcaA = new JLabel("Calça A");
 		lblCalcaA.setBounds(10, 228, 60, 20);
 		contentPane.add(lblCalcaA);
 		
-		JComboBox<String> cmbCalcaA = new JComboBox(new Object[]{});
+		JComboBox<String> cmbCalcaA = new JComboBox(Arquivo.nomesArquivos(pastas.calcas));
 		cmbCalcaA.setBackground(Color.WHITE);
 		cmbCalcaA.setBounds(80, 228, 200, 20);
 		contentPane.add(cmbCalcaA);
@@ -551,13 +554,13 @@ public class Main extends JFrame {
 		spinAlfaCalcaA.setBounds(470, 228, 50, 20);
 		contentPane.add(spinAlfaCalcaA);
 		
-		//Calça A
+		calcaA = new ParteSprite(cmbCalcaA, spinRedCalcaA, spinGreenCalcaA, spinBlueCalcaA, spinAlfaCalcaA);
 		
 		JLabel lblCalcaB = new JLabel("Calça B");
 		lblCalcaB.setBounds(10, 259, 60, 20);
 		contentPane.add(lblCalcaB);
 		
-		JComboBox<String> cmbCalcaB = new JComboBox(new Object[]{});
+		JComboBox<String> cmbCalcaB = new JComboBox(Arquivo.nomesArquivos(pastas.calcas));
 		cmbCalcaB.setBackground(Color.WHITE);
 		cmbCalcaB.setBounds(80, 259, 200, 20);
 		contentPane.add(cmbCalcaB);
@@ -586,7 +589,7 @@ public class Main extends JFrame {
 		spinAlfaCalcaB.setBounds(470, 259, 50, 20);
 		contentPane.add(spinAlfaCalcaB);
 		
-		//Calça B
+		calcaB = new ParteSprite(cmbCalcaB, spinRedCalcaB, spinGreenCalcaB, spinBlueCalcaB, spinAlfaCalcaB);
 
 		JLabel lblCostas = new JLabel("Costas");
 		lblCostas.setBounds(10, 290, 60, 20);
@@ -726,13 +729,16 @@ public class Main extends JFrame {
 		int[][] sprite = Imagem.capaAtras(imagemCostas);
 		sprite = sobreporImagemArquivo(sprite, pastas.corpos, corpo);
 		sprite = sobreporImagemArquivo(sprite, pastas.olhos, olhos);
-		sprite = sobreporImagemArquivo(sprite, pastas.roupas, roupa);
+		sprite = sobreporImagemArquivo(sprite, pastas.calcas, calcaB);
+		sprite = sobreporImagemArquivo(sprite, pastas.camisas, camisaB);
+		sprite = sobreporImagemArquivo(sprite, pastas.calcas, calcaA);
+		sprite = sobreporImagemArquivo(sprite, pastas.camisas, camisaA);
 		sprite = sobreporImagemArquivo(sprite, pastas.faces, face);
 		sprite = Imagem.sobreporImagem(Imagem.capaFrente(imagemCostas), sprite);
 		sprite = sobreporImagemArquivo(sprite, pastas.cabelos, cabelo);
 		sprite = sobreporImagemArquivo(sprite, pastas.elmos, elmo);
 		buffer = Imagem.matrizParaBuffer(sprite);
-		lblSprite.setIcon(new ImageIcon(buffer.getScaledInstance(192, 256, Image.SCALE_AREA_AVERAGING)));
+		lblSprite.setIcon(new ImageIcon(buffer.getScaledInstance(2 * Imagem.LARGURA, 2 * Imagem.ALTURA, Image.SCALE_AREA_AVERAGING)));
 	}
 
 	//Sobrepoe a imagem
@@ -754,7 +760,10 @@ public class Main extends JFrame {
 		cabelo.cmb = new JComboBox(Arquivo.nomesArquivos(pastas.cabelos));
 		olhos.cmb = new JComboBox(Arquivo.nomesArquivos(pastas.olhos));
 		face.cmb = new JComboBox(Arquivo.nomesArquivos(pastas.faces));
-		roupa.cmb = new JComboBox(Arquivo.nomesArquivos(pastas.roupas));
+		camisaA.cmb = new JComboBox(Arquivo.nomesArquivos(pastas.camisas));
+		camisaB.cmb = new JComboBox(Arquivo.nomesArquivos(pastas.camisas));
+		calcaA.cmb = new JComboBox(Arquivo.nomesArquivos(pastas.calcas));
+		calcaB.cmb = new JComboBox(Arquivo.nomesArquivos(pastas.calcas));
 		costas.cmb = new JComboBox(Arquivo.nomesArquivos(pastas.costas));
 	}
 
@@ -766,7 +775,10 @@ public class Main extends JFrame {
 		cabelo.cmb.setSelectedIndex(random.nextInt(cabelo.cmb.getItemCount()));
 		olhos.cmb.setSelectedIndex(random.nextInt(olhos.cmb.getItemCount()));
 		face.cmb.setSelectedIndex(random.nextInt(face.cmb.getItemCount()));
-		roupa.cmb.setSelectedIndex(random.nextInt(roupa.cmb.getItemCount()));
+		camisaA.cmb.setSelectedIndex(random.nextInt(camisaA.cmb.getItemCount()));
+		camisaB.cmb.setSelectedIndex(random.nextInt(camisaB.cmb.getItemCount()));
+		calcaA.cmb.setSelectedIndex(random.nextInt(calcaA.cmb.getItemCount()));
+		calcaB.cmb.setSelectedIndex(random.nextInt(calcaB.cmb.getItemCount()));
 		deveAtualizar = true;
 		costas.cmb.setSelectedIndex(random.nextInt(costas.cmb.getItemCount()));
 	}
