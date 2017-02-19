@@ -79,7 +79,7 @@ public class Main extends JFrame {
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public Main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 728, 319);
+		setBounds(100, 100, 738, 380);
 		setResizable(false);
 		setTitle("Gerador de Sprite");
 		contentPane = new JPanel();
@@ -88,7 +88,7 @@ public class Main extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel lblCorpo = new JLabel("Corpo");
-		lblCorpo.setBounds(10, 11, 50, 20);
+		lblCorpo.setBounds(10, 11, 60, 20);
 		contentPane.add(lblCorpo);
 
 		JComboBox<String> cmbCorpo = new JComboBox(Arquivo.nomesArquivos(pastas.corpos));
@@ -103,18 +103,18 @@ public class Main extends JFrame {
 				}
 			}
 		});
-		cmbCorpo.setBounds(70, 11, 200, 20);
+		cmbCorpo.setBounds(80, 11, 200, 20);
 		contentPane.add(cmbCorpo);
 		
 		corpo = new ParteSprite(cmbCorpo, null, null, null, null);
 		
 		JLabel lblCoresRgba = new JLabel("Cores RGBA");
 		lblCoresRgba.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCoresRgba.setBounds(280, 11, 230, 20);
+		lblCoresRgba.setBounds(290, 11, 230, 20);
 		contentPane.add(lblCoresRgba);
 
 		JLabel lblElmo = new JLabel("Elmo");
-		lblElmo.setBounds(10, 42, 50, 20);
+		lblElmo.setBounds(10, 42, 60, 20);
 		contentPane.add(lblElmo);
 
 		JComboBox<String> cmbElmo = new JComboBox(Arquivo.nomesArquivos(pastas.elmos));
@@ -128,7 +128,7 @@ public class Main extends JFrame {
 			}
 		});
 		cmbElmo.setBackground(Color.WHITE);
-		cmbElmo.setBounds(70, 42, 200, 20);
+		cmbElmo.setBounds(80, 42, 200, 20);
 		contentPane.add(cmbElmo);
 		
 		JSpinner spinRedElmo = new JSpinner();
@@ -143,7 +143,7 @@ public class Main extends JFrame {
 		});
 		spinRedElmo.setToolTipText("Cor vermelha do elmo");
 		spinRedElmo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinRedElmo.setBounds(280, 42, 50, 20);
+		spinRedElmo.setBounds(290, 42, 50, 20);
 		contentPane.add(spinRedElmo);
 		
 		JSpinner spinGreenElmo = new JSpinner();
@@ -158,7 +158,7 @@ public class Main extends JFrame {
 		});
 		spinGreenElmo.setToolTipText("Cor verde do elmo");
 		spinGreenElmo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinGreenElmo.setBounds(340, 42, 50, 20);
+		spinGreenElmo.setBounds(350, 42, 50, 20);
 		contentPane.add(spinGreenElmo);
 		
 		JSpinner spinBlueElmo = new JSpinner();
@@ -173,7 +173,7 @@ public class Main extends JFrame {
 		});
 		spinBlueElmo.setToolTipText("Cor azul do elmo");
 		spinBlueElmo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinBlueElmo.setBounds(400, 42, 50, 20);
+		spinBlueElmo.setBounds(410, 42, 50, 20);
 		contentPane.add(spinBlueElmo);
 		
 		JSpinner spinAlfaElmo = new JSpinner();
@@ -188,13 +188,13 @@ public class Main extends JFrame {
 			}
 		});
 		spinAlfaElmo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinAlfaElmo.setBounds(460, 42, 50, 20);
+		spinAlfaElmo.setBounds(470, 42, 50, 20);
 		contentPane.add(spinAlfaElmo);
 		
 		elmo = new ParteSprite(cmbElmo, spinRedElmo, spinGreenElmo, spinBlueElmo, spinAlfaElmo);
 
 		JLabel lblCabelo = new JLabel("Cabelo");
-		lblCabelo.setBounds(10, 73, 50, 20);
+		lblCabelo.setBounds(10, 73, 60, 20);
 		contentPane.add(lblCabelo);
 
 		JComboBox<String> cmbCabelo = new JComboBox(Arquivo.nomesArquivos(pastas.cabelos));
@@ -208,7 +208,7 @@ public class Main extends JFrame {
 				}
 			}
 		});
-		cmbCabelo.setBounds(70, 73, 200, 20);
+		cmbCabelo.setBounds(80, 73, 200, 20);
 		contentPane.add(cmbCabelo);
 
 		JSpinner spinRedCabelo = new JSpinner();
@@ -223,7 +223,7 @@ public class Main extends JFrame {
 		});
 		spinRedCabelo.setToolTipText("Cor vermelha do cabelo");
 		spinRedCabelo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinRedCabelo.setBounds(280, 73, 50, 20);
+		spinRedCabelo.setBounds(290, 73, 50, 20);
 		contentPane.add(spinRedCabelo);
 		
 		JSpinner spinGreenCabelo = new JSpinner();
@@ -238,7 +238,7 @@ public class Main extends JFrame {
 		});
 		spinGreenCabelo.setToolTipText("Cor verde do cabelo");
 		spinGreenCabelo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinGreenCabelo.setBounds(340, 73, 50, 20);
+		spinGreenCabelo.setBounds(350, 73, 50, 20);
 		contentPane.add(spinGreenCabelo);
 		
 		JSpinner spinBlueCabelo = new JSpinner();
@@ -253,13 +253,13 @@ public class Main extends JFrame {
 		});
 		spinBlueCabelo.setToolTipText("Cor azul do cabelo");
 		spinBlueCabelo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinBlueCabelo.setBounds(400, 73, 50, 20);
+		spinBlueCabelo.setBounds(410, 73, 50, 20);
 		contentPane.add(spinBlueCabelo);
 		
 		cabelo = new ParteSprite(cmbCabelo, spinRedCabelo, spinGreenCabelo, spinBlueCabelo, null);
 		
 		JLabel lblOlhos = new JLabel("Olhos");
-		lblOlhos.setBounds(10, 104, 50, 20);
+		lblOlhos.setBounds(10, 104, 60, 20);
 		contentPane.add(lblOlhos);
 
 		JComboBox<String> cmbOlhos = new JComboBox(Arquivo.nomesArquivos(pastas.olhos));
@@ -273,7 +273,7 @@ public class Main extends JFrame {
 				}
 			}
 		});
-		cmbOlhos.setBounds(70, 104, 200, 20);
+		cmbOlhos.setBounds(80, 104, 200, 20);
 		contentPane.add(cmbOlhos);
 
 		JSpinner spinRedOlhos = new JSpinner();
@@ -288,7 +288,7 @@ public class Main extends JFrame {
 		});
 		spinRedOlhos.setToolTipText("Cor vermelha dos olhos");
 		spinRedOlhos.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinRedOlhos.setBounds(280, 104, 50, 20);
+		spinRedOlhos.setBounds(290, 104, 50, 20);
 		contentPane.add(spinRedOlhos);
 		
 		JSpinner spinGreenOlhos = new JSpinner();
@@ -303,7 +303,7 @@ public class Main extends JFrame {
 		});
 		spinGreenOlhos.setToolTipText("Cor verde dos olhos");
 		spinGreenOlhos.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinGreenOlhos.setBounds(340, 104, 50, 20);
+		spinGreenOlhos.setBounds(350, 104, 50, 20);
 		contentPane.add(spinGreenOlhos);
 		
 		JSpinner spinBlueOlhos = new JSpinner();
@@ -318,11 +318,11 @@ public class Main extends JFrame {
 		});
 		spinBlueOlhos.setToolTipText("Cor azul dos olhos");
 		spinBlueOlhos.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinBlueOlhos.setBounds(400, 104, 50, 20);
+		spinBlueOlhos.setBounds(410, 104, 50, 20);
 		contentPane.add(spinBlueOlhos);
 		
 		JLabel lblFace = new JLabel("Face");
-		lblFace.setBounds(10, 135, 50, 20);
+		lblFace.setBounds(10, 135, 60, 20);
 		contentPane.add(lblFace);
 		
 		olhos = new ParteSprite(cmbOlhos, spinRedOlhos, spinGreenOlhos, spinBlueOlhos, null);
@@ -338,7 +338,7 @@ public class Main extends JFrame {
 			}
 		});
 		cmbFace.setBackground(Color.WHITE);
-		cmbFace.setBounds(70, 135, 200, 20);
+		cmbFace.setBounds(80, 135, 200, 20);
 		contentPane.add(cmbFace);
 
 		JSpinner spinRedFace = new JSpinner();
@@ -353,7 +353,7 @@ public class Main extends JFrame {
 		});
 		spinRedFace.setToolTipText("Cor vermelha do item da face");
 		spinRedFace.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinRedFace.setBounds(280, 135, 50, 20);
+		spinRedFace.setBounds(290, 135, 50, 20);
 		contentPane.add(spinRedFace);
 		
 		JSpinner spinGreenFace = new JSpinner();
@@ -368,7 +368,7 @@ public class Main extends JFrame {
 		});
 		spinGreenFace.setToolTipText("Cor verde do item da face");
 		spinGreenFace.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinGreenFace.setBounds(340, 135, 50, 20);
+		spinGreenFace.setBounds(350, 135, 50, 20);
 		contentPane.add(spinGreenFace);
 		
 		JSpinner spinBlueFace = new JSpinner();
@@ -383,7 +383,7 @@ public class Main extends JFrame {
 		});
 		spinBlueFace.setToolTipText("Cor azul do item da face");
 		spinBlueFace.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinBlueFace.setBounds(400, 135, 50, 20);
+		spinBlueFace.setBounds(410, 135, 50, 20);
 		contentPane.add(spinBlueFace);
 		
 		JSpinner spinAlfaFace = new JSpinner();
@@ -398,18 +398,18 @@ public class Main extends JFrame {
 			}
 		});
 		spinAlfaFace.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinAlfaFace.setBounds(460, 135, 50, 20);
+		spinAlfaFace.setBounds(470, 135, 50, 20);
 		contentPane.add(spinAlfaFace);
 		
 		face = new ParteSprite(cmbFace, spinRedFace, spinGreenFace, spinBlueFace, spinAlfaFace);
 
-		JLabel lblRoupa = new JLabel("Roupa");
-		lblRoupa.setBounds(10, 166, 50, 20);
-		contentPane.add(lblRoupa);
+		JLabel lblCamisaA = new JLabel("Camisa A");
+		lblCamisaA.setBounds(10, 166, 60, 20);
+		contentPane.add(lblCamisaA);
 
-		JComboBox<String> cmbRoupa = new JComboBox(Arquivo.nomesArquivos(pastas.roupas));
-		cmbRoupa.setBackground(Color.WHITE);
-		cmbRoupa.addItemListener(new ItemListener() {
+		JComboBox<String> cmbCamisaA = new JComboBox(Arquivo.nomesArquivos(pastas.roupas));
+		cmbCamisaA.setBackground(Color.WHITE);
+		cmbCamisaA.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				try {
 					if (deveAtualizar) atualizaSprite();
@@ -418,11 +418,11 @@ public class Main extends JFrame {
 				}
 			}
 		});
-		cmbRoupa.setBounds(70, 166, 200, 20);
-		contentPane.add(cmbRoupa);
+		cmbCamisaA.setBounds(80, 166, 200, 20);
+		contentPane.add(cmbCamisaA);
 
-		JSpinner spinRedRoupa = new JSpinner();
-		spinRedRoupa.addChangeListener(new ChangeListener() {
+		JSpinner spinRedCamisaA = new JSpinner();
+		spinRedCamisaA.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
 					atualizaSprite();
@@ -431,13 +431,13 @@ public class Main extends JFrame {
 				}
 			}
 		});
-		spinRedRoupa.setToolTipText("Cor vermelha da roupa");
-		spinRedRoupa.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinRedRoupa.setBounds(280, 166, 50, 20);
-		contentPane.add(spinRedRoupa);
+		spinRedCamisaA.setToolTipText("Cor vermelha da camisa A");
+		spinRedCamisaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		spinRedCamisaA.setBounds(290, 166, 50, 20);
+		contentPane.add(spinRedCamisaA);
 		
-		JSpinner spinGreenRoupa = new JSpinner();
-		spinGreenRoupa.addChangeListener(new ChangeListener() {
+		JSpinner spinGreenCamisaA = new JSpinner();
+		spinGreenCamisaA.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
 					atualizaSprite();
@@ -446,13 +446,13 @@ public class Main extends JFrame {
 				}
 			}
 		});
-		spinGreenRoupa.setToolTipText("Cor verde da roupa");
-		spinGreenRoupa.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinGreenRoupa.setBounds(340, 166, 50, 20);
-		contentPane.add(spinGreenRoupa);
+		spinGreenCamisaA.setToolTipText("Cor verde da camisa A");
+		spinGreenCamisaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		spinGreenCamisaA.setBounds(350, 166, 50, 20);
+		contentPane.add(spinGreenCamisaA);
 		
-		JSpinner spinBlueRoupa = new JSpinner();
-		spinBlueRoupa.addChangeListener(new ChangeListener() {
+		JSpinner spinBlueCamisaA = new JSpinner();
+		spinBlueCamisaA.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
 					atualizaSprite();
@@ -461,13 +461,13 @@ public class Main extends JFrame {
 				}
 			}
 		});
-		spinBlueRoupa.setToolTipText("Cor azul da roupa");
-		spinBlueRoupa.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinBlueRoupa.setBounds(400, 166, 50, 20);
-		contentPane.add(spinBlueRoupa);
+		spinBlueCamisaA.setToolTipText("Cor azul da camisa A");
+		spinBlueCamisaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		spinBlueCamisaA.setBounds(410, 166, 50, 20);
+		contentPane.add(spinBlueCamisaA);
 		
-		JSpinner spinAlfaRoupa = new JSpinner();
-		spinAlfaRoupa.addChangeListener(new ChangeListener() {
+		JSpinner spinAlfaCamisaA = new JSpinner();
+		spinAlfaCamisaA.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
 					if (deveAtualizar) atualizaSprite();
@@ -476,16 +476,121 @@ public class Main extends JFrame {
 				}
 			}
 		});
-		spinAlfaRoupa.setToolTipText("Opacidade da roupa");
-		spinAlfaRoupa.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinAlfaRoupa.setBounds(460, 166, 50, 20);
-		contentPane.add(spinAlfaRoupa);
+		spinAlfaCamisaA.setToolTipText("Opacidade da camisa A");
+		spinAlfaCamisaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		spinAlfaCamisaA.setBounds(470, 166, 50, 20);
+		contentPane.add(spinAlfaCamisaA);
+		
+		roupa = new ParteSprite(cmbCamisaA, spinRedCamisaA, spinGreenCamisaA, spinBlueCamisaA, spinAlfaCamisaA);
+		
+		JLabel lblCamisaB = new JLabel("Camisa B");
+		lblCamisaB.setBounds(10, 197, 60, 20);
+		contentPane.add(lblCamisaB);
+		
+		JComboBox<String> cmbCamisaB = new JComboBox(new Object[]{});
+		cmbCamisaB.setBackground(Color.WHITE);
+		cmbCamisaB.setBounds(80, 197, 200, 20);
+		contentPane.add(cmbCamisaB);
+		
+		JSpinner spinRedCamisaB = new JSpinner();
+		spinRedCamisaB.setToolTipText("Cor vermelha da camisa B");
+		spinRedCamisaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		spinRedCamisaB.setBounds(290, 197, 50, 20);
+		contentPane.add(spinRedCamisaB);
+		
+		JSpinner spinGreenCamisaB = new JSpinner();
+		spinGreenCamisaB.setToolTipText("Cor verde da camisa B");
+		spinGreenCamisaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		spinGreenCamisaB.setBounds(350, 197, 50, 20);
+		contentPane.add(spinGreenCamisaB);
+		
+		JSpinner spinBlueCamisaB = new JSpinner();
+		spinBlueCamisaB.setToolTipText("Cor azul da camisa B");
+		spinBlueCamisaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		spinBlueCamisaB.setBounds(410, 197, 50, 20);
+		contentPane.add(spinBlueCamisaB);
+		
+		JSpinner spinAlfaCamisaB = new JSpinner();
+		spinAlfaCamisaB.setToolTipText("Opacidade da camisa B");
+		spinAlfaCamisaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		spinAlfaCamisaB.setBounds(470, 197, 50, 20);
+		contentPane.add(spinAlfaCamisaB);
+		
+		//Camisa B
+		
+		JLabel lblCalcaA = new JLabel("Calça A");
+		lblCalcaA.setBounds(10, 228, 60, 20);
+		contentPane.add(lblCalcaA);
+		
+		JComboBox<String> cmbCalcaA = new JComboBox(new Object[]{});
+		cmbCalcaA.setBackground(Color.WHITE);
+		cmbCalcaA.setBounds(80, 228, 200, 20);
+		contentPane.add(cmbCalcaA);
+		
+		JSpinner spinRedCalcaA = new JSpinner();
+		spinRedCalcaA.setToolTipText("Cor vermelha da calça A");
+		spinRedCalcaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		spinRedCalcaA.setBounds(290, 228, 50, 20);
+		contentPane.add(spinRedCalcaA);
+		
+		JSpinner spinGreenCalcaA = new JSpinner();
+		spinGreenCalcaA.setToolTipText("Cor verde da calça A");
+		spinGreenCalcaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		spinGreenCalcaA.setBounds(350, 228, 50, 20);
+		contentPane.add(spinGreenCalcaA);
+		
+		JSpinner spinBlueCalcaA = new JSpinner();
+		spinBlueCalcaA.setToolTipText("Cor azul da calça A");
+		spinBlueCalcaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		spinBlueCalcaA.setBounds(410, 228, 50, 20);
+		contentPane.add(spinBlueCalcaA);
+		
+		JSpinner spinAlfaCalcaA = new JSpinner();
+		spinAlfaCalcaA.setToolTipText("Opacidade da calça A");
+		spinAlfaCalcaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		spinAlfaCalcaA.setBounds(470, 228, 50, 20);
+		contentPane.add(spinAlfaCalcaA);
+		
+		//Calça A
+		
+		JLabel lblCalcaB = new JLabel("Calça B");
+		lblCalcaB.setBounds(10, 259, 60, 20);
+		contentPane.add(lblCalcaB);
+		
+		JComboBox<String> cmbCalcaB = new JComboBox(new Object[]{});
+		cmbCalcaB.setBackground(Color.WHITE);
+		cmbCalcaB.setBounds(80, 259, 200, 20);
+		contentPane.add(cmbCalcaB);
+		
+		JSpinner spinRedCalcaB = new JSpinner();
+		spinRedCalcaB.setToolTipText("Cor vermelha da calça B");
+		spinRedCalcaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		spinRedCalcaB.setBounds(290, 259, 50, 20);
+		contentPane.add(spinRedCalcaB);
+		
+		JSpinner spinGreenCalcaB = new JSpinner();
+		spinGreenCalcaB.setToolTipText("Cor verde da calça B");
+		spinGreenCalcaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		spinGreenCalcaB.setBounds(350, 259, 50, 20);
+		contentPane.add(spinGreenCalcaB);
+		
+		JSpinner spinBlueCalcaB = new JSpinner();
+		spinBlueCalcaB.setToolTipText("Cor azul da calça B");
+		spinBlueCalcaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		spinBlueCalcaB.setBounds(410, 259, 50, 20);
+		contentPane.add(spinBlueCalcaB);
+		
+		JSpinner spinAlfaCalcaB = new JSpinner();
+		spinAlfaCalcaB.setToolTipText("Opacidade da calça B");
+		spinAlfaCalcaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		spinAlfaCalcaB.setBounds(470, 259, 50, 20);
+		contentPane.add(spinAlfaCalcaB);
+		
+		//Calça B
 
 		JLabel lblCostas = new JLabel("Costas");
-		lblCostas.setBounds(10, 197, 50, 20);
+		lblCostas.setBounds(10, 290, 60, 20);
 		contentPane.add(lblCostas);
-		
-		roupa = new ParteSprite(cmbRoupa, spinRedRoupa, spinGreenRoupa, spinBlueRoupa, spinAlfaRoupa);
 
 		JComboBox<String> cmbCostas = new JComboBox(Arquivo.nomesArquivos(pastas.costas));
 		cmbCostas.addItemListener(new ItemListener() {
@@ -498,7 +603,7 @@ public class Main extends JFrame {
 			}
 		});
 		cmbCostas.setBackground(Color.WHITE);
-		cmbCostas.setBounds(70, 197, 200, 20);
+		cmbCostas.setBounds(80, 290, 200, 20);
 		contentPane.add(cmbCostas);
 
 		JSpinner spinRedCostas = new JSpinner();
@@ -513,7 +618,7 @@ public class Main extends JFrame {
 		});
 		spinRedCostas.setToolTipText("Cor vermelha do item das costas");
 		spinRedCostas.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinRedCostas.setBounds(280, 197, 50, 20);
+		spinRedCostas.setBounds(290, 290, 50, 20);
 		contentPane.add(spinRedCostas);
 		
 		JSpinner spinGreenCostas = new JSpinner();
@@ -528,7 +633,7 @@ public class Main extends JFrame {
 		});
 		spinGreenCostas.setToolTipText("Cor verde do item das costas");
 		spinGreenCostas.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinGreenCostas.setBounds(340, 197, 50, 20);
+		spinGreenCostas.setBounds(350, 290, 50, 20);
 		contentPane.add(spinGreenCostas);
 		
 		JSpinner spinBlueCostas = new JSpinner();
@@ -543,7 +648,7 @@ public class Main extends JFrame {
 		});
 		spinBlueCostas.setToolTipText("Cor azul do item das costas");
 		spinBlueCostas.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinBlueCostas.setBounds(400, 197, 50, 20);
+		spinBlueCostas.setBounds(410, 290, 50, 20);
 		contentPane.add(spinBlueCostas);
 		
 		JSpinner spinAlfaCostas = new JSpinner();
@@ -558,7 +663,7 @@ public class Main extends JFrame {
 			}
 		});
 		spinAlfaCostas.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinAlfaCostas.setBounds(460, 197, 50, 20);
+		spinAlfaCostas.setBounds(470, 290, 50, 20);
 		contentPane.add(spinAlfaCostas);
 		
 		costas = new ParteSprite(cmbCostas, spinRedCostas, spinGreenCostas, spinBlueCostas, spinAlfaCostas);
@@ -569,30 +674,30 @@ public class Main extends JFrame {
 				atualizaPastas();
 			}
 		});
-		btnAtualizarPastas.setBounds(10, 228, 245, 20);
+		
+				JButton btnAleatorio = new JButton("Aleat\u00F3rio");
+				btnAleatorio.addMouseListener(new MouseAdapter() {
+					public void mouseClicked(MouseEvent arg0) {
+						spriteAleatorio();
+					}
+				});
+				btnAleatorio.setBounds(530, 290, 192, 20);
+				contentPane.add(btnAleatorio);
+		btnAtualizarPastas.setBounds(530, 321, 192, 20);
 		contentPane.add(btnAtualizarPastas);
-
-		JButton btnAleatorio = new JButton("Aleat\u00F3rio");
-		btnAleatorio.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent arg0) {
-				spriteAleatorio();
-			}
-		});
-		btnAleatorio.setBounds(265, 228, 245, 20);
-		contentPane.add(btnAleatorio);
 
 		lblSprite = new JLabel("");
 		lblSprite.setBackground(Color.WHITE);
 		lblSprite.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSprite.setBounds(520, 11, 192, 256);
+		lblSprite.setBounds(530, 11, 192, 256);
 		contentPane.add(lblSprite);
 
 		JLabel lblNomeDoSprite = new JLabel("Nome do Sprite");
-		lblNomeDoSprite.setBounds(10, 259, 90, 20);
+		lblNomeDoSprite.setBounds(10, 321, 90, 20);
 		contentPane.add(lblNomeDoSprite);
 
 		txtNomeSprite = new JTextField();
-		txtNomeSprite.setBounds(110, 259, 182, 20);
+		txtNomeSprite.setBounds(110, 321, 290, 20);
 		contentPane.add(txtNomeSprite);
 		txtNomeSprite.setColumns(10);
 
@@ -606,7 +711,7 @@ public class Main extends JFrame {
 				}
 			}
 		});
-		btnSalvar.setBounds(302, 259, 80, 20);
+		btnSalvar.setBounds(410, 321, 110, 20);
 		contentPane.add(btnSalvar);
 	}
 
