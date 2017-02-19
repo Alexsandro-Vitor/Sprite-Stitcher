@@ -31,6 +31,8 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeListener;
 
+import classes.ParteSprite;
+import classes.Pastas;
 import excecoes.TamanhoErradoException;
 import funcoes.*;
 
@@ -42,38 +44,16 @@ public class Main extends JFrame {
 	private Pastas pastas = new Pastas();
 	private BufferedImage buffer;
 	private static Random random = new Random();
+	private ParteSprite corpo;
+	private ParteSprite elmo;
+	private ParteSprite cabelo;
+	private ParteSprite olhos;
+	private ParteSprite face;
+	private ParteSprite roupa;
+	private ParteSprite costas;
 	private boolean deveAtualizar = true;
 
 	private JPanel contentPane;
-	private JComboBox<String> cmbCorpo;
-	private JComboBox<String> cmbElmo;
-	private JSpinner spinRedElmo;
-	private JSpinner spinGreenElmo;
-	private JSpinner spinBlueElmo;
-	private JSpinner spinAlfaElmo;
-	private JComboBox<String> cmbCabelo;
-	private JSpinner spinRedCabelo;
-	private JSpinner spinGreenCabelo;
-	private JSpinner spinBlueCabelo;
-	private JComboBox<String> cmbOlhos;
-	private JSpinner spinRedOlhos;
-	private JSpinner spinGreenOlhos;
-	private JSpinner spinBlueOlhos;
-	private JComboBox<String> cmbFace;
-	private JSpinner spinRedFace;
-	private JSpinner spinGreenFace;
-	private JSpinner spinBlueFace;
-	private JSpinner spinAlfaFace;
-	private JComboBox<String> cmbRoupa;
-	private JSpinner spinRedRoupa;
-	private JSpinner spinGreenRoupa;
-	private JSpinner spinBlueRoupa;
-	private JSpinner spinAlfaRoupa;
-	private JComboBox<String> cmbCostas;
-	private JSpinner spinRedCostas;
-	private JSpinner spinGreenCostas;
-	private JSpinner spinBlueCostas;
-	private JSpinner spinAlfaCostas;
 	private JLabel lblSprite;
 	private JTextField txtNomeSprite;
 
@@ -111,7 +91,7 @@ public class Main extends JFrame {
 		lblCorpo.setBounds(10, 11, 50, 20);
 		contentPane.add(lblCorpo);
 
-		cmbCorpo = new JComboBox(Arquivo.nomesArquivos(pastas.corpos));
+		JComboBox<String> cmbCorpo = new JComboBox(Arquivo.nomesArquivos(pastas.corpos));
 		
 		cmbCorpo.setBackground(Color.WHITE);
 		cmbCorpo.addItemListener(new ItemListener() {
@@ -126,6 +106,8 @@ public class Main extends JFrame {
 		cmbCorpo.setBounds(70, 11, 200, 20);
 		contentPane.add(cmbCorpo);
 		
+		corpo = new ParteSprite(cmbCorpo, null, null, null, null);
+		
 		JLabel lblCoresRgba = new JLabel("Cores RGBA");
 		lblCoresRgba.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCoresRgba.setBounds(280, 11, 230, 20);
@@ -135,7 +117,7 @@ public class Main extends JFrame {
 		lblElmo.setBounds(10, 42, 50, 20);
 		contentPane.add(lblElmo);
 
-		cmbElmo = new JComboBox(Arquivo.nomesArquivos(pastas.elmos));
+		JComboBox<String> cmbElmo = new JComboBox(Arquivo.nomesArquivos(pastas.elmos));
 		cmbElmo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				try {
@@ -149,7 +131,7 @@ public class Main extends JFrame {
 		cmbElmo.setBounds(70, 42, 200, 20);
 		contentPane.add(cmbElmo);
 		
-		spinRedElmo = new JSpinner();
+		JSpinner spinRedElmo = new JSpinner();
 		spinRedElmo.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
@@ -164,7 +146,7 @@ public class Main extends JFrame {
 		spinRedElmo.setBounds(280, 42, 50, 20);
 		contentPane.add(spinRedElmo);
 		
-		spinGreenElmo = new JSpinner();
+		JSpinner spinGreenElmo = new JSpinner();
 		spinGreenElmo.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
@@ -179,7 +161,7 @@ public class Main extends JFrame {
 		spinGreenElmo.setBounds(340, 42, 50, 20);
 		contentPane.add(spinGreenElmo);
 		
-		spinBlueElmo = new JSpinner();
+		JSpinner spinBlueElmo = new JSpinner();
 		spinBlueElmo.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
@@ -194,7 +176,7 @@ public class Main extends JFrame {
 		spinBlueElmo.setBounds(400, 42, 50, 20);
 		contentPane.add(spinBlueElmo);
 		
-		spinAlfaElmo = new JSpinner();
+		JSpinner spinAlfaElmo = new JSpinner();
 		spinAlfaElmo.setToolTipText("Opacidade do elmo");
 		spinAlfaElmo.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -208,12 +190,14 @@ public class Main extends JFrame {
 		spinAlfaElmo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinAlfaElmo.setBounds(460, 42, 50, 20);
 		contentPane.add(spinAlfaElmo);
+		
+		elmo = new ParteSprite(cmbElmo, spinRedElmo, spinGreenElmo, spinBlueElmo, spinAlfaElmo);
 
 		JLabel lblCabelo = new JLabel("Cabelo");
 		lblCabelo.setBounds(10, 73, 50, 20);
 		contentPane.add(lblCabelo);
 
-		cmbCabelo = new JComboBox(Arquivo.nomesArquivos(pastas.cabelos));
+		JComboBox<String> cmbCabelo = new JComboBox(Arquivo.nomesArquivos(pastas.cabelos));
 		cmbCabelo.setBackground(Color.WHITE);
 		cmbCabelo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -227,7 +211,7 @@ public class Main extends JFrame {
 		cmbCabelo.setBounds(70, 73, 200, 20);
 		contentPane.add(cmbCabelo);
 
-		spinRedCabelo = new JSpinner();
+		JSpinner spinRedCabelo = new JSpinner();
 		spinRedCabelo.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
@@ -242,7 +226,7 @@ public class Main extends JFrame {
 		spinRedCabelo.setBounds(280, 73, 50, 20);
 		contentPane.add(spinRedCabelo);
 		
-		spinGreenCabelo = new JSpinner();
+		JSpinner spinGreenCabelo = new JSpinner();
 		spinGreenCabelo.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
@@ -257,7 +241,7 @@ public class Main extends JFrame {
 		spinGreenCabelo.setBounds(340, 73, 50, 20);
 		contentPane.add(spinGreenCabelo);
 		
-		spinBlueCabelo = new JSpinner();
+		JSpinner spinBlueCabelo = new JSpinner();
 		spinBlueCabelo.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
@@ -272,11 +256,13 @@ public class Main extends JFrame {
 		spinBlueCabelo.setBounds(400, 73, 50, 20);
 		contentPane.add(spinBlueCabelo);
 		
+		cabelo = new ParteSprite(cmbCabelo, spinRedCabelo, spinGreenCabelo, spinBlueCabelo, null);
+		
 		JLabel lblOlhos = new JLabel("Olhos");
 		lblOlhos.setBounds(10, 104, 50, 20);
 		contentPane.add(lblOlhos);
 
-		cmbOlhos = new JComboBox(Arquivo.nomesArquivos(pastas.olhos));
+		JComboBox<String> cmbOlhos = new JComboBox(Arquivo.nomesArquivos(pastas.olhos));
 		cmbOlhos.setBackground(Color.WHITE);
 		cmbOlhos.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -290,7 +276,7 @@ public class Main extends JFrame {
 		cmbOlhos.setBounds(70, 104, 200, 20);
 		contentPane.add(cmbOlhos);
 
-		spinRedOlhos = new JSpinner();
+		JSpinner spinRedOlhos = new JSpinner();
 		spinRedOlhos.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
@@ -305,7 +291,7 @@ public class Main extends JFrame {
 		spinRedOlhos.setBounds(280, 104, 50, 20);
 		contentPane.add(spinRedOlhos);
 		
-		spinGreenOlhos = new JSpinner();
+		JSpinner spinGreenOlhos = new JSpinner();
 		spinGreenOlhos.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
@@ -320,7 +306,7 @@ public class Main extends JFrame {
 		spinGreenOlhos.setBounds(340, 104, 50, 20);
 		contentPane.add(spinGreenOlhos);
 		
-		spinBlueOlhos = new JSpinner();
+		JSpinner spinBlueOlhos = new JSpinner();
 		spinBlueOlhos.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
@@ -338,8 +324,10 @@ public class Main extends JFrame {
 		JLabel lblFace = new JLabel("Face");
 		lblFace.setBounds(10, 135, 50, 20);
 		contentPane.add(lblFace);
+		
+		olhos = new ParteSprite(cmbOlhos, spinRedOlhos, spinGreenOlhos, spinBlueOlhos, null);
 
-		cmbFace = new JComboBox(Arquivo.nomesArquivos(pastas.faces));
+		JComboBox<String> cmbFace = new JComboBox(Arquivo.nomesArquivos(pastas.faces));
 		cmbFace.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				try {
@@ -353,7 +341,7 @@ public class Main extends JFrame {
 		cmbFace.setBounds(70, 135, 200, 20);
 		contentPane.add(cmbFace);
 
-		spinRedFace = new JSpinner();
+		JSpinner spinRedFace = new JSpinner();
 		spinRedFace.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
@@ -368,7 +356,7 @@ public class Main extends JFrame {
 		spinRedFace.setBounds(280, 135, 50, 20);
 		contentPane.add(spinRedFace);
 		
-		spinGreenFace = new JSpinner();
+		JSpinner spinGreenFace = new JSpinner();
 		spinGreenFace.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
@@ -383,7 +371,7 @@ public class Main extends JFrame {
 		spinGreenFace.setBounds(340, 135, 50, 20);
 		contentPane.add(spinGreenFace);
 		
-		spinBlueFace = new JSpinner();
+		JSpinner spinBlueFace = new JSpinner();
 		spinBlueFace.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
@@ -398,7 +386,7 @@ public class Main extends JFrame {
 		spinBlueFace.setBounds(400, 135, 50, 20);
 		contentPane.add(spinBlueFace);
 		
-		spinAlfaFace = new JSpinner();
+		JSpinner spinAlfaFace = new JSpinner();
 		spinAlfaFace.setToolTipText("Opacidade do item da face");
 		spinAlfaFace.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
@@ -412,12 +400,14 @@ public class Main extends JFrame {
 		spinAlfaFace.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinAlfaFace.setBounds(460, 135, 50, 20);
 		contentPane.add(spinAlfaFace);
+		
+		face = new ParteSprite(cmbFace, spinRedFace, spinGreenFace, spinBlueFace, spinAlfaFace);
 
 		JLabel lblRoupa = new JLabel("Roupa");
 		lblRoupa.setBounds(10, 166, 50, 20);
 		contentPane.add(lblRoupa);
 
-		cmbRoupa = new JComboBox(Arquivo.nomesArquivos(pastas.roupas));
+		JComboBox<String> cmbRoupa = new JComboBox(Arquivo.nomesArquivos(pastas.roupas));
 		cmbRoupa.setBackground(Color.WHITE);
 		cmbRoupa.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -431,7 +421,7 @@ public class Main extends JFrame {
 		cmbRoupa.setBounds(70, 166, 200, 20);
 		contentPane.add(cmbRoupa);
 
-		spinRedRoupa = new JSpinner();
+		JSpinner spinRedRoupa = new JSpinner();
 		spinRedRoupa.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
@@ -446,7 +436,7 @@ public class Main extends JFrame {
 		spinRedRoupa.setBounds(280, 166, 50, 20);
 		contentPane.add(spinRedRoupa);
 		
-		spinGreenRoupa = new JSpinner();
+		JSpinner spinGreenRoupa = new JSpinner();
 		spinGreenRoupa.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
@@ -461,7 +451,7 @@ public class Main extends JFrame {
 		spinGreenRoupa.setBounds(340, 166, 50, 20);
 		contentPane.add(spinGreenRoupa);
 		
-		spinBlueRoupa = new JSpinner();
+		JSpinner spinBlueRoupa = new JSpinner();
 		spinBlueRoupa.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
@@ -476,7 +466,7 @@ public class Main extends JFrame {
 		spinBlueRoupa.setBounds(400, 166, 50, 20);
 		contentPane.add(spinBlueRoupa);
 		
-		spinAlfaRoupa = new JSpinner();
+		JSpinner spinAlfaRoupa = new JSpinner();
 		spinAlfaRoupa.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
@@ -494,8 +484,10 @@ public class Main extends JFrame {
 		JLabel lblCostas = new JLabel("Costas");
 		lblCostas.setBounds(10, 197, 50, 20);
 		contentPane.add(lblCostas);
+		
+		roupa = new ParteSprite(cmbRoupa, spinRedRoupa, spinGreenRoupa, spinBlueRoupa, spinAlfaRoupa);
 
-		cmbCostas = new JComboBox(Arquivo.nomesArquivos(pastas.costas));
+		JComboBox<String> cmbCostas = new JComboBox(Arquivo.nomesArquivos(pastas.costas));
 		cmbCostas.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				try {
@@ -509,7 +501,7 @@ public class Main extends JFrame {
 		cmbCostas.setBounds(70, 197, 200, 20);
 		contentPane.add(cmbCostas);
 
-		spinRedCostas = new JSpinner();
+		JSpinner spinRedCostas = new JSpinner();
 		spinRedCostas.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
@@ -524,7 +516,7 @@ public class Main extends JFrame {
 		spinRedCostas.setBounds(280, 197, 50, 20);
 		contentPane.add(spinRedCostas);
 		
-		spinGreenCostas = new JSpinner();
+		JSpinner spinGreenCostas = new JSpinner();
 		spinGreenCostas.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
@@ -539,7 +531,7 @@ public class Main extends JFrame {
 		spinGreenCostas.setBounds(340, 197, 50, 20);
 		contentPane.add(spinGreenCostas);
 		
-		spinBlueCostas = new JSpinner();
+		JSpinner spinBlueCostas = new JSpinner();
 		spinBlueCostas.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {
@@ -554,7 +546,7 @@ public class Main extends JFrame {
 		spinBlueCostas.setBounds(400, 197, 50, 20);
 		contentPane.add(spinBlueCostas);
 		
-		spinAlfaCostas = new JSpinner();
+		JSpinner spinAlfaCostas = new JSpinner();
 		spinAlfaCostas.setToolTipText("Opacidade do item das costas");
 		spinAlfaCostas.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
@@ -568,6 +560,8 @@ public class Main extends JFrame {
 		spinAlfaCostas.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		spinAlfaCostas.setBounds(460, 197, 50, 20);
 		contentPane.add(spinAlfaCostas);
+		
+		costas = new ParteSprite(cmbCostas, spinRedCostas, spinGreenCostas, spinBlueCostas, spinAlfaCostas);
 
 		JButton btnAtualizarPastas = new JButton("Atualizar pastas");
 		btnAtualizarPastas.addMouseListener(new MouseAdapter() {
@@ -618,37 +612,30 @@ public class Main extends JFrame {
 
 	//Atualiza o sprite com as partes selecionadas
 	private void atualizaSprite() throws IOException {
-		int[][] costas;
+		int[][] imagemCostas;
 		try {
-			costas = Arquivo.selecionarImagem(pastas.costas, cmbCostas,
-				new CorARGB((int)spinAlfaCostas.getValue(), (int)spinRedCostas.getValue(), (int)spinGreenCostas.getValue(),
-				(int)spinBlueCostas.getValue()));
+			imagemCostas = Arquivo.selecionarImagem(pastas.costas, costas);
 		} catch (TamanhoErradoException e) {
-			costas = e.tratar(Imagem.gerarTransparencia());
+			imagemCostas = e.tratar(Imagem.gerarTransparencia());
 		}
-		int[][] sprite = Imagem.capaAtras(costas);
-		sprite = sobreporImagemArquivo(sprite, pastas.corpos, cmbCorpo, new CorARGB(255, 255, 255, 255));
-		sprite = sobreporImagemArquivo(sprite, pastas.olhos, cmbOlhos,
-			new CorARGB(255, (int)spinRedOlhos.getValue(), (int)spinGreenOlhos.getValue(), (int)spinBlueOlhos.getValue()));
-		sprite = sobreporImagemArquivo(sprite, pastas.roupas, cmbRoupa,
-			new CorARGB((int)spinAlfaRoupa.getValue(), (int)spinRedRoupa.getValue(), (int)spinGreenRoupa.getValue(), (int)spinBlueRoupa.getValue()));
-		sprite = sobreporImagemArquivo(sprite, pastas.faces, cmbFace,
-			new CorARGB((int)spinAlfaFace.getValue(), (int)spinRedFace.getValue(), (int)spinGreenFace.getValue(), (int)spinBlueFace.getValue()));
-		sprite = Imagem.sobreporImagem(Imagem.capaFrente(costas), sprite);
-		sprite = sobreporImagemArquivo(sprite, pastas.cabelos, cmbCabelo,
-			new CorARGB(255, (int)spinRedCabelo.getValue(), (int)spinGreenCabelo.getValue(), (int)spinBlueCabelo.getValue()));
-		sprite = sobreporImagemArquivo(sprite, pastas.elmos, cmbElmo,
-			new CorARGB((int)spinAlfaElmo.getValue(), (int)spinRedElmo.getValue(), (int)spinGreenElmo.getValue(), (int)spinBlueElmo.getValue()));
+		int[][] sprite = Imagem.capaAtras(imagemCostas);
+		sprite = sobreporImagemArquivo(sprite, pastas.corpos, corpo);
+		sprite = sobreporImagemArquivo(sprite, pastas.olhos, olhos);
+		sprite = sobreporImagemArquivo(sprite, pastas.roupas, roupa);
+		sprite = sobreporImagemArquivo(sprite, pastas.faces, face);
+		sprite = Imagem.sobreporImagem(Imagem.capaFrente(imagemCostas), sprite);
+		sprite = sobreporImagemArquivo(sprite, pastas.cabelos, cabelo);
+		sprite = sobreporImagemArquivo(sprite, pastas.elmos, elmo);
 		buffer = Imagem.matrizParaBuffer(sprite);
 		lblSprite.setIcon(new ImageIcon(buffer.getScaledInstance(192, 256, Image.SCALE_AREA_AVERAGING)));
 	}
 
 	//Sobrepoe a imagem
-	private static int[][] sobreporImagemArquivo(int[][] base, File[] array, JComboBox<String> cmb, CorARGB cor)
+	private static int[][] sobreporImagemArquivo(int[][] base, File[] array, ParteSprite parte)
 			throws IOException {
 		try {
 			
-			return Imagem.sobreporImagem(Arquivo.selecionarImagem(array, cmb, cor), base);
+			return Imagem.sobreporImagem(Arquivo.selecionarImagem(array, parte), base);
 		} catch (TamanhoErradoException e) {
 			return e.tratar(base);
 		}
@@ -657,26 +644,26 @@ public class Main extends JFrame {
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	private void atualizaPastas() {
 		pastas = new Pastas();
-		cmbCorpo = new JComboBox(Arquivo.nomesArquivos(pastas.corpos));
-		cmbElmo = new JComboBox(Arquivo.nomesArquivos(pastas.elmos));
-		cmbCabelo = new JComboBox(Arquivo.nomesArquivos(pastas.cabelos));
-		cmbOlhos = new JComboBox(Arquivo.nomesArquivos(pastas.olhos));
-		cmbFace = new JComboBox(Arquivo.nomesArquivos(pastas.faces));
-		cmbRoupa = new JComboBox(Arquivo.nomesArquivos(pastas.roupas));
-		cmbCostas = new JComboBox(Arquivo.nomesArquivos(pastas.costas));
+		corpo.cmb = new JComboBox(Arquivo.nomesArquivos(pastas.corpos));
+		elmo.cmb = new JComboBox(Arquivo.nomesArquivos(pastas.elmos));
+		cabelo.cmb = new JComboBox(Arquivo.nomesArquivos(pastas.cabelos));
+		olhos.cmb = new JComboBox(Arquivo.nomesArquivos(pastas.olhos));
+		face.cmb = new JComboBox(Arquivo.nomesArquivos(pastas.faces));
+		roupa.cmb = new JComboBox(Arquivo.nomesArquivos(pastas.roupas));
+		costas.cmb = new JComboBox(Arquivo.nomesArquivos(pastas.costas));
 	}
 
 	//Seleciona aleatoriamente partes do sprite para criar um sprite aleatorio
 	private void spriteAleatorio() {
 		deveAtualizar = false;
-		cmbCorpo.setSelectedIndex(random.nextInt(cmbCorpo.getItemCount()));
-		cmbElmo.setSelectedIndex(random.nextInt(cmbElmo.getItemCount()));
-		cmbCabelo.setSelectedIndex(random.nextInt(cmbCabelo.getItemCount()));
-		cmbOlhos.setSelectedIndex(random.nextInt(cmbOlhos.getItemCount()));
-		cmbFace.setSelectedIndex(random.nextInt(cmbFace.getItemCount()));
-		cmbRoupa.setSelectedIndex(random.nextInt(cmbRoupa.getItemCount()));
+		corpo.cmb.setSelectedIndex(random.nextInt(corpo.cmb.getItemCount()));
+		elmo.cmb.setSelectedIndex(random.nextInt(elmo.cmb.getItemCount()));
+		cabelo.cmb.setSelectedIndex(random.nextInt(cabelo.cmb.getItemCount()));
+		olhos.cmb.setSelectedIndex(random.nextInt(olhos.cmb.getItemCount()));
+		face.cmb.setSelectedIndex(random.nextInt(face.cmb.getItemCount()));
+		roupa.cmb.setSelectedIndex(random.nextInt(roupa.cmb.getItemCount()));
 		deveAtualizar = true;
-		cmbCostas.setSelectedIndex(random.nextInt(cmbCostas.getItemCount()));
+		costas.cmb.setSelectedIndex(random.nextInt(costas.cmb.getItemCount()));
 	}
 
 	private void salvarSprite() throws HeadlessException, IOException {

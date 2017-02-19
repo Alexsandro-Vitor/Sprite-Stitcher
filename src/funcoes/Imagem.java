@@ -2,6 +2,8 @@ package funcoes;
 
 import java.awt.image.BufferedImage;
 
+import classes.CorARGB;
+
 public class Imagem {
 	public static final short LARGURA = 96;
 	public static final short ALTURA = 128;

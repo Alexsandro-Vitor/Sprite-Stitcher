@@ -7,8 +7,10 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JComboBox;
 
+import classes.CorARGB;
+import classes.ParteSprite;
+import classes.Pastas;
 import excecoes.TamanhoErradoException;
 
 public class Arquivo {
@@ -23,11 +25,11 @@ public class Arquivo {
 	}
 	
 	//Pega a imagem selecionada pelo comboBox
-	public static int[][] selecionarImagem(File[] array, JComboBox<String> cmb, CorARGB cor)
+	public static int[][] selecionarImagem(File[] array, ParteSprite parte)
 			throws IOException, TamanhoErradoException {
 		int[][] matriz;
 		try {
-			matriz = lerImagem(array[cmb.getSelectedIndex() - 1], cor);
+			matriz = lerImagem(array[parte.cmb.getSelectedIndex() - 1], new CorARGB(parte));
 		} catch (ArrayIndexOutOfBoundsException e) {
 			matriz = Imagem.gerarTransparencia();
 		}
