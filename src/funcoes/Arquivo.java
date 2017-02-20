@@ -46,9 +46,13 @@ public class Arquivo {
 	}
 
 	//Salva o sprite gerado e exibe uma mensagem avisando
-	public static String salvarSprite(String nomeArquivo, BufferedImage buffer) throws IOException {
+	public static String salvarSprite(String nomeArquivo, BufferedImage buffer) {
 		String nome = Arquivo.nomeSprite(nomeArquivo);
-		ImageIO.write(buffer, "PNG", new File("imagens\\sprites\\" + nome));
+		try {
+			ImageIO.write(buffer, "PNG", new File("imagens\\sprites\\" + nome));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return nome;
 	}
 

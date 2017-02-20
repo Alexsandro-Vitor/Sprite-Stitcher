@@ -9,8 +9,9 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
 import java.awt.image.BufferedImage;
+
 import java.io.File;
-import java.io.IOException;
+
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -22,13 +23,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import javax.swing.border.EmptyBorder;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeListener;
 
 import classes.ParteSprite;
@@ -651,7 +651,7 @@ public class Main extends JFrame {
 		lblSprite = new JLabel("");
 		lblSprite.setBackground(Color.WHITE);
 		lblSprite.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSprite.setBounds(530, 11, 192, 256);
+		lblSprite.setBounds(530, 11, 2 * Imagem.LARGURA, 2 * Imagem.ALTURA);
 		contentPane.add(lblSprite);
 
 		JLabel lblNomeDoSprite = new JLabel("Nome do Sprite");
@@ -666,11 +666,7 @@ public class Main extends JFrame {
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				try {
-					salvarSprite();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				salvarSprite();
 			}
 		});
 		btnSalvar.setBounds(410, 321, 110, 20);
@@ -703,7 +699,6 @@ public class Main extends JFrame {
 	//Sobrepoe a imagem
 	private static int[][] sobreporImagemArquivo(int[][] base, File[] array, ParteSprite parte) {
 		try {
-
 			return Imagem.sobreporImagem(Arquivo.selecionarImagem(array, parte), base);
 		} catch (TamanhoErradoException e) {
 			return e.tratar(base);
@@ -741,7 +736,7 @@ public class Main extends JFrame {
 		costas.cmb.setSelectedIndex(random.nextInt(costas.cmb.getItemCount()));
 	}
 
-	private void salvarSprite() throws HeadlessException, IOException {
+	private void salvarSprite() throws HeadlessException {
 		JOptionPane.showMessageDialog(null, "Sprite salvo com o nome \"" + Arquivo.salvarSprite(txtNomeSprite.getText(), buffer) + "\"");
 	}
 }
