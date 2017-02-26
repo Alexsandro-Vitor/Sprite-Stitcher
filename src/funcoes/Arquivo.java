@@ -46,8 +46,8 @@ public class Arquivo {
 	}
 
 	//Salva o sprite gerado e exibe uma mensagem avisando
-	public static String salvarSprite(String nomeArquivo, BufferedImage buffer) {
-		String nome = Arquivo.nomeSprite(nomeArquivo);
+	public static String salvarSprite(Pastas pasta, String nomeArquivo, BufferedImage buffer) {
+		String nome = Arquivo.nomeSprite(pasta, nomeArquivo);
 		try {
 			ImageIO.write(buffer, "PNG", new File("imagens\\sprites\\" + nome));
 		} catch (IOException e) {
@@ -58,8 +58,8 @@ public class Arquivo {
 
 	//Determina o nome com o qual o sprite será salvo
 	@SuppressWarnings("resource")
-	public static String nomeSprite(String nomeImagem) {
-		Pastas.criar("sprites");
+	public static String nomeSprite(Pastas pasta, String nomeImagem) {
+		pasta.criar("sprites");
 		try {
 			new FileReader("imagens\\sprites\\" + nomeImagem + ".png");
 			for (int i = 2; ; i++) {

@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.HeadlessException;
 import java.awt.Image;
 
@@ -41,7 +40,9 @@ import javax.swing.event.ChangeEvent;
 @SuppressWarnings("serial")
 public class Gerador extends JFrame {
 
-	private Pastas pastas = new Pastas();
+	private Sprite sprite;
+	private String pastaArquivos;
+	private Pastas pastas;
 	private BufferedImage buffer;
 	private static Random random = new Random();
 	private ParteSprite corpo;
@@ -57,32 +58,18 @@ public class Gerador extends JFrame {
 	private boolean deveAtualizar = true;
 
 	private JPanel contentPane;
-	private JLabel lblSprite;
 	private JTextField txtNomeSprite;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Gerador frame = new Gerador();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	public Gerador() {
+	public Gerador(Sprite sprite, String pastaArquivos) {
+		this.sprite = sprite;
+		this.pastaArquivos = pastaArquivos;
+		this.pastas = new Pastas(pastaArquivos);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 738, 380);
+		setBounds(100, 100, 536, 411);
 		setResizable(false);
 		setTitle("Gerador de Sprite");
 		contentPane = new JPanel();
@@ -643,16 +630,10 @@ public class Gerador extends JFrame {
 				spriteAleatorio();
 			}
 		});
-		btnAleatorio.setBounds(530, 290, 192, 20);
+		btnAleatorio.setBounds(10, 351, 250, 20);
 		contentPane.add(btnAleatorio);
-		btnAtualizarPastas.setBounds(530, 321, 192, 20);
+		btnAtualizarPastas.setBounds(270, 351, 250, 20);
 		contentPane.add(btnAtualizarPastas);
-
-		lblSprite = new JLabel("");
-		lblSprite.setBackground(Color.WHITE);
-		lblSprite.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSprite.setBounds(530, 11, 2 * Imagem.LARGURA, 2 * Imagem.ALTURA);
-		contentPane.add(lblSprite);
 
 		JLabel lblNomeDoSprite = new JLabel("Nome do Sprite");
 		lblNomeDoSprite.setBounds(10, 321, 90, 20);
@@ -693,7 +674,7 @@ public class Gerador extends JFrame {
 		sprite = sobreporImagemArquivo(sprite, pastas.cabelos, cabelo);
 		sprite = sobreporImagemArquivo(sprite, pastas.elmos, elmo);
 		buffer = Imagem.matrizParaBuffer(sprite);
-		lblSprite.setIcon(new ImageIcon(buffer.getScaledInstance(2 * Imagem.LARGURA, 2 * Imagem.ALTURA, Image.SCALE_AREA_AVERAGING)));
+		this.sprite.label.setIcon(new ImageIcon(buffer.getScaledInstance(2 * Imagem.LARGURA, 2 * Imagem.ALTURA, Image.SCALE_AREA_AVERAGING)));
 	}
 
 	//Sobrepoe a imagem
@@ -707,7 +688,7 @@ public class Gerador extends JFrame {
 
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	private void atualizaPastas() {
-		pastas = new Pastas();
+		pastas = new Pastas(pastaArquivos);
 		corpo.cmb = new JComboBox(Arquivo.nomesArquivos(pastas.corpos));
 		elmo.cmb = new JComboBox(Arquivo.nomesArquivos(pastas.elmos));
 		cabelo.cmb = new JComboBox(Arquivo.nomesArquivos(pastas.cabelos));
@@ -737,6 +718,6 @@ public class Gerador extends JFrame {
 	}
 
 	private void salvarSprite() throws HeadlessException {
-		JOptionPane.showMessageDialog(null, "Sprite salvo com o nome \"" + Arquivo.salvarSprite(txtNomeSprite.getText(), buffer) + "\"");
+		JOptionPane.showMessageDialog(null, "Sprite salvo com o nome \"" + Arquivo.salvarSprite(pastas, txtNomeSprite.getText(), buffer) + "\"");
 	}
 }

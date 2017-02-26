@@ -21,7 +21,7 @@ import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class Main extends JFrame {
-
+	private Main frame;
 	private JPanel contentPane;
 	private JComboBox<String> comboBox;
 	private JSpinner spinLargura;
@@ -49,6 +49,8 @@ public class Main extends JFrame {
 	 */
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public Main() {
+		frame = this;
+		setTitle("Gerador de Sprite");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 296, 164);
 		setResizable(false);
@@ -104,13 +106,13 @@ public class Main extends JFrame {
 		contentPane.add(lblPasta);
 		
 		txtPasta = new JTextField();
+		txtPasta.setText("imagens");
 		txtPasta.setBounds(10, 104, 171, 20);
 		contentPane.add(txtPasta);
 		txtPasta.setColumns(10);
 		
 		JButton btnContinuar = new JButton("Continuar");
 		btnContinuar.addMouseListener(new MouseAdapter() {
-			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				continuar();
 			}
@@ -131,6 +133,11 @@ public class Main extends JFrame {
 	}
 	
 	private void continuar() {
-		//Gerador tela = new Gerador((int)spinLargura.getValue(), (int)spinAltura.getValue(), txtPasta.getText());
+		Sprite sprite = new Sprite((int)spinLargura.getValue() * 2, (int)spinAltura.getValue() * 2);
+		sprite.setVisible(true);
+		Gerador tela = new Gerador(sprite, txtPasta.getText());
+		tela.setVisible(true);
+		
+		frame.setVisible(false);
 	}
 }

@@ -3,6 +3,7 @@ package classes;
 import java.io.File;
 
 public class Pastas {
+	private String nome;
 	public File[] corpos;
 	public File[] elmos;
 	public File[] cabelos;
@@ -13,7 +14,8 @@ public class Pastas {
 	public File[] costas;
 	
 	//Cria e abre as pastas com as imagens do programa
-	public Pastas() {
+	public Pastas(String nome) {
+		this.nome = nome;
 		corpos = abrir("corpos");
 		elmos = abrir("elmos");
 		cabelos = abrir("cabelos");
@@ -25,13 +27,13 @@ public class Pastas {
 	}
 	
 	//Abre a pasta
-	private static File[] abrir(String pasta) {
+	private File[] abrir(String pasta) {
 		criar(pasta);
-		return new File("imagens\\"+pasta).listFiles();
+		return new File(nome + '\\' + pasta).listFiles();
 	}
 	
 	//Cria a pasta se ela nao existir
-	public static void criar(String pasta) {
-		if (new File("imagens\\"+pasta).listFiles() == null) new File("imagens\\"+pasta).mkdirs();	
+	public void criar(String pasta) {
+		if (new File(nome + '\\' + pasta).listFiles() == null) new File(nome + '\\' + pasta).mkdirs();	
 	}
 }
