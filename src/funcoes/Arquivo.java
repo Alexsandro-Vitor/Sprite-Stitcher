@@ -14,6 +14,11 @@ import classes.Pastas;
 import excecoes.TamanhoErradoException;
 
 public class Arquivo {
+	private Imagem imagem;
+	
+	public Arquivo (Imagem imagem) {
+		this.imagem = imagem;
+	}
 	//Pega o nome de cada arquivo de uma pasta e coloca em um array
 	public static String[] nomesArquivos(File[] array) {
 		String[] saida = new String[array.length + 1];
@@ -25,24 +30,25 @@ public class Arquivo {
 	}
 	
 	//Pega a imagem selecionada pelo comboBox
-	public static int[][] selecionarImagem(File[] array, ParteSprite parte)
+	public int[][] selecionarImagem(File[] array, ParteSprite parte)
 			throws TamanhoErradoException {
 		int[][] matriz;
 		try {
 			matriz = lerImagem(array[parte.cmb.getSelectedIndex() - 1], new CorARGB(parte));
 		} catch (ArrayIndexOutOfBoundsException e) {
-			matriz = Imagem.gerarTransparencia();
+			matriz = imagem.gerarTransparencia();
 		} catch (IOException e) {
 			e.printStackTrace();
-			matriz = Imagem.gerarTransparencia();
+			matriz = imagem.gerarTransparencia();
 		}
 		return matriz;
 	}
 	
-	public static int[][] lerImagem(File arquivo, CorARGB cor) throws IOException, TamanhoErradoException {
-		BufferedImage imagem = ImageIO.read(arquivo);	//Le o arquivo
-		if (imagem.getWidth() != Imagem.LARGURA || imagem.getHeight() != Imagem.ALTURA) throw new TamanhoErradoException(arquivo.getName());
-		return Imagem.bufferParaMatriz(imagem, cor);
+	public int[][] lerImagem(File arquivo, CorARGB cor) throws IOException, TamanhoErradoException {
+		BufferedImage buffer = ImageIO.read(arquivo);	//Le o arquivo
+		if (buffer.getWidth() != imagem.LARGURA || buffer.getHeight() != imagem.ALTURA)
+			throw new TamanhoErradoException(arquivo.getName(), imagem.LARGURA, imagem.ALTURA);
+		return imagem.bufferParaMatriz(buffer, cor);
 	}
 
 	//Salva o sprite gerado e exibe uma mensagem avisando

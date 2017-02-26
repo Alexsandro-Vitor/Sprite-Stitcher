@@ -5,15 +5,20 @@ import java.awt.image.BufferedImage;
 import classes.CorARGB;
 
 public class Imagem {
-	public static final short LARGURA = 96;
-	public static final short ALTURA = 128;
+	public final short LARGURA;
+	public final short ALTURA;
 	
-	protected static int[][] bufferParaMatriz(BufferedImage imagem, CorARGB cor) {
+	public Imagem(short largura, short altura) {
+		this.LARGURA = largura;
+		this.ALTURA = altura;
+	}
+	
+	protected int[][] bufferParaMatriz(BufferedImage imagem, CorARGB cor) {
 		int[] pixels = imagem.getRGB(0, 0, LARGURA, ALTURA, null, 0, LARGURA);	//Transformação da imagem em array de pixels
 		return arrayParaMatriz(pixels, cor);
 	}
 	
-	private static int[][] arrayParaMatriz(int[] array, CorARGB cor) {
+	private int[][] arrayParaMatriz(int[] array, CorARGB cor) {
 		int[][] matriz = new int[LARGURA][ALTURA];
 		for (int coluna = 0; coluna < LARGURA; coluna++) {
 			for (int linha = 0; linha < ALTURA; linha++) {
@@ -27,7 +32,7 @@ public class Imagem {
 		return matriz;
 	}
 	
-	private static int filtrarCor(int cor, CorARGB filtro) {
+	private int filtrarCor(int cor, CorARGB filtro) {
 		CorARGB original = new CorARGB(cor);
 		if (original.red == original.green && original.green == original.blue) {
 			original.filtrar(filtro);
@@ -35,14 +40,14 @@ public class Imagem {
 		} else return cor;
 	}
 	
-	public static BufferedImage matrizParaBuffer(int[][] matriz) {
+	public BufferedImage matrizParaBuffer(int[][] matriz) {
 		//TYPE_INT_ARGB: Gera a imagem com um alpha (opacidade) e cores RGB
 		BufferedImage imagem = new BufferedImage(LARGURA, ALTURA, BufferedImage.TYPE_INT_ARGB);
 		imagem.setRGB(0, 0, LARGURA, ALTURA, matrizParaArray(matriz), 0, LARGURA);
 		return imagem;
 	}
 	
-	private static int[] matrizParaArray(int[][] matriz) {
+	private int[] matrizParaArray(int[][] matriz) {
 		int[] array = new int[LARGURA * ALTURA];
 		for (int col = 0; col < LARGURA; col++) {
 			for (int lin = 0; lin < ALTURA; lin++) {
@@ -52,7 +57,7 @@ public class Imagem {
 		return array;
 	}
 	
-	public static int[][] sobreporImagem(int[][] acima, int[][] abaixo) {
+	public int[][] sobreporImagem(int[][] acima, int[][] abaixo) {
 		int[][] saida = new int[LARGURA][ALTURA];
 		for (int coluna = 0; coluna < LARGURA; coluna++) {
 			for (int linha = 0; linha < ALTURA; linha++) {
@@ -62,7 +67,7 @@ public class Imagem {
 		return saida;
 	}
 	
-	public static int[][] gerarTransparencia() {
+	public int[][] gerarTransparencia() {
 		int[][] saida = new int[LARGURA][ALTURA];
 		for (int i = 0; i < LARGURA; i++) {
 			for (int j = 0; j < ALTURA; j++) {
@@ -72,7 +77,7 @@ public class Imagem {
 		return saida;
 	}
 
-	public static int[][] capaAtras(int[][] entrada) {
+	public int[][] capaAtras(int[][] entrada) {
 		int[][] saida = new int[LARGURA][ALTURA];
 		for (int i = 0; i < LARGURA; i++) {
 			for (int j = 0; j < ALTURA; j++) {
@@ -82,7 +87,7 @@ public class Imagem {
 		return saida;
 	}
 	
-	public static int[][] capaFrente(int[][] entrada) {
+	public int[][] capaFrente(int[][] entrada) {
 		int[][] saida = new int[LARGURA][ALTURA];
 		for (int i = 0; i < LARGURA; i++) {
 			for (int j = 0; j < ALTURA; j++) {

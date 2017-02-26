@@ -43,6 +43,8 @@ public class Gerador extends JFrame {
 	private Sprite sprite;
 	private String pastaArquivos;
 	private Pastas pastas;
+	private Imagem imagem;
+	private Arquivo arquivo;
 	private BufferedImage buffer;
 	private static Random random = new Random();
 	private ParteSprite corpo;
@@ -68,6 +70,8 @@ public class Gerador extends JFrame {
 		this.sprite = sprite;
 		this.pastaArquivos = pastaArquivos;
 		this.pastas = new Pastas(pastaArquivos);
+		this.imagem = new Imagem((short)(sprite.label.getWidth() / 2), (short)(sprite.label.getHeight() / 2));
+		this.arquivo = new Arquivo(imagem);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 536, 411);
 		setResizable(false);
@@ -658,11 +662,11 @@ public class Gerador extends JFrame {
 	private void atualizaSprite() {
 		int[][] imagemCostas;
 		try {
-			imagemCostas = Arquivo.selecionarImagem(pastas.costas, costas);
+			imagemCostas = arquivo.selecionarImagem(pastas.costas, costas);
 		} catch (TamanhoErradoException e) {
-			imagemCostas = e.tratar(Imagem.gerarTransparencia());
+			imagemCostas = e.tratar(imagem.gerarTransparencia());
 		}
-		int[][] sprite = Imagem.capaAtras(imagemCostas);
+		int[][] sprite = imagem.capaAtras(imagemCostas);
 		sprite = sobreporImagemArquivo(sprite, pastas.corpos, corpo);
 		sprite = sobreporImagemArquivo(sprite, pastas.olhos, olhos);
 		sprite = sobreporImagemArquivo(sprite, pastas.calcas, calcaB);
@@ -670,17 +674,17 @@ public class Gerador extends JFrame {
 		sprite = sobreporImagemArquivo(sprite, pastas.calcas, calcaA);
 		sprite = sobreporImagemArquivo(sprite, pastas.camisas, camisaA);
 		sprite = sobreporImagemArquivo(sprite, pastas.faces, face);
-		sprite = Imagem.sobreporImagem(Imagem.capaFrente(imagemCostas), sprite);
+		sprite = imagem.sobreporImagem(imagem.capaFrente(imagemCostas), sprite);
 		sprite = sobreporImagemArquivo(sprite, pastas.cabelos, cabelo);
 		sprite = sobreporImagemArquivo(sprite, pastas.elmos, elmo);
-		buffer = Imagem.matrizParaBuffer(sprite);
-		this.sprite.label.setIcon(new ImageIcon(buffer.getScaledInstance(2 * Imagem.LARGURA, 2 * Imagem.ALTURA, Image.SCALE_AREA_AVERAGING)));
+		buffer = imagem.matrizParaBuffer(sprite);
+		this.sprite.label.setIcon(new ImageIcon(buffer.getScaledInstance(2 * imagem.LARGURA, 2 * imagem.ALTURA, Image.SCALE_AREA_AVERAGING)));
 	}
 
 	//Sobrepoe a imagem
-	private static int[][] sobreporImagemArquivo(int[][] base, File[] array, ParteSprite parte) {
+	private int[][] sobreporImagemArquivo(int[][] base, File[] array, ParteSprite parte) {
 		try {
-			return Imagem.sobreporImagem(Arquivo.selecionarImagem(array, parte), base);
+			return imagem.sobreporImagem(arquivo.selecionarImagem(array, parte), base);
 		} catch (TamanhoErradoException e) {
 			return e.tratar(base);
 		}
