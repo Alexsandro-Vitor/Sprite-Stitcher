@@ -1,7 +1,7 @@
 # Gerador-Sprite
-Gerador de Sprites RTP
+Gerador de Sprites em geral
 
 Para usar:
-* Ao abrir o programa pela primeira vez, ele gerará uma pasta "imagens", com algumas pastas dentro.
-* Na pasta "imagens" ficam as partes que serão usadas na construção do sprite.
-* O programa salva os sprites gerados na pasta "imagens/sprites".
+* O programa permite que você escolha um modelo de sprite e um nome para a pasta na qual estão as partes que o programa usará (nome padrão é "imagens").
+* Ao selecionar, duas telas se abrirão, uma com as opções e a outra exibe o sprite
+* O programa salva os sprites gerados na pasta [nomePasta] + "/sprites".
