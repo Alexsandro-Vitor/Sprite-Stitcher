@@ -54,7 +54,7 @@ public class Arquivo {
 	public static String salvarSprite(Pastas pasta, String nomeArquivo, BufferedImage buffer) {
 		String nome = Arquivo.nomeSprite(pasta, nomeArquivo);
 		try {
-			ImageIO.write(buffer, "PNG", new File("imagens\\sprites\\" + nome));
+			ImageIO.write(buffer, "PNG", new File(pasta.nome +"\\sprites\\" + nome));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -66,10 +66,10 @@ public class Arquivo {
 	public static String nomeSprite(Pastas pasta, String nomeImagem) {
 		pasta.criar("sprites");
 		try {
-			new FileReader("imagens\\sprites\\" + nomeImagem + ".png");
+			new FileReader(pasta.nome +"\\sprites\\" + nomeImagem + ".png");
 			for (int i = 2; ; i++) {
 				try {
-					new FileReader("imagens\\sprites\\" + nomeImagem + '('+ i + ").png");
+					new FileReader(pasta.nome +"\\sprites\\" + nomeImagem + '('+ i + ").png");
 				} catch (FileNotFoundException e) {
 					return nomeImagem + '(' + i + ").png";
 				}

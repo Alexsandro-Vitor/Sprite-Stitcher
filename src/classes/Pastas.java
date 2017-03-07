@@ -3,7 +3,7 @@ package classes;
 import java.io.File;
 
 public class Pastas {
-	private String nome;
+	public String nome;
 	public File[] corpos;
 	public File[] elmos;
 	public File[] cabelos;
