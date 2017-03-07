@@ -30,8 +30,7 @@ public class Arquivo {
 	}
 	
 	//Pega a imagem selecionada pelo comboBox
-	public int[][] selecionarImagem(File[] array, ParteSprite parte)
-			throws TamanhoErradoException {
+	public int[][] selecionarImagem(File[] array, ParteSprite parte) throws TamanhoErradoException {
 		int[][] matriz;
 		try {
 			matriz = lerImagem(array[parte.cmb.getSelectedIndex() - 1], new CorARGB(parte));
