@@ -717,8 +717,9 @@ public class Gerador extends JFrame {
 		camisaB.cmb.setSelectedIndex(random.nextInt(camisaB.cmb.getItemCount()));
 		calcaA.cmb.setSelectedIndex(random.nextInt(calcaA.cmb.getItemCount()));
 		calcaB.cmb.setSelectedIndex(random.nextInt(calcaB.cmb.getItemCount()));
-		deveAtualizar = true;
 		costas.cmb.setSelectedIndex(random.nextInt(costas.cmb.getItemCount()));
+		atualizaSprite();
+		deveAtualizar = true;
 	}
 
 	private void salvarSprite() throws HeadlessException {
