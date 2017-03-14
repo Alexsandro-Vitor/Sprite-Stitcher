@@ -10,8 +10,10 @@ public class Pastas {
 	public File[] olhos;
 	public File[] faces;
 	public File[] camisas;
+	public File[] maos;
 	public File[] calcas;
 	public File[] costas;
+	public File[] pes;
 	
 	//Cria e abre as pastas com as imagens do programa
 	public Pastas(String nome) {
@@ -22,8 +24,10 @@ public class Pastas {
 		olhos = abrir("olhos");
 		faces = abrir("faces");
 		camisas = abrir("camisas");
+		maos = abrir("maos");
 		calcas = abrir("calcas");
 		costas = abrir("costas");
+		pes = abrir("pes");
 	}
 	
 	//Abre a pasta
