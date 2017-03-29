@@ -904,6 +904,8 @@ public class Gerador extends JFrame {
 		sprite = sobreporImagemArquivo(sprite, pastas.olhos, olhos);
 		sprite = sobreporImagemArquivo(sprite, pastas.calcas, calcaB);
 		sprite = sobreporImagemArquivo(sprite, pastas.camisas, camisaB);
+		sprite = sobreporImagemArquivo(sprite, pastas.maos, maos);
+		sprite = sobreporImagemArquivo(sprite, pastas.pes, pes);
 		sprite = sobreporImagemArquivo(sprite, pastas.calcas, calcaA);
 		sprite = sobreporImagemArquivo(sprite, pastas.camisas, camisaA);
 		sprite = sobreporImagemArquivo(sprite, pastas.faces, face);
