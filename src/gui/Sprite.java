@@ -18,7 +18,7 @@ public class Sprite extends JFrame {
 	public Sprite(int largura, int altura) {
 		setTitle("Sprite");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(800, 100, largura + 8, altura + 30);
+		setBounds(800, 100, largura + 6, altura + 29);
 		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 255, 127));
