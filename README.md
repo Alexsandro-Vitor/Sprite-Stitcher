@@ -8,7 +8,7 @@ Gerador de Sprites de personagens
 * Para cada layer do sprite, você pode escolher uma peça. A ordem de sobreposição é:
 
 **FUNDO**
-1. Parte do layer Costas
+1. Parte superior do layer Costas (75%)
 2. Corpo
 3. Olhos
 4. Calça B
@@ -18,13 +18,13 @@ Gerador de Sprites de personagens
 8. Calça A
 9. Camisa A
 10. Face
-11. Parte do layer Costas
+11. Parte inferior do layer Costas (25%)
 12. Cabelo
 13. Elmo
 
 **FRENTE**
 
-* Cores em escala de cinza (R = G = B) nas peças podem ser filtradas por uma cor determinada nos Spinners. É possível escolher a cor em RGB ou MSL. Para alternar entre as duas opções, basta clicar no botão no canto superior direito ("RGBA" ou "MSLA").
+* Cores em escala de cinza (R == G == B) nas peças podem ser filtradas por uma cor determinada nos Spinners. É possível escolher a cor em RGB ou MSL. Para alternar entre as duas opções, basta clicar no botão no canto superior direito ("RGBA" ou "MSLA").
 * Também é possível deizar as peças translúcidas, modificando o alfa.
 * Clicando em "Aleatório" na lista de um layer, o programa muda a cor da peça aleatoriamente.
 * Clicando em "Peças Aleatórias" no canto inferior direito, as peças são escolhidas aleatoriamente.
