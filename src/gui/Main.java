@@ -55,7 +55,7 @@ public class Main extends JFrame {
 		setBounds(100, 100, 296, 164);
 		setResizable(false);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 255, 127));
+		contentPane.setBackground(new Color(0, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

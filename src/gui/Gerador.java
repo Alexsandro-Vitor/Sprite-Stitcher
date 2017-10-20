@@ -80,7 +80,7 @@ public class Gerador extends JFrame {
 		setResizable(false);
 		setTitle("Gerador de Sprite");
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 255, 127));
+		contentPane.setBackground(new Color(0, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -734,9 +734,7 @@ public class Gerador extends JFrame {
 
 	ChangeListener changeListener = new ChangeListener() {
 		public void stateChanged(ChangeEvent e) {
-			if (deveAtualizar) {
-				atualizaSprite();
-			}
+			if (deveAtualizar) atualizaSprite();
 		}
 	};
 
@@ -835,7 +833,7 @@ public class Gerador extends JFrame {
 
 	private void corParteAleatoria(ParteSprite parte) {
 		deveAtualizar = false;
-		parte.red.setValue(random.nextInt(256));
+		parte.red.setValue(random.nextInt((Integer) ((SpinnerNumberModel) parte.red.getModel()).getMaximum() + 1));
 		parte.green.setValue(random.nextInt(256));
 		parte.blue.setValue(random.nextInt(256));
 		atualizaSprite();

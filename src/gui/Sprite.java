@@ -21,7 +21,7 @@ public class Sprite extends JFrame {
 		setBounds(800, 100, largura + 6, altura + 29);
 		setResizable(false);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 255, 127));
+		contentPane.setBackground(new Color(0, 255, 255));
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
