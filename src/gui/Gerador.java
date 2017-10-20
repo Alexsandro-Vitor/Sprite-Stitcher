@@ -60,6 +60,7 @@ public class Gerador extends JFrame {
 	private ParteSprite costas;
 	private ParteSprite pes;
 	private boolean deveAtualizar = true;
+	private boolean rgba = true;
 
 	private JPanel contentPane;
 	private JTextField txtNomeSprite;
@@ -75,7 +76,7 @@ public class Gerador extends JFrame {
 		this.imagem = new Imagem((short)(sprite.label.getWidth() / 2), (short)(sprite.label.getHeight() / 2));
 		this.arquivo = new Arquivo(imagem);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 636, 443);
+		setBounds(50, 50, 676, 443);
 		setResizable(false);
 		setTitle("Gerador de Sprite");
 		contentPane = new JPanel();
@@ -95,12 +96,62 @@ public class Gerador extends JFrame {
 		cmbCorpo.setBounds(80, 11, 200, 20);
 		contentPane.add(cmbCorpo);
 
-		corpo = new ParteSprite(cmbCorpo, null, null, null, null);
+		corpo = new ParteSprite("corpo", cmbCorpo, null, null, null, null);
 
-		JLabel lblCoresRgba = new JLabel("Cores RGBA");
-		lblCoresRgba.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCoresRgba.setBounds(290, 11, 330, 20);
-		contentPane.add(lblCoresRgba);
+		JLabel lblVermelho = new JLabel("Vermelho");
+		lblVermelho.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVermelho.setBounds(290, 11, 60, 20);
+		contentPane.add(lblVermelho);
+
+		JLabel lblVerde = new JLabel("Verde");
+		lblVerde.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVerde.setBounds(360, 11, 60, 20);
+		contentPane.add(lblVerde);
+
+		JLabel lblAzul = new JLabel("Azul");
+		lblAzul.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAzul.setBounds(430, 11, 60, 20);
+		contentPane.add(lblAzul);
+
+		JLabel lblAlfa = new JLabel("Alfa");
+		lblAlfa.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAlfa.setBounds(500, 11, 60, 20);
+		contentPane.add(lblAlfa);
+
+		JButton btnMSLA = new JButton("MSLA");
+		btnMSLA.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				rgba = !rgba;
+				if (rgba) {
+					btnMSLA.setText("MSLA");
+					lblVermelho.setText("Vermelho");
+					lblVerde.setText("Verde");
+					lblAzul.setText("Azul");
+				} else {
+					btnMSLA.setText("RGBA");
+					lblVermelho.setText("Matiz");
+					lblVerde.setText("Saturação");
+					lblAzul.setText("Luz");
+				}
+				deveAtualizar = false;
+				elmo.setRGBA(rgba);
+				cabelo.setRGBA(rgba);
+				olhos.setRGBA(rgba);
+				face.setRGBA(rgba);
+				camisaA.setRGBA(rgba);
+				camisaB.setRGBA(rgba);
+				maos.setRGBA(rgba);
+				calcaA.setRGBA(rgba);
+				calcaB.setRGBA(rgba);
+				costas.setRGBA(rgba);
+				pes.setRGBA(rgba);
+				atualizaSprite();
+				deveAtualizar = true;
+			}
+		});
+		btnMSLA.setBounds(570, 11, 90, 20);
+		contentPane.add(btnMSLA);
 
 		JLabel lblElmo = new JLabel("Elmo");
 		lblElmo.setBounds(10, 42, 60, 20);
@@ -116,32 +167,32 @@ public class Gerador extends JFrame {
 		spinRedElmo.addChangeListener(changeListener);
 		spinRedElmo.setToolTipText("Cor vermelha do elmo");
 		spinRedElmo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinRedElmo.setBounds(290, 42, 50, 20);
+		spinRedElmo.setBounds(290, 42, 60, 20);
 		contentPane.add(spinRedElmo);
 
 		JSpinner spinGreenElmo = new JSpinner();
 		spinGreenElmo.addChangeListener(changeListener);
 		spinGreenElmo.setToolTipText("Cor verde do elmo");
 		spinGreenElmo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinGreenElmo.setBounds(350, 42, 50, 20);
+		spinGreenElmo.setBounds(360, 42, 60, 20);
 		contentPane.add(spinGreenElmo);
 
 		JSpinner spinBlueElmo = new JSpinner();
 		spinBlueElmo.addChangeListener(changeListener);
 		spinBlueElmo.setToolTipText("Cor azul do elmo");
 		spinBlueElmo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinBlueElmo.setBounds(410, 42, 50, 20);
+		spinBlueElmo.setBounds(430, 42, 60, 20);
 		contentPane.add(spinBlueElmo);
 
 		JSpinner spinAlfaElmo = new JSpinner();
 		spinAlfaElmo.setToolTipText("Opacidade do elmo");
 		spinAlfaElmo.addChangeListener(changeListener);
 		spinAlfaElmo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinAlfaElmo.setBounds(470, 42, 50, 20);
+		spinAlfaElmo.setBounds(500, 42, 60, 20);
 		contentPane.add(spinAlfaElmo);
 
-		elmo = new ParteSprite(cmbElmo, spinRedElmo, spinGreenElmo, spinBlueElmo, spinAlfaElmo);
-		
+		elmo = new ParteSprite("elmo", cmbElmo, spinRedElmo, spinGreenElmo, spinBlueElmo, spinAlfaElmo);
+
 		JButton btnElmoAleatorio = new JButton("Aleat\u00F3rio");
 		btnElmoAleatorio.addMouseListener(new MouseAdapter() {
 			@Override
@@ -149,7 +200,7 @@ public class Gerador extends JFrame {
 				corParteAleatoria(elmo);
 			}
 		});
-		btnElmoAleatorio.setBounds(530, 41, 90, 20);
+		btnElmoAleatorio.setBounds(570, 42, 90, 20);
 		contentPane.add(btnElmoAleatorio);
 
 		JLabel lblCabelo = new JLabel("Cabelo");
@@ -166,25 +217,25 @@ public class Gerador extends JFrame {
 		spinRedCabelo.addChangeListener(changeListener);
 		spinRedCabelo.setToolTipText("Cor vermelha do cabelo");
 		spinRedCabelo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinRedCabelo.setBounds(290, 73, 50, 20);
+		spinRedCabelo.setBounds(290, 73, 60, 20);
 		contentPane.add(spinRedCabelo);
 
 		JSpinner spinGreenCabelo = new JSpinner();
 		spinGreenCabelo.addChangeListener(changeListener);
 		spinGreenCabelo.setToolTipText("Cor verde do cabelo");
 		spinGreenCabelo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinGreenCabelo.setBounds(350, 73, 50, 20);
+		spinGreenCabelo.setBounds(360, 73, 60, 20);
 		contentPane.add(spinGreenCabelo);
 
 		JSpinner spinBlueCabelo = new JSpinner();
 		spinBlueCabelo.addChangeListener(changeListener);
 		spinBlueCabelo.setToolTipText("Cor azul do cabelo");
 		spinBlueCabelo.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinBlueCabelo.setBounds(410, 73, 50, 20);
+		spinBlueCabelo.setBounds(430, 73, 60, 20);
 		contentPane.add(spinBlueCabelo);
 
-		cabelo = new ParteSprite(cmbCabelo, spinRedCabelo, spinGreenCabelo, spinBlueCabelo, null);
-		
+		cabelo = new ParteSprite("cabelo", cmbCabelo, spinRedCabelo, spinGreenCabelo, spinBlueCabelo, null);
+
 		JButton btnCabeloAleatorio = new JButton("Aleat\u00F3rio");
 		btnCabeloAleatorio.addMouseListener(new MouseAdapter() {
 			@Override
@@ -192,7 +243,7 @@ public class Gerador extends JFrame {
 				corParteAleatoria(cabelo);
 			}
 		});
-		btnCabeloAleatorio.setBounds(530, 72, 90, 20);
+		btnCabeloAleatorio.setBounds(570, 73, 90, 20);
 		contentPane.add(btnCabeloAleatorio);
 
 		JLabel lblOlhos = new JLabel("Olhos");
@@ -209,23 +260,23 @@ public class Gerador extends JFrame {
 		spinRedOlhos.addChangeListener(changeListener);
 		spinRedOlhos.setToolTipText("Cor vermelha dos olhos");
 		spinRedOlhos.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinRedOlhos.setBounds(290, 104, 50, 20);
+		spinRedOlhos.setBounds(290, 104, 60, 20);
 		contentPane.add(spinRedOlhos);
 
 		JSpinner spinGreenOlhos = new JSpinner();
 		spinGreenOlhos.addChangeListener(changeListener);
 		spinGreenOlhos.setToolTipText("Cor verde dos olhos");
 		spinGreenOlhos.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinGreenOlhos.setBounds(350, 104, 50, 20);
+		spinGreenOlhos.setBounds(360, 104, 60, 20);
 		contentPane.add(spinGreenOlhos);
 
 		JSpinner spinBlueOlhos = new JSpinner();
 		spinBlueOlhos.addChangeListener(changeListener);
 		spinBlueOlhos.setToolTipText("Cor azul dos olhos");
 		spinBlueOlhos.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinBlueOlhos.setBounds(410, 104, 50, 20);
+		spinBlueOlhos.setBounds(430, 104, 60, 20);
 		contentPane.add(spinBlueOlhos);
-		
+
 		JButton btnOlhosAleatorio = new JButton("Aleat\u00F3rio");
 		btnOlhosAleatorio.addMouseListener(new MouseAdapter() {
 			@Override
@@ -233,14 +284,14 @@ public class Gerador extends JFrame {
 				corParteAleatoria(olhos);
 			}
 		});
-		btnOlhosAleatorio.setBounds(530, 103, 90, 20);
+		btnOlhosAleatorio.setBounds(570, 104, 90, 20);
 		contentPane.add(btnOlhosAleatorio);
 
 		JLabel lblFace = new JLabel("Face");
 		lblFace.setBounds(10, 135, 60, 20);
 		contentPane.add(lblFace);
 
-		olhos = new ParteSprite(cmbOlhos, spinRedOlhos, spinGreenOlhos, spinBlueOlhos, null);
+		olhos = new ParteSprite("olhos", cmbOlhos, spinRedOlhos, spinGreenOlhos, spinBlueOlhos, null);
 
 		JComboBox<String> cmbFace = new JComboBox(Arquivo.nomesArquivos(pastas.faces));
 		cmbFace.addItemListener(itemListener);
@@ -252,32 +303,32 @@ public class Gerador extends JFrame {
 		spinRedFace.addChangeListener(changeListener);
 		spinRedFace.setToolTipText("Cor vermelha do item da face");
 		spinRedFace.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinRedFace.setBounds(290, 135, 50, 20);
+		spinRedFace.setBounds(290, 135, 60, 20);
 		contentPane.add(spinRedFace);
 
 		JSpinner spinGreenFace = new JSpinner();
 		spinGreenFace.addChangeListener(changeListener);
 		spinGreenFace.setToolTipText("Cor verde do item da face");
 		spinGreenFace.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinGreenFace.setBounds(350, 135, 50, 20);
+		spinGreenFace.setBounds(360, 135, 60, 20);
 		contentPane.add(spinGreenFace);
 
 		JSpinner spinBlueFace = new JSpinner();
 		spinBlueFace.addChangeListener(changeListener);
 		spinBlueFace.setToolTipText("Cor azul do item da face");
 		spinBlueFace.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinBlueFace.setBounds(410, 135, 50, 20);
+		spinBlueFace.setBounds(430, 135, 60, 20);
 		contentPane.add(spinBlueFace);
 
 		JSpinner spinAlfaFace = new JSpinner();
 		spinAlfaFace.setToolTipText("Opacidade do item da face");
 		spinAlfaFace.addChangeListener(changeListener);
 		spinAlfaFace.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinAlfaFace.setBounds(470, 135, 50, 20);
+		spinAlfaFace.setBounds(500, 135, 60, 20);
 		contentPane.add(spinAlfaFace);
 
-		face = new ParteSprite(cmbFace, spinRedFace, spinGreenFace, spinBlueFace, spinAlfaFace);
-		
+		face = new ParteSprite("face", cmbFace, spinRedFace, spinGreenFace, spinBlueFace, spinAlfaFace);
+
 		JButton btnFaceAleatorio = new JButton("Aleat\u00F3rio");
 		btnFaceAleatorio.addMouseListener(new MouseAdapter() {
 			@Override
@@ -285,7 +336,7 @@ public class Gerador extends JFrame {
 				corParteAleatoria(face);
 			}
 		});
-		btnFaceAleatorio.setBounds(530, 134, 90, 20);
+		btnFaceAleatorio.setBounds(570, 135, 90, 20);
 		contentPane.add(btnFaceAleatorio);
 
 		JLabel lblCamisaA = new JLabel("Camisa A");
@@ -302,32 +353,32 @@ public class Gerador extends JFrame {
 		spinRedCamisaA.addChangeListener(changeListener);
 		spinRedCamisaA.setToolTipText("Cor vermelha da camisaA A");
 		spinRedCamisaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinRedCamisaA.setBounds(290, 166, 50, 20);
+		spinRedCamisaA.setBounds(290, 166, 60, 20);
 		contentPane.add(spinRedCamisaA);
 
 		JSpinner spinGreenCamisaA = new JSpinner();
 		spinGreenCamisaA.addChangeListener(changeListener);
 		spinGreenCamisaA.setToolTipText("Cor verde da camisaA A");
 		spinGreenCamisaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinGreenCamisaA.setBounds(350, 166, 50, 20);
+		spinGreenCamisaA.setBounds(360, 166, 60, 20);
 		contentPane.add(spinGreenCamisaA);
 
 		JSpinner spinBlueCamisaA = new JSpinner();
 		spinBlueCamisaA.addChangeListener(changeListener);
 		spinBlueCamisaA.setToolTipText("Cor azul da camisaA A");
 		spinBlueCamisaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinBlueCamisaA.setBounds(410, 166, 50, 20);
+		spinBlueCamisaA.setBounds(430, 166, 60, 20);
 		contentPane.add(spinBlueCamisaA);
 
 		JSpinner spinAlfaCamisaA = new JSpinner();
 		spinAlfaCamisaA.addChangeListener(changeListener);
 		spinAlfaCamisaA.setToolTipText("Opacidade da camisaA A");
 		spinAlfaCamisaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinAlfaCamisaA.setBounds(470, 166, 50, 20);
+		spinAlfaCamisaA.setBounds(500, 166, 60, 20);
 		contentPane.add(spinAlfaCamisaA);
 
-		camisaA = new ParteSprite(cmbCamisaA, spinRedCamisaA, spinGreenCamisaA, spinBlueCamisaA, spinAlfaCamisaA);
-		
+		camisaA = new ParteSprite("camisa A", cmbCamisaA, spinRedCamisaA, spinGreenCamisaA, spinBlueCamisaA, spinAlfaCamisaA);
+
 		JButton btnCamisaAAleatorio = new JButton("Aleat\u00F3rio");
 		btnCamisaAAleatorio.addMouseListener(new MouseAdapter() {
 			@Override
@@ -335,7 +386,7 @@ public class Gerador extends JFrame {
 				corParteAleatoria(camisaA);
 			}
 		});
-		btnCamisaAAleatorio.setBounds(530, 165, 90, 20);
+		btnCamisaAAleatorio.setBounds(570, 166, 90, 20);
 		contentPane.add(btnCamisaAAleatorio);
 
 		JLabel lblCamisaB = new JLabel("Camisa B");
@@ -352,32 +403,32 @@ public class Gerador extends JFrame {
 		spinRedCamisaB.addChangeListener(changeListener);
 		spinRedCamisaB.setToolTipText("Cor vermelha da camisaA B");
 		spinRedCamisaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinRedCamisaB.setBounds(290, 197, 50, 20);
+		spinRedCamisaB.setBounds(290, 197, 60, 20);
 		contentPane.add(spinRedCamisaB);
 
 		JSpinner spinGreenCamisaB = new JSpinner();
 		spinGreenCamisaB.addChangeListener(changeListener);
 		spinGreenCamisaB.setToolTipText("Cor verde da camisaA B");
 		spinGreenCamisaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinGreenCamisaB.setBounds(350, 197, 50, 20);
+		spinGreenCamisaB.setBounds(360, 197, 60, 20);
 		contentPane.add(spinGreenCamisaB);
 
 		JSpinner spinBlueCamisaB = new JSpinner();
 		spinBlueCamisaB.addChangeListener(changeListener);
 		spinBlueCamisaB.setToolTipText("Cor azul da camisaA B");
 		spinBlueCamisaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinBlueCamisaB.setBounds(410, 197, 50, 20);
+		spinBlueCamisaB.setBounds(430, 197, 60, 20);
 		contentPane.add(spinBlueCamisaB);
 
 		JSpinner spinAlfaCamisaB = new JSpinner();
 		spinAlfaCamisaB.addChangeListener(changeListener);
 		spinAlfaCamisaB.setToolTipText("Opacidade da camisaA B");
 		spinAlfaCamisaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinAlfaCamisaB.setBounds(470, 197, 50, 20);
+		spinAlfaCamisaB.setBounds(500, 197, 60, 20);
 		contentPane.add(spinAlfaCamisaB);
 
-		camisaB = new ParteSprite(cmbCamisaB, spinRedCamisaB, spinGreenCamisaB, spinBlueCamisaB, spinAlfaCamisaB);
-		
+		camisaB = new ParteSprite("camisa B", cmbCamisaB, spinRedCamisaB, spinGreenCamisaB, spinBlueCamisaB, spinAlfaCamisaB);
+
 		JButton btnCamisaBAleatorio = new JButton("Aleat\u00F3rio");
 		btnCamisaBAleatorio.addMouseListener(new MouseAdapter() {
 			@Override
@@ -385,49 +436,49 @@ public class Gerador extends JFrame {
 				corParteAleatoria(camisaB);
 			}
 		});
-		btnCamisaBAleatorio.setBounds(530, 196, 90, 20);
+		btnCamisaBAleatorio.setBounds(570, 197, 90, 20);
 		contentPane.add(btnCamisaBAleatorio);
 
 		JLabel lblMaos = new JLabel("M\u00E3os");
 		lblMaos.setBounds(10, 228, 60, 20);
 		contentPane.add(lblMaos);
-		
+
 		JComboBox<String> cmbMaos = new JComboBox(Arquivo.nomesArquivos(pastas.maos));
 		cmbMaos.addItemListener(itemListener);
 		cmbMaos.setBackground(Color.WHITE);
 		cmbMaos.setBounds(80, 228, 200, 20);
 		contentPane.add(cmbMaos);
-		
+
 		JSpinner spinRedMaos = new JSpinner();
 		spinRedMaos.addChangeListener(changeListener);
 		spinRedMaos.setToolTipText("Cor vermelha do item das m\u00E3os");
 		spinRedMaos.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinRedMaos.setBounds(290, 228, 50, 20);
+		spinRedMaos.setBounds(290, 228, 60, 20);
 		contentPane.add(spinRedMaos);
-		
+
 		JSpinner spinGreenMaos = new JSpinner();
 		spinGreenMaos.addChangeListener(changeListener);
 		spinGreenMaos.setToolTipText("Cor verde do item das m\u00E3os");
 		spinGreenMaos.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinGreenMaos.setBounds(350, 228, 50, 20);
+		spinGreenMaos.setBounds(360, 228, 60, 20);
 		contentPane.add(spinGreenMaos);
-		
+
 		JSpinner spinBlueMaos = new JSpinner();
 		spinBlueMaos.addChangeListener(changeListener);
 		spinBlueMaos.setToolTipText("Cor azul do item das m\u00E3os");
 		spinBlueMaos.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinBlueMaos.setBounds(410, 228, 50, 20);
+		spinBlueMaos.setBounds(430, 228, 60, 20);
 		contentPane.add(spinBlueMaos);
-		
+
 		JSpinner spinAlfaMaos = new JSpinner();
 		spinAlfaMaos.addChangeListener(changeListener);
 		spinAlfaMaos.setToolTipText("Opacidade do item das m\u00E3os");
 		spinAlfaMaos.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinAlfaMaos.setBounds(470, 228, 50, 20);
+		spinAlfaMaos.setBounds(500, 228, 60, 20);
 		contentPane.add(spinAlfaMaos);
-		
-		maos = new ParteSprite(cmbMaos, spinRedMaos, spinGreenMaos, spinBlueMaos, spinAlfaMaos);
-		
+
+		maos = new ParteSprite("mãos", cmbMaos, spinRedMaos, spinGreenMaos, spinBlueMaos, spinAlfaMaos);
+
 		JButton btnMaosAleatorio = new JButton("Aleat\u00F3rio");
 		btnMaosAleatorio.addMouseListener(new MouseAdapter() {
 			@Override
@@ -435,9 +486,9 @@ public class Gerador extends JFrame {
 				corParteAleatoria(maos);
 			}
 		});
-		btnMaosAleatorio.setBounds(530, 227, 90, 20);
+		btnMaosAleatorio.setBounds(570, 228, 90, 20);
 		contentPane.add(btnMaosAleatorio);
-		
+
 		JLabel lblCalcaA = new JLabel("Calça A");
 		lblCalcaA.setBounds(10, 259, 60, 20);
 		contentPane.add(lblCalcaA);
@@ -452,32 +503,32 @@ public class Gerador extends JFrame {
 		spinRedCalcaA.addChangeListener(changeListener);
 		spinRedCalcaA.setToolTipText("Cor vermelha da calça A");
 		spinRedCalcaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinRedCalcaA.setBounds(290, 259, 50, 20);
+		spinRedCalcaA.setBounds(290, 259, 60, 20);
 		contentPane.add(spinRedCalcaA);
 
 		JSpinner spinGreenCalcaA = new JSpinner();
 		spinGreenCalcaA.addChangeListener(changeListener);
 		spinGreenCalcaA.setToolTipText("Cor verde da calça A");
 		spinGreenCalcaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinGreenCalcaA.setBounds(350, 259, 50, 20);
+		spinGreenCalcaA.setBounds(360, 259, 60, 20);
 		contentPane.add(spinGreenCalcaA);
 
 		JSpinner spinBlueCalcaA = new JSpinner();
 		spinBlueCalcaA.addChangeListener(changeListener);
 		spinBlueCalcaA.setToolTipText("Cor azul da calça A");
 		spinBlueCalcaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinBlueCalcaA.setBounds(410, 259, 50, 20);
+		spinBlueCalcaA.setBounds(430, 259, 60, 20);
 		contentPane.add(spinBlueCalcaA);
 
 		JSpinner spinAlfaCalcaA = new JSpinner();
 		spinAlfaCalcaA.addChangeListener(changeListener);
 		spinAlfaCalcaA.setToolTipText("Opacidade da calça A");
 		spinAlfaCalcaA.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinAlfaCalcaA.setBounds(470, 259, 50, 20);
+		spinAlfaCalcaA.setBounds(500, 259, 60, 20);
 		contentPane.add(spinAlfaCalcaA);
 
-		calcaA = new ParteSprite(cmbCalcaA, spinRedCalcaA, spinGreenCalcaA, spinBlueCalcaA, spinAlfaCalcaA);
-		
+		calcaA = new ParteSprite("calça A", cmbCalcaA, spinRedCalcaA, spinGreenCalcaA, spinBlueCalcaA, spinAlfaCalcaA);
+
 		JButton btnCalcaAAleatorio = new JButton("Aleat\u00F3rio");
 		btnCalcaAAleatorio.addMouseListener(new MouseAdapter() {
 			@Override
@@ -485,7 +536,7 @@ public class Gerador extends JFrame {
 				corParteAleatoria(calcaA);
 			}
 		});
-		btnCalcaAAleatorio.setBounds(530, 258, 90, 20);
+		btnCalcaAAleatorio.setBounds(570, 259, 90, 20);
 		contentPane.add(btnCalcaAAleatorio);
 
 		JLabel lblCalcaB = new JLabel("Calça B");
@@ -502,32 +553,32 @@ public class Gerador extends JFrame {
 		spinRedCalcaB.addChangeListener(changeListener);
 		spinRedCalcaB.setToolTipText("Cor vermelha da calça B");
 		spinRedCalcaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinRedCalcaB.setBounds(290, 290, 50, 20);
+		spinRedCalcaB.setBounds(290, 290, 60, 20);
 		contentPane.add(spinRedCalcaB);
 
 		JSpinner spinGreenCalcaB = new JSpinner();
 		spinGreenCalcaB.addChangeListener(changeListener);
 		spinGreenCalcaB.setToolTipText("Cor verde da calça B");
 		spinGreenCalcaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinGreenCalcaB.setBounds(350, 290, 50, 20);
+		spinGreenCalcaB.setBounds(360, 290, 60, 20);
 		contentPane.add(spinGreenCalcaB);
 
 		JSpinner spinBlueCalcaB = new JSpinner();
 		spinBlueCalcaB.addChangeListener(changeListener);
 		spinBlueCalcaB.setToolTipText("Cor azul da calça B");
 		spinBlueCalcaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinBlueCalcaB.setBounds(410, 290, 50, 20);
+		spinBlueCalcaB.setBounds(430, 290, 60, 20);
 		contentPane.add(spinBlueCalcaB);
 
 		JSpinner spinAlfaCalcaB = new JSpinner();
 		spinAlfaCalcaB.addChangeListener(changeListener);
 		spinAlfaCalcaB.setToolTipText("Opacidade da calça B");
 		spinAlfaCalcaB.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinAlfaCalcaB.setBounds(470, 290, 50, 20);
+		spinAlfaCalcaB.setBounds(500, 290, 60, 20);
 		contentPane.add(spinAlfaCalcaB);
 
-		calcaB = new ParteSprite(cmbCalcaB, spinRedCalcaB, spinGreenCalcaB, spinBlueCalcaB, spinAlfaCalcaB);
-		
+		calcaB = new ParteSprite("calça B", cmbCalcaB, spinRedCalcaB, spinGreenCalcaB, spinBlueCalcaB, spinAlfaCalcaB);
+
 		JButton btnCalcaBAleatorio = new JButton("Aleat\u00F3rio");
 		btnCalcaBAleatorio.addMouseListener(new MouseAdapter() {
 			@Override
@@ -535,7 +586,7 @@ public class Gerador extends JFrame {
 				corParteAleatoria(calcaB);
 			}
 		});
-		btnCalcaBAleatorio.setBounds(530, 289, 90, 20);
+		btnCalcaBAleatorio.setBounds(570, 290, 90, 20);
 		contentPane.add(btnCalcaBAleatorio);
 
 		JLabel lblCostas = new JLabel("Costas");
@@ -552,32 +603,32 @@ public class Gerador extends JFrame {
 		spinRedCostas.addChangeListener(changeListener);
 		spinRedCostas.setToolTipText("Cor vermelha do item das costas");
 		spinRedCostas.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinRedCostas.setBounds(290, 321, 50, 20);
+		spinRedCostas.setBounds(290, 321, 60, 20);
 		contentPane.add(spinRedCostas);
 
 		JSpinner spinGreenCostas = new JSpinner();
 		spinGreenCostas.addChangeListener(changeListener);
 		spinGreenCostas.setToolTipText("Cor verde do item das costas");
 		spinGreenCostas.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinGreenCostas.setBounds(350, 321, 50, 20);
+		spinGreenCostas.setBounds(360, 321, 60, 20);
 		contentPane.add(spinGreenCostas);
 
 		JSpinner spinBlueCostas = new JSpinner();
 		spinBlueCostas.addChangeListener(changeListener);
 		spinBlueCostas.setToolTipText("Cor azul do item das costas");
 		spinBlueCostas.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinBlueCostas.setBounds(410, 321, 50, 20);
+		spinBlueCostas.setBounds(430, 321, 60, 20);
 		contentPane.add(spinBlueCostas);
 
 		JSpinner spinAlfaCostas = new JSpinner();
 		spinAlfaCostas.setToolTipText("Opacidade do item das costas");
 		spinAlfaCostas.addChangeListener(changeListener);
 		spinAlfaCostas.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinAlfaCostas.setBounds(470, 321, 50, 20);
+		spinAlfaCostas.setBounds(500, 321, 60, 20);
 		contentPane.add(spinAlfaCostas);
 
-		costas = new ParteSprite(cmbCostas, spinRedCostas, spinGreenCostas, spinBlueCostas, spinAlfaCostas);
-		
+		costas = new ParteSprite("costas", cmbCostas, spinRedCostas, spinGreenCostas, spinBlueCostas, spinAlfaCostas);
+
 		JButton btnCostasAleatorio = new JButton("Aleat\u00F3rio");
 		btnCostasAleatorio.addMouseListener(new MouseAdapter() {
 			@Override
@@ -585,49 +636,49 @@ public class Gerador extends JFrame {
 				corParteAleatoria(costas);
 			}
 		});
-		btnCostasAleatorio.setBounds(530, 320, 90, 20);
+		btnCostasAleatorio.setBounds(570, 321, 90, 20);
 		contentPane.add(btnCostasAleatorio);
 
 		JLabel lblPes = new JLabel("P\u00E9s");
 		lblPes.setBounds(10, 352, 60, 20);
 		contentPane.add(lblPes);
-		
+
 		JComboBox<String> cmbPes = new JComboBox(Arquivo.nomesArquivos(pastas.pes));
 		cmbPes.addItemListener(itemListener);
 		cmbPes.setBackground(Color.WHITE);
 		cmbPes.setBounds(80, 352, 200, 20);
 		contentPane.add(cmbPes);
-		
+
 		JSpinner spinRedPes = new JSpinner();
 		spinRedPes.addChangeListener(changeListener);
 		spinRedPes.setToolTipText("Cor vermelha do item dos p\u00E9s");
 		spinRedPes.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinRedPes.setBounds(290, 352, 50, 20);
+		spinRedPes.setBounds(290, 352, 60, 20);
 		contentPane.add(spinRedPes);
-		
+
 		JSpinner spinGreenPes = new JSpinner();
 		spinGreenPes.addChangeListener(changeListener);
 		spinGreenPes.setToolTipText("Cor verde do item dos p\u00E9s");
 		spinGreenPes.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinGreenPes.setBounds(350, 352, 50, 20);
+		spinGreenPes.setBounds(360, 352, 60, 20);
 		contentPane.add(spinGreenPes);
-		
+
 		JSpinner spinBluePes = new JSpinner();
 		spinBluePes.addChangeListener(changeListener);
 		spinBluePes.setToolTipText("Cor azul do item dos p\u00E9s");
 		spinBluePes.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinBluePes.setBounds(410, 352, 50, 20);
+		spinBluePes.setBounds(430, 352, 60, 20);
 		contentPane.add(spinBluePes);
-		
+
 		JSpinner spinAlfaPes = new JSpinner();
 		spinAlfaPes.addChangeListener(changeListener);
 		spinAlfaPes.setToolTipText("Opacidade do item dos p\u00E9s");
 		spinAlfaPes.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		spinAlfaPes.setBounds(470, 352, 50, 20);
+		spinAlfaPes.setBounds(500, 352, 60, 20);
 		contentPane.add(spinAlfaPes);
-		
-		pes = new ParteSprite(cmbPes, spinRedPes, spinGreenPes, spinBluePes, spinAlfaPes);
-		
+
+		pes = new ParteSprite("pes", cmbPes, spinRedPes, spinGreenPes, spinBluePes, spinAlfaPes);
+
 		JButton btnPesAleatorio = new JButton("Aleat\u00F3rio");
 		btnPesAleatorio.addMouseListener(new MouseAdapter() {
 			@Override
@@ -635,9 +686,9 @@ public class Gerador extends JFrame {
 				corParteAleatoria(pes);
 			}
 		});
-		btnPesAleatorio.setBounds(530, 351, 90, 20);
+		btnPesAleatorio.setBounds(570, 352, 90, 20);
 		contentPane.add(btnPesAleatorio);
-		
+
 		JButton btnAtualizarPastas = new JButton("Atualizar pastas");
 		btnAtualizarPastas.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
@@ -651,9 +702,9 @@ public class Gerador extends JFrame {
 				spriteAleatorio();
 			}
 		});
-		btnAleatorio.setBounds(480, 383, 140, 20);
+		btnAleatorio.setBounds(520, 383, 140, 20);
 		contentPane.add(btnAleatorio);
-		btnAtualizarPastas.setBounds(340, 383, 130, 20);
+		btnAtualizarPastas.setBounds(380, 383, 130, 20);
 		contentPane.add(btnAtualizarPastas);
 
 		JLabel lblNome = new JLabel("Nome");
@@ -661,7 +712,7 @@ public class Gerador extends JFrame {
 		contentPane.add(lblNome);
 
 		txtNomeSprite = new JTextField();
-		txtNomeSprite.setBounds(80, 383, 160, 20);
+		txtNomeSprite.setBounds(80, 383, 200, 20);
 		contentPane.add(txtNomeSprite);
 		txtNomeSprite.setColumns(10);
 
@@ -671,27 +722,42 @@ public class Gerador extends JFrame {
 				salvarSprite();
 			}
 		});
-		btnSalvar.setBounds(250, 383, 80, 20);
+		btnSalvar.setBounds(290, 383, 80, 20);
 		contentPane.add(btnSalvar);
 	}
-	
+
 	ItemListener itemListener = new ItemListener() {
 		public void itemStateChanged(ItemEvent e) {
 			if (deveAtualizar) atualizaSprite();
 		}
 	};
-	
+
 	ChangeListener changeListener = new ChangeListener() {
 		public void stateChanged(ChangeEvent e) {
-			if (deveAtualizar) atualizaSprite();
+			if (deveAtualizar) {
+				atualizaSprite();
+			}
 		}
 	};
 
 	//Atualiza o sprite com as partes selecionadas
 	private void atualizaSprite() {
+		if (!rgba) {
+			elmo.atualizaCXM();
+			cabelo.atualizaCXM();
+			olhos.atualizaCXM();
+			face.atualizaCXM();
+			camisaA.atualizaCXM();
+			camisaB.atualizaCXM();
+			maos.atualizaCXM();
+			calcaA.atualizaCXM();
+			calcaB.atualizaCXM();
+			costas.atualizaCXM();
+			pes.atualizaCXM();
+		}
 		int[][] imagemCostas;
 		try {
-			imagemCostas = arquivo.selecionarImagem(pastas.costas, costas);
+			imagemCostas = arquivo.selecionarImagem(pastas.costas, costas, rgba);
 		} catch (TamanhoErradoException e) {
 			imagemCostas = e.tratar(imagem.gerarTransparencia());
 		}
@@ -715,12 +781,12 @@ public class Gerador extends JFrame {
 	//Sobrepoe a imagem
 	private int[][] sobreporImagemArquivo(int[][] base, File[] array, ParteSprite parte) {
 		try {
-			return imagem.sobreporImagem(arquivo.selecionarImagem(array, parte), base);
+			return imagem.sobreporImagem(arquivo.selecionarImagem(array, parte, rgba), base);
 		} catch (TamanhoErradoException e) {
 			return e.tratar(base);
 		}
 	}
-	
+
 	private void atualizaPastas() {
 		pastas = new Pastas(pastaArquivos);
 		atualizaCmb(corpo, pastas.corpos);
@@ -737,7 +803,7 @@ public class Gerador extends JFrame {
 		atualizaCmb(pes, pastas.pes);
 		JOptionPane.showMessageDialog(null, "Pastas atualizadas");
 	}
-	
+
 	void atualizaCmb(ParteSprite parte, File[] arq) {
 		JComboBox<String> novo = new JComboBox<String>(Arquivo.nomesArquivos(arq));
 		novo.addItemListener(itemListener);
@@ -766,7 +832,7 @@ public class Gerador extends JFrame {
 		atualizaSprite();
 		deveAtualizar = true;
 	}
-	
+
 	private void corParteAleatoria(ParteSprite parte) {
 		deveAtualizar = false;
 		parte.red.setValue(random.nextInt(256));
@@ -775,7 +841,7 @@ public class Gerador extends JFrame {
 		atualizaSprite();
 		deveAtualizar = true;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	private void selecaoItemAleatorio(JComboBox cmb) {
 		cmb.setSelectedIndex(random.nextInt(cmb.getItemCount()));
