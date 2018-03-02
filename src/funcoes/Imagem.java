@@ -3,36 +3,17 @@ package funcoes;
 import java.awt.image.BufferedImage;
 
 import classes.CorARGB;
+import classes.Dimensoes;
 
 public class Imagem {
-	public final short LARGURA;
-	public final short ALTURA;
 	
-	public Imagem(short largura, short altura) {
-		this.LARGURA = largura;
-		this.ALTURA = altura;
-	}
-	
-	protected int[][] bufferParaMatriz(BufferedImage imagem, CorARGB cor) {
-		int[] pixels = imagem.getRGB(0, 0, LARGURA, ALTURA, null, 0, LARGURA);	//Transformação da imagem em array de pixels
-		return arrayParaMatriz(pixels, cor);
-	}
-	
-	private int[][] arrayParaMatriz(int[] array, CorARGB cor) {
-		int[][] matriz = new int[LARGURA][ALTURA];
-		for (int coluna = 0; coluna < LARGURA; coluna++) {
-			for (int linha = 0; linha < ALTURA; linha++) {
-				matriz[coluna][linha] = array[LARGURA * linha + coluna];
-				if (CorARGB.alfa(matriz[coluna][linha]) > 0) {
-					matriz[coluna][linha] = cor.alfa * 16777216 + (Integer.remainderUnsigned(matriz[coluna][linha], 16777216));
-					matriz[coluna][linha] = filtrarCor(matriz[coluna][linha], cor);
-				} else matriz[coluna][linha] = 0;
-			}
-		}
-		return matriz;
-	}
-	
-	private int filtrarCor(int cor, CorARGB filtro) {
+	/**
+	 * Filtra uma cor em escala de cinza com uma cor determinada
+	 * @param cor A cor que será filtrada
+	 * @param filtro A cor que será usada como filtro
+	 * @return A cor filtrada
+	 */
+	public static int filtrarCor(int cor, CorARGB filtro) {
 		CorARGB original = new CorARGB(cor);
 		if (original.red == original.green && original.green == original.blue) {
 			original.filtrar(filtro);
@@ -40,57 +21,62 @@ public class Imagem {
 		} else return cor;
 	}
 	
-	public BufferedImage matrizParaBuffer(int[][] matriz) {
+	/**
+	 * Converte uma matriz em um buffer de imagem
+	 * @param matriz A matriz da imagem
+	 * @return O buffer gerado
+	 */
+	public static BufferedImage matrizParaBuffer(int[][] matriz) {
 		//TYPE_INT_ARGB: Gera a imagem com um alpha (opacidade) e cores RGB
-		BufferedImage imagem = new BufferedImage(LARGURA, ALTURA, BufferedImage.TYPE_INT_ARGB);
-		imagem.setRGB(0, 0, LARGURA, ALTURA, matrizParaArray(matriz), 0, LARGURA);
+		BufferedImage imagem = new BufferedImage(Dimensoes.LARGURA, Dimensoes.ALTURA, BufferedImage.TYPE_INT_ARGB);
+		imagem.setRGB(0, 0, Dimensoes.LARGURA, Dimensoes.ALTURA, matrizParaArray(matriz), 0, Dimensoes.LARGURA);
 		return imagem;
 	}
 	
-	private int[] matrizParaArray(int[][] matriz) {
-		int[] array = new int[LARGURA * ALTURA];
-		for (int col = 0; col < LARGURA; col++) {
-			for (int lin = 0; lin < ALTURA; lin++) {
-				array[LARGURA * lin + col] = matriz[col][lin];
+	private static int[] matrizParaArray(int[][] matriz) {
+		int[] array = new int[Dimensoes.LARGURA * Dimensoes.ALTURA];
+		for (int col = 0; col < Dimensoes.LARGURA; col++) {
+			for (int lin = 0; lin < Dimensoes.ALTURA; lin++) {
+				array[Dimensoes.LARGURA * lin + col] = matriz[col][lin];
 			}
 		}
 		return array;
 	}
 	
-	public int[][] sobreporImagem(int[][] acima, int[][] abaixo) {
-		int[][] saida = new int[LARGURA][ALTURA];
-		for (int coluna = 0; coluna < LARGURA; coluna++) {
-			for (int linha = 0; linha < ALTURA; linha++) {
+	public static int[][] sobreporImagem(int[][] acima, int[][] abaixo) {
+		int[][] saida = new int[Dimensoes.LARGURA][Dimensoes.ALTURA];
+		for (int coluna = 0; coluna < Dimensoes.LARGURA; coluna++) {
+			for (int linha = 0; linha < Dimensoes.ALTURA; linha++) {
 				saida[coluna][linha] = CorARGB.sobreporCor(acima[coluna][linha], abaixo[coluna][linha]);
 			}
 		}
 		return saida;
 	}
 	
-	public int[][] gerarTransparencia() {
-		int[][] saida = new int[LARGURA][ALTURA];
-		for (int i = 0; i < LARGURA; i++) {
-			for (int j = 0; j < ALTURA; j++) {
+	public static int[][] gerarTransparencia() {
+		int[][] saida = new int[Dimensoes.LARGURA][Dimensoes.ALTURA];
+		for (int i = 0; i < Dimensoes.LARGURA; i++) {
+			for (int j = 0; j < Dimensoes.ALTURA; j++) {
 				saida[i][j] = 0;
 			}
 		}
 		return saida;
 	}
 
-	public int[][] capaAtras(int[][] entrada) {
-		int[][] saida = new int[LARGURA][ALTURA];
-		for (int i = 0; i < LARGURA; i++) {
-			for (int j = 0; j < ALTURA; j++) {
+	public static int[][] capaAtras(int[][] entrada) {
+		int[][] saida = new int[Dimensoes.LARGURA][Dimensoes.ALTURA];
+		for (int i = 0; i < Dimensoes.LARGURA; i++) {
+			for (int j = 0; j < Dimensoes.ALTURA; j++) {
 				saida[i][j] = (j < 96) ? entrada[i][j] : 0;
 			}
 		}
 		return saida;
 	}
 	
-	public int[][] capaFrente(int[][] entrada) {
-		int[][] saida = new int[LARGURA][ALTURA];
-		for (int i = 0; i < LARGURA; i++) {
-			for (int j = 0; j < ALTURA; j++) {
+	public static int[][] capaFrente(int[][] entrada) {
+		int[][] saida = new int[Dimensoes.LARGURA][Dimensoes.ALTURA];
+		for (int i = 0; i < Dimensoes.LARGURA; i++) {
+			for (int j = 0; j < Dimensoes.ALTURA; j++) {
 				saida[i][j] = (j >= 96) ? entrada[i][j] : 0;
 			}
 		}

@@ -5,7 +5,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 public class ParteSprite {
-	private String nome;
+	public String nome;
 	public JComboBox<String> cmb;
 	public JSpinner red;
 	public JSpinner green;
@@ -27,21 +27,6 @@ public class ParteSprite {
 		return (x >= 0) ? x : -x;
 	}
 	
-	/*private int gerarC() {
-		int s = (int)green.getValue(), l = (int)blue.getValue();
-		return (I_MAX - (int) abs(2*l - I_MAX)) * s;
-	}
-	
-	private int gerarX(int c) {
-		int h = (int)red.getValue();
-		return (int) (c * (1 - abs(((double)h / 60) % 2 - 1)));
-	}
-	
-	private int gerarM(int c) {
-		int l = (int)blue.getValue();
-		return l * I_MAX - c/2;
-	}*/
-	
 	public void atualizaCXM() {
 		int h = (int)red.getValue(), s = (int)green.getValue(), l = (int)blue.getValue();
 		c = (I_MAX - (int) abs(2*l - I_MAX)) * s;
@@ -54,9 +39,6 @@ public class ParteSprite {
 		if (rgba) return (int)red.getValue();
 		else {
 			int h = (int)red.getValue();
-			/*int c = gerarC();	//Mult por i_max^2
-			int x = gerarX(c);	//Mult por i_max^2
-			int m = gerarM(c);	//Mult por i_max^2*/
 			if (h < 60) return (c + m)/I_MAX;
 			else if (h < 120) return (x + m)/I_MAX;
 			else if (h < 240) return m/I_MAX;
@@ -70,9 +52,6 @@ public class ParteSprite {
 		if (rgba) return (int)green.getValue();
 		else {
 			int h = (int)red.getValue();
-			/*int c = gerarC();	//Mult por i_max^2
-			int x = gerarX(c);	//Mult por i_max^2
-			int m = gerarM(c);	//Mult por i_max^2*/
 			if (h < 60) return (x + m)/I_MAX;
 			else if (h < 180) return (c + m)/I_MAX;
 			else if (h < 240) return (x + m)/I_MAX;
@@ -85,9 +64,6 @@ public class ParteSprite {
 		if (rgba) return (int)blue.getValue();
 		else {
 			int h = (int)red.getValue();
-			/*int c = gerarC();	//Mult por i_max^2
-			int x = gerarX(c);	//Mult por i_max^2
-			int m = gerarM(c);	//Mult por i_max^2*/
 			if (h < 120) return m/I_MAX;
 			else if (h < 180) return (x + m)/I_MAX;
 			else if (h < 300) return (c + m)/I_MAX;
