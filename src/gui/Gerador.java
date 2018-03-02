@@ -642,15 +642,15 @@ public class Gerador extends JFrame {
 			costas.atualizaCXM();
 			pes.atualizaCXM();
 		}
-		int[][] sprite, imgCostas;
+		int[][] sprite;
 		try {
-			imgCostas = Imagem.capaAtras(Leitura.selecionarImagem(pastas.costas, costas, rgba));
+			sprite = Imagem.capaAtras(Leitura.selecionarImagem(pastas.costas, costas, rgba));
 		} catch (TamanhoErradoException e) {
-			imgCostas = e.tratar(Imagem.gerarTransparencia());
+			sprite = Imagem.gerarTransparencia();
 		}
 		System.out.println("Tempos:");
 		long tempo = System.nanoTime();
-		sprite = sobreporImagemArquivo(imgCostas, pastas.corpos, corpo);
+		sprite = sobreporImagemArquivo(sprite, pastas.corpos, corpo);
 		System.out.println("Sobrepor corpo: " + (System.nanoTime()-tempo));
 		tempo = System.nanoTime();
 		sprite = sobreporImagemArquivo(sprite, pastas.olhos, olhos);
@@ -676,9 +676,13 @@ public class Gerador extends JFrame {
 		tempo = System.nanoTime();
 		sprite = sobreporImagemArquivo(sprite, pastas.faces, face);
 		System.out.println("Sobrepor face: " + (System.nanoTime()-tempo));
+		
 		tempo = System.nanoTime();
-		sprite = Imagem.sobreporImagem(Imagem.capaFrente(imgCostas), sprite);
+		try {
+			sprite = Imagem.sobreporImagem(Imagem.capaFrente(Leitura.selecionarImagem(pastas.costas, costas, rgba)), sprite);
+		} catch (TamanhoErradoException e) {}
 		System.out.println("Sobrepor costas: " + (System.nanoTime()-tempo));
+		
 		tempo = System.nanoTime();
 		sprite = sobreporImagemArquivo(sprite, pastas.cabelos, cabelo);
 		System.out.println("Sobrepor cabelo: " + (System.nanoTime()-tempo));
