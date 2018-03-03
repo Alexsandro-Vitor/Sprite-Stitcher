@@ -72,8 +72,6 @@ public class Gerador extends JFrame {
 		this.sprite = sprite;
 		this.pastaArquivos = pastaArquivos;
 		this.pastas = new Pastas(pastaArquivos);
-		Dimensoes.LARGURA = (short)(sprite.label.getWidth() / 2);
-		Dimensoes.ALTURA = (short)(sprite.label.getHeight() / 2);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(50, 50, 676, 443);
 		setResizable(false);

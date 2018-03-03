@@ -64,10 +64,8 @@ public class Imagem {
 	}
 
 	public static int[][] capaAtras(int[][] entrada) {
-		//int[][] saida = new int[Dimensoes.LARGURA][Dimensoes.ALTURA];
-		int alturaCapa = (Dimensoes.ALTURA * 3) >> 2;
 		for (int i = 0; i < Dimensoes.LARGURA; i++) {
-			for (int j = alturaCapa; j < Dimensoes.ALTURA; j++) {
+			for (int j = Dimensoes.ALTURA_CAPA; j < Dimensoes.ALTURA; j++) {
 				entrada[i][j] = 0;
 			}
 		}
@@ -75,11 +73,8 @@ public class Imagem {
 	}
 	
 	public static int[][] capaFrente(int[][] entrada) {
-		//int[][] saida = new int[Dimensoes.LARGURA][Dimensoes.ALTURA];
-		int alturaCapa = (Dimensoes.ALTURA * 3) >> 2;
-		System.out.println("alturaCapa = "+alturaCapa);
 		for (int i = 0; i < Dimensoes.LARGURA; i++) {
-			for (int j = 0; j < alturaCapa; j++) {
+			for (int j = 0; j < Dimensoes.ALTURA_CAPA; j++) {
 				entrada[i][j] = 0;
 			}
 		}

@@ -14,6 +14,9 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.event.ChangeListener;
+
+import classes.Dimensoes;
+
 import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -143,7 +146,10 @@ public class Main extends JFrame {
 	}
 	
 	private void continuar() {
-		Sprite sprite = new Sprite((int)spinLargura.getValue() * 2, (int)spinAltura.getValue() * 2);
+		Dimensoes.LARGURA = (short)(int)spinLargura.getValue();
+		Dimensoes.ALTURA = (short)(int)spinAltura.getValue();
+		Dimensoes.ALTURA_CAPA = (short)((Dimensoes.ALTURA * 3) >> 2);
+		Sprite sprite = new Sprite();
 		sprite.setVisible(true);
 		Gerador tela = new Gerador(sprite, txtPasta.getText());
 		tela.setVisible(true);
