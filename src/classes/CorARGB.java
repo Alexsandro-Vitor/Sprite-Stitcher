@@ -18,19 +18,19 @@ public class CorARGB {
 	}
 	
 	public static int alfa(int argb) {
-		return Integer.divideUnsigned(argb, 16777216);
+		return argb >>> 24;
 	}
 	
 	public static int red(int argb) {
-		return Integer.remainderUnsigned(Integer.divideUnsigned(argb, 65536), 256);
+		return (argb << 8) >>> 24;
 	}
 	
 	public static int green(int argb) {
-		return Integer.remainderUnsigned(Integer.divideUnsigned(argb, 256), 256);
+		return (argb << 16) >>> 24;
 	}
 	
 	public static int blue(int argb) {
-		return Integer.remainderUnsigned(argb, 256);
+		return (argb << 24) >>> 24;
 	}
 	
 	public void filtrar(CorARGB original) {
@@ -40,19 +40,21 @@ public class CorARGB {
 	}
 	
 	public int formarCor() {
-		return ((alfa * 256 + red) * 256 + green) * 256 + blue;
+		return (((alfa << 8) + red << 8) + green << 8) + blue;
 	}
 	
 	public static int sobreporCor(int acima, int abaixo) {
 		CorARGB novaCor = new CorARGB(0);
 		novaCor.alfa = 255 - Integer.divideUnsigned((255 - alfa(acima)) * (255 - alfa(abaixo)), 255);
-		novaCor.red = media(alfa(acima), red(acima), red(abaixo));
-		novaCor.green = media(alfa(acima), green(acima), green(abaixo));
-		novaCor.blue = media(alfa(acima), blue(acima), blue(abaixo));
+		int pesoB = (255 - alfa(acima)) * alfa(abaixo) / 255;
+		novaCor.red = media(alfa(acima), red(acima), pesoB, red(abaixo));
+		novaCor.green = media(alfa(acima), green(acima), pesoB, green(abaixo));
+		novaCor.blue = media(alfa(acima), blue(acima), pesoB, blue(abaixo));
 		return novaCor.formarCor();
 	}
 	
-	private static int media(int pesoA, int valorA, int valorB) {
-		return Integer.divideUnsigned((pesoA * valorA + (255 - pesoA) * valorB), 255);
+	private static int media(int pesoA, int valorA, int pesoB, int valorB) {
+		if (pesoA == 0) return valorB;
+		return Integer.divideUnsigned(pesoA * valorA + pesoB * valorB, pesoA + pesoB);
 	}
 }

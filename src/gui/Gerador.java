@@ -30,6 +30,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeListener;
 
+import classes.CorARGB;
 import classes.Dimensoes;
 import classes.ParteSprite;
 import classes.Pastas;
@@ -687,7 +688,6 @@ public class Gerador extends JFrame {
 		tempo = System.nanoTime();
 		sprite = sobreporImagemArquivo(sprite, pastas.elmos, elmo);
 		System.out.println("Sobrepor elmo: " + (System.nanoTime()-tempo));
-		tempo = System.nanoTime();
 		buffer = Imagem.matrizParaBuffer(sprite);
 		this.sprite.label.setIcon(new ImageIcon(buffer.getScaledInstance(2 * Dimensoes.LARGURA, 2 * Dimensoes.ALTURA, Image.SCALE_AREA_AVERAGING)));
 	}
