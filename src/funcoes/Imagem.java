@@ -6,6 +6,8 @@ import classes.CorARGB;
 import classes.Dimensoes;
 
 public class Imagem {
+	private static int[][] TRANSPARENCIA;
+	
 	
 	/**
 	 * Filtra uma cor em escala de cinza com uma cor determinada
@@ -54,13 +56,8 @@ public class Imagem {
 	}
 	
 	public static int[][] gerarTransparencia() {
-		int[][] saida = new int[Dimensoes.LARGURA][Dimensoes.ALTURA];
-		for (int i = 0; i < Dimensoes.LARGURA; i++) {
-			for (int j = 0; j < Dimensoes.ALTURA; j++) {
-				saida[i][j] = 0;
-			}
-		}
-		return saida;
+		if (TRANSPARENCIA == null) TRANSPARENCIA = new int[Dimensoes.LARGURA][Dimensoes.ALTURA];
+		return TRANSPARENCIA;
 	}
 
 	public static int[][] capaAtras(int[][] entrada) {

@@ -628,66 +628,75 @@ public class Gerador extends JFrame {
 
 	//Atualiza o sprite com as partes selecionadas
 	private void atualizaSprite() {
-		if (!rgba) {
-			elmo.atualizaCXM();
-			cabelo.atualizaCXM();
-			olhos.atualizaCXM();
-			face.atualizaCXM();
-			camisaA.atualizaCXM();
-			camisaB.atualizaCXM();
-			maos.atualizaCXM();
-			calcaA.atualizaCXM();
-			calcaB.atualizaCXM();
-			costas.atualizaCXM();
-			pes.atualizaCXM();
-		}
 		int[][] sprite;
+		costas.atualizaCor(rgba);
 		try {
-			sprite = Imagem.capaAtras(Leitura.selecionarImagem(pastas.costas, costas, rgba));
+			sprite = Imagem.capaAtras(Leitura.selecionarImagem(pastas.costas, costas));
 		} catch (TamanhoErradoException e) {
 			sprite = Imagem.gerarTransparencia();
 		}
 		System.out.println("Tempos:");
 		long tempo = System.nanoTime();
+		corpo.atualizaCor(rgba);
 		sprite = sobreporImagemArquivo(sprite, pastas.corpos, corpo);
 		System.out.println("Sobrepor corpo: " + (System.nanoTime()-tempo));
+		
 		tempo = System.nanoTime();
+		olhos.atualizaCor(rgba);
 		sprite = sobreporImagemArquivo(sprite, pastas.olhos, olhos);
 		System.out.println("Sobrepor olhos: " + (System.nanoTime()-tempo));
+		
 		tempo = System.nanoTime();
+		calcaB.atualizaCor(rgba);
 		sprite = sobreporImagemArquivo(sprite, pastas.calcas, calcaB);
 		System.out.println("Sobrepor calcasB: " + (System.nanoTime()-tempo));
+		
 		tempo = System.nanoTime();
+		camisaB.atualizaCor(rgba);
 		sprite = sobreporImagemArquivo(sprite, pastas.camisas, camisaB);
 		System.out.println("Sobrepor camisaB: " + (System.nanoTime()-tempo));
+		
 		tempo = System.nanoTime();
+		maos.atualizaCor(rgba);
 		sprite = sobreporImagemArquivo(sprite, pastas.maos, maos);
 		System.out.println("Sobrepor maos: " + (System.nanoTime()-tempo));
+		
 		tempo = System.nanoTime();
+		pes.atualizaCor(rgba);
 		sprite = sobreporImagemArquivo(sprite, pastas.pes, pes);
 		System.out.println("Sobrepor pes: " + (System.nanoTime()-tempo));
+		
 		tempo = System.nanoTime();
+		calcaA.atualizaCor(rgba);
 		sprite = sobreporImagemArquivo(sprite, pastas.calcas, calcaA);
 		System.out.println("Sobrepor calcaA: " + (System.nanoTime()-tempo));
+		
 		tempo = System.nanoTime();
+		camisaA.atualizaCor(rgba);
 		sprite = sobreporImagemArquivo(sprite, pastas.camisas, camisaA);
 		System.out.println("Sobrepor camisaA: " + (System.nanoTime()-tempo));
+		
 		tempo = System.nanoTime();
+		face.atualizaCor(rgba);
 		sprite = sobreporImagemArquivo(sprite, pastas.faces, face);
 		System.out.println("Sobrepor face: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
 		try {
-			sprite = Imagem.sobreporImagem(Imagem.capaFrente(Leitura.selecionarImagem(pastas.costas, costas, rgba)), sprite);
+			sprite = Imagem.sobreporImagem(Imagem.capaFrente(Leitura.selecionarImagem(pastas.costas, costas)), sprite);
 		} catch (TamanhoErradoException e) {}
 		System.out.println("Sobrepor costas: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
+		cabelo.atualizaCor(rgba);
 		sprite = sobreporImagemArquivo(sprite, pastas.cabelos, cabelo);
 		System.out.println("Sobrepor cabelo: " + (System.nanoTime()-tempo));
+		
 		tempo = System.nanoTime();
+		elmo.atualizaCor(rgba);
 		sprite = sobreporImagemArquivo(sprite, pastas.elmos, elmo);
 		System.out.println("Sobrepor elmo: " + (System.nanoTime()-tempo));
+		
 		buffer = Imagem.matrizParaBuffer(sprite);
 		this.sprite.label.setIcon(new ImageIcon(buffer.getScaledInstance(2 * Dimensoes.LARGURA, 2 * Dimensoes.ALTURA, Image.SCALE_AREA_AVERAGING)));
 	}
@@ -696,7 +705,8 @@ public class Gerador extends JFrame {
 	private int[][] sobreporImagemArquivo(int[][] base, File[] array, ParteSprite parte) {
 		if (parte.cmb.getSelectedIndex() == 0) return base;
 		try {
-			return Imagem.sobreporImagem(Leitura.selecionarImagem(array, parte, rgba), base);
+			int[][] imagem = Leitura.selecionarImagem(array, parte);
+			return Imagem.sobreporImagem(imagem, base);
 		} catch (TamanhoErradoException e) {
 			return e.tratar(base);
 		}

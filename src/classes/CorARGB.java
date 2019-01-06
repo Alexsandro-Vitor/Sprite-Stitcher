@@ -10,11 +10,11 @@ public class CorARGB {
 		this.blue = blue(cor);
 	}
 	
-	public CorARGB(ParteSprite parte, boolean rgba) {
+	public CorARGB(ParteSprite parte) {
 		alfa = parte.getAlfa();
-		red = parte.getRed(rgba);
-		green = parte.getGreen(rgba);
-		blue = parte.getBlue(rgba);
+		red = parte.getRed();
+		green = parte.getGreen();
+		blue = parte.getBlue();
 	}
 	
 	public static int alfa(int argb) {

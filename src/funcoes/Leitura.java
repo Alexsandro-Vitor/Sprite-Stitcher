@@ -24,10 +24,10 @@ public class Leitura {
 	}
 	
 	//Pega a imagem selecionada pelo comboBox
-	public static int[][] selecionarImagem(File[] array, ParteSprite parte, boolean rgba) throws TamanhoErradoException {
+	public static int[][] selecionarImagem(File[] array, ParteSprite parte) throws TamanhoErradoException {
 		int[][] matriz;
 		try {
-			matriz = lerImagem(array[parte.cmb.getSelectedIndex() - 1], new CorARGB(parte, rgba));
+			matriz = lerImagem(array[parte.cmb.getSelectedIndex() - 1], new CorARGB(parte));
 		} catch (ArrayIndexOutOfBoundsException e) {
 			matriz = Imagem.gerarTransparencia();
 		} catch (IOException e) {
