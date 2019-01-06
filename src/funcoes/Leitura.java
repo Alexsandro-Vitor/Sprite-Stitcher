@@ -27,7 +27,7 @@ public class Leitura {
 	public static int[][] selecionarImagem(File[] array, ParteSprite parte) throws TamanhoErradoException {
 		int[][] matriz;
 		try {
-			matriz = lerImagem(array[parte.cmb.getSelectedIndex() - 1], new CorARGB(parte));
+			matriz = lerImagem(array[parte.cmb.getSelectedIndex() - 1], parte.getCor());
 		} catch (ArrayIndexOutOfBoundsException e) {
 			matriz = Imagem.gerarTransparencia();
 		} catch (IOException e) {
@@ -53,11 +53,9 @@ public class Leitura {
 		int[][] matriz = new int[Dimensoes.LARGURA][Dimensoes.ALTURA];
 		for (int coluna = 0; coluna < Dimensoes.LARGURA; coluna++) {
 			for (int linha = 0; linha < Dimensoes.ALTURA; linha++) {
-				matriz[coluna][linha] = array[Dimensoes.LARGURA * linha + coluna];
-				if (CorARGB.alfa(matriz[coluna][linha]) > 0) {
-					matriz[coluna][linha] = cor.alfa * 16777216 + (Integer.remainderUnsigned(matriz[coluna][linha], 16777216));
-					matriz[coluna][linha] = Imagem.filtrarCor(matriz[coluna][linha], cor);
-				} else matriz[coluna][linha] = 0;
+				CorARGB original = new CorARGB((cor.getAlpha() << 24) + (array[Dimensoes.LARGURA * linha + coluna] & 0xFFFFFF));
+				if ((array[Dimensoes.LARGURA * linha + coluna] & 0xFF000000) != 0)
+					matriz[coluna][linha] = Imagem.filtrarCor(original, cor);
 			}
 		}
 		return matriz;

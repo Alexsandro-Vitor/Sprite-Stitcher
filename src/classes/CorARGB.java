@@ -1,58 +1,42 @@
 package classes;
 
-public class CorARGB {
-	public int alfa, red, green, blue;
-	
+import java.awt.Color;
+
+public class CorARGB extends Color {
+
+	public CorARGB(int r, int g, int b, int a) {
+		super(r, g, b, a);
+	}
+
 	public CorARGB(int cor) {
-		this.alfa = alfa(cor);
-		this.red = red(cor);
-		this.green = green(cor);
-		this.blue = blue(cor);
+		super(cor, true);
 	}
-	
-	public CorARGB(ParteSprite parte) {
-		alfa = parte.getAlfa();
-		red = parte.getRed();
-		green = parte.getGreen();
-		blue = parte.getBlue();
+
+	public boolean isGrayscale() {
+		return (this.getRed() == this.getGreen()) && (this.getRed() == this.getBlue());
 	}
-	
-	public static int alfa(int argb) {
-		return argb >>> 24;
+
+	public CorARGB filtrar(CorARGB original) {
+		return new CorARGB(
+				Integer.divideUnsigned(this.getRed() * original.getRed(), 255),
+				Integer.divideUnsigned(this.getGreen() * original.getGreen(), 255),
+				Integer.divideUnsigned(this.getBlue() * original.getBlue(), 255),
+				this.getAlpha()
+				);
 	}
-	
-	public static int red(int argb) {
-		return (argb << 8) >>> 24;
-	}
-	
-	public static int green(int argb) {
-		return (argb << 16) >>> 24;
-	}
-	
-	public static int blue(int argb) {
-		return (argb << 24) >>> 24;
-	}
-	
-	public void filtrar(CorARGB original) {
-		this.red = Integer.divideUnsigned(this.red * original.red, 255);
-		this.green = Integer.divideUnsigned(this.green * original.green, 255);
-		this.blue = Integer.divideUnsigned(this.blue * original.blue, 255);
-	}
-	
-	public int formarCor() {
-		return (((alfa << 8) + red << 8) + green << 8) + blue;
-	}
-	
+
 	public static int sobreporCor(int acima, int abaixo) {
-		CorARGB novaCor = new CorARGB(0);
-		novaCor.alfa = 255 - Integer.divideUnsigned((255 - alfa(acima)) * (255 - alfa(abaixo)), 255);
-		int pesoB = (255 - alfa(acima)) * alfa(abaixo) / 255;
-		novaCor.red = media(alfa(acima), red(acima), pesoB, red(abaixo));
-		novaCor.green = media(alfa(acima), green(acima), pesoB, green(abaixo));
-		novaCor.blue = media(alfa(acima), blue(acima), pesoB, blue(abaixo));
-		return novaCor.formarCor();
+		CorARGB corAcima = new CorARGB(acima);
+		CorARGB corAbaixo = new CorARGB(abaixo);
+		int pesoB = (255 - corAcima.getAlpha()) * corAbaixo.getAlpha() / 255;
+		return new CorARGB(
+				media(corAcima.getAlpha(), corAcima.getRed(), pesoB, corAbaixo.getRed()),
+				media(corAcima.getAlpha(), corAcima.getGreen(), pesoB, corAbaixo.getGreen()),
+				media(corAcima.getAlpha(), corAcima.getBlue(), pesoB, corAbaixo.getBlue()),
+				255 - Integer.divideUnsigned((255 - corAcima.getAlpha()) * (255 - corAbaixo.getAlpha()), 255)
+				).hashCode();
 	}
-	
+
 	private static int media(int pesoA, int valorA, int pesoB, int valorB) {
 		if (pesoA == 0) return valorB;
 		return Integer.divideUnsigned(pesoA * valorA + pesoB * valorB, pesoA + pesoB);

@@ -15,12 +15,10 @@ public class Imagem {
 	 * @param filtro A cor que será usada como filtro
 	 * @return A cor filtrada
 	 */
-	public static int filtrarCor(int cor, CorARGB filtro) {
-		CorARGB original = new CorARGB(cor);
-		if (original.red == original.green && original.green == original.blue) {
-			original.filtrar(filtro);
-			return original.formarCor();
-		} else return cor;
+	public static int filtrarCor(CorARGB original, CorARGB filtro) {
+		if (original.isGrayscale()) {
+			return filtro.filtrar(original).hashCode();
+		} else return original.hashCode();
 	}
 	
 	/**

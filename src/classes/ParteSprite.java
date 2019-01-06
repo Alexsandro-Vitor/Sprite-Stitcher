@@ -13,7 +13,7 @@ public class ParteSprite {
 	public JSpinner green;
 	public JSpinner blue;
 	public JSpinner alfa;
-	private Color cor;
+	private CorARGB cor;
 
 	public ParteSprite(String nome, JComboBox<String> cmb, JSpinner red, JSpinner green, JSpinner blue, JSpinner alfa) {
 		this.nome = nome;
@@ -22,7 +22,7 @@ public class ParteSprite {
 		this.green = green;
 		this.blue = blue;
 		this.alfa = alfa;
-		this.cor = new Color(
+		this.cor = new CorARGB(
 			red != null ? (int)red.getValue() : 255,
 			green != null ? (int)green.getValue() : 255,
 			blue != null ? (int)blue.getValue() : 255,
@@ -50,6 +50,10 @@ public class ParteSprite {
 		return this.cor.getAlpha();
 	}
 	
+	public CorARGB getCor() {
+		return this.cor;
+	}
+	
 	float[] getHSB() {
 		return Color.RGBtoHSB(cor.getRed(), cor.getGreen(), cor.getBlue(), null);
 	}
@@ -57,23 +61,20 @@ public class ParteSprite {
 	public void atualizaCor(boolean rgba) {
 		int temp;
 		if (rgba) {
-			temp = new Color(
+			this.cor = new CorARGB(
 				red != null ? (int)red.getValue() : 255,
 				green != null ? (int)green.getValue() : 255,
 				blue != null ? (int)blue.getValue() : 255,
 				alfa != null ? (int)alfa.getValue() : 255
-			).hashCode();
+			);
 		} else {
 			temp = (Color.HSBtoRGB(
 					red != null ? (float)(int)red.getValue() / 360 : 0,
 					green != null ? (float)(int)green.getValue() / 100 : 0,
 					blue != null ? (float)(int)blue.getValue() / 100 : 1
 				) & 0x00FFFFFF) + ((alfa != null ? (int)alfa.getValue() : 255) << 24);
+			this.cor = new CorARGB(temp);
 		}
-		System.out.println(String.format("0x%08X", temp));
-		this.cor = new Color(
-			temp, true
-		);
 	}
 
 	public void setRGBA(boolean rgba) {
