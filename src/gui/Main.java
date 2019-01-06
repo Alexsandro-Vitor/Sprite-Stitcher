@@ -55,7 +55,7 @@ public class Main extends JFrame {
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public Main() {
 		frame = this;
-		setTitle("Gerador de Sprite");
+		setTitle("Sprite Generator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 390, 164);
 		setResizable(false);
@@ -192,7 +192,7 @@ public class Main extends JFrame {
 		Dimensoes.ALTURA_CAPA = (short)((Dimensoes.ALTURA * 3) >> 2);
 		Sprite sprite = new Sprite();
 		sprite.setVisible(true);
-		Gerador tela = new Gerador(sprite, txtPasta.getText());
+		Generator tela = new Generator(sprite, txtPasta.getText());
 		tela.setVisible(true);
 		frame.setVisible(false);
 	}

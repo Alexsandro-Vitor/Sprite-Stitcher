@@ -4,30 +4,30 @@ import java.io.File;
 
 public class Pastas {
 	public String nome;
-	public File[] corpos;
-	public File[] elmos;
-	public File[] cabelos;
-	public File[] olhos;
+	public File[] body;
+	public File[] helm;
+	public File[] hair;
+	public File[] eyes;
 	public File[] faces;
-	public File[] camisas;
-	public File[] maos;
-	public File[] calcas;
-	public File[] costas;
-	public File[] pes;
+	public File[] torso;
+	public File[] hands;
+	public File[] legs;
+	public File[] back;
+	public File[] shoes;
 	
 	//Cria e abre as pastas com as imagens do programa
 	public Pastas(String nome) {
 		this.nome = nome;
-		corpos = abrir("corpos");
-		elmos = abrir("elmos");
-		cabelos = abrir("cabelos");
-		olhos = abrir("olhos");
+		body = abrir("body");
+		helm = abrir("helm");
+		hair = abrir("hair");
+		eyes = abrir("eyes");
 		faces = abrir("faces");
-		camisas = abrir("camisas");
-		maos = abrir("maos");
-		calcas = abrir("calcas");
-		costas = abrir("costas");
-		pes = abrir("pes");
+		torso = abrir("torso");
+		hands = abrir("hands");
+		legs = abrir("legs");
+		back = abrir("back");
+		shoes = abrir("shoes");
 	}
 	
 	//Abre a pasta

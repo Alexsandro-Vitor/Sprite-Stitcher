@@ -83,25 +83,25 @@ public class ParteSprite {
 			int r = getRed(), g = getGreen(), b = getBlue();
 			red.setModel(new SpinnerNumberModel(0, 0, 255, 1));
 			red.setValue(r);
-			red.setToolTipText("Cor vermelha de " + nome);
+			red.setToolTipText("Red color of " + this.nome);
 			green.setModel(new SpinnerNumberModel(0, 0, 255, 1));
 			green.setValue(g);
-			green.setToolTipText("Cor verde de " + nome);
+			green.setToolTipText("Green color of " + this.nome);
 			blue.setModel(new SpinnerNumberModel(0, 0, 255, 1));
 			blue.setValue(b);
-			blue.setToolTipText("Cor azul de " + nome);
+			blue.setToolTipText("Blue color of " + this.nome);
 		} else {
 			//Conversao RGB para HSL
 			float[] hsb = getHSB();
 			red.setModel(new SpinnerNumberModel(0, 0, 360, 1));
 			red.setValue(Math.round(hsb[0] * 360));
-			red.setToolTipText("Matiz de " + nome);
+			red.setToolTipText("Hue of " + this.nome);
 			green.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 			green.setValue(Math.round(hsb[1] * 100));
-			green.setToolTipText("Saturação de " + nome);
+			green.setToolTipText("Saturation of " + this.nome);
 			blue.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 			blue.setValue(Math.round(hsb[2] * 100));
-			blue.setToolTipText("Luminância de " + nome);
+			blue.setToolTipText("Brightness of " + this.nome);
 		}
 	}
 }
