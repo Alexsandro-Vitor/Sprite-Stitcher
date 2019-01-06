@@ -594,7 +594,7 @@ public class Generator extends JFrame {
 	}
 	
 	void configParteSprite(ParteSprite parte) {
-		parte.cmb.addItemListener(itemListener);
+		parte.getCmb().addItemListener(itemListener);
 		parte.red.setToolTipText("Red color of " + parte.nome);
 		parte.red.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		parte.red.addChangeListener(changeListener);
@@ -708,7 +708,7 @@ public class Generator extends JFrame {
 
 	//Sobrepoe a imagem
 	private int[][] sobreporImagemArquivo(int[][] base, File[] array, ParteSprite parte) {
-		if (parte.cmb.getSelectedIndex() == 0) return base;
+		if (parte.getCmb().getSelectedIndex() == 0) return base;
 		try {
 			int[][] imagem = Leitura.selecionarImagem(array, parte);
 			return Imagem.sobreporImagem(imagem, base);
@@ -738,27 +738,27 @@ public class Generator extends JFrame {
 		JComboBox<String> novo = new JComboBox<String>(Leitura.nomesArquivos(arq));
 		novo.addItemListener(itemListener);
 		novo.setBackground(Color.WHITE);
-		novo.setBounds(parte.cmb.getBounds());
-		contentPane.remove(parte.cmb);
+		novo.setBounds(parte.getCmb().getBounds());
+		contentPane.remove(parte.getCmb());
 		contentPane.add(novo);
-		parte.cmb = novo;
+		parte.setCmb(novo);
 	}
 
 	//Seleciona aleatoriamente partes do sprite para criar um sprite aleatorio
 	private void spriteRandom() {
 		deveAtualizar = false;
-		selecaoItemRandom(corpo.cmb);
-		selecaoItemRandom(helm.cmb);
-		selecaoItemRandom(hair.cmb);
-		selecaoItemRandom(eyes.cmb);
-		selecaoItemRandom(face.cmb);
-		selecaoItemRandom(torsoA.cmb);
-		selecaoItemRandom(torsoB.cmb);
-		selecaoItemRandom(hands.cmb);
-		selecaoItemRandom(legsA.cmb);
-		selecaoItemRandom(legsB.cmb);
-		selecaoItemRandom(back.cmb);
-		selecaoItemRandom(shoes.cmb);
+		selecaoItemRandom(corpo.getCmb());
+		selecaoItemRandom(helm.getCmb());
+		selecaoItemRandom(hair.getCmb());
+		selecaoItemRandom(eyes.getCmb());
+		selecaoItemRandom(face.getCmb());
+		selecaoItemRandom(torsoA.getCmb());
+		selecaoItemRandom(torsoB.getCmb());
+		selecaoItemRandom(hands.getCmb());
+		selecaoItemRandom(legsA.getCmb());
+		selecaoItemRandom(legsB.getCmb());
+		selecaoItemRandom(back.getCmb());
+		selecaoItemRandom(shoes.getCmb());
 		atualizaSprite();
 		deveAtualizar = true;
 	}

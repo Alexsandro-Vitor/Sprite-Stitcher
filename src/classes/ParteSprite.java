@@ -8,7 +8,7 @@ import javax.swing.SpinnerNumberModel;
 
 public class ParteSprite {
 	public String nome;
-	public JComboBox<String> cmb;
+	private JComboBox<String> cmb;
 	public JSpinner red;
 	public JSpinner green;
 	public JSpinner blue;
@@ -17,7 +17,7 @@ public class ParteSprite {
 
 	public ParteSprite(String nome, JComboBox<String> cmb, JSpinner red, JSpinner green, JSpinner blue, JSpinner alfa) {
 		this.nome = nome;
-		this.cmb = cmb;
+		this.setCmb(cmb);
 		this.red = red;
 		this.green = green;
 		this.blue = blue;
@@ -28,6 +28,15 @@ public class ParteSprite {
 			blue != null ? (int)blue.getValue() : 255,
 			alfa != null ? (int)alfa.getValue() : 255
 		);
+	}
+	
+	public JComboBox<String> getCmb() {
+		return this.cmb;
+	}
+	
+	public void setCmb(JComboBox<String> cmb) {
+		this.cmb = cmb;
+		if (this.cmb.getItemAt(0).equals("[Empty]")) this.cmb.setEnabled(false);
 	}
 	
 	int getRed() {

@@ -16,7 +16,8 @@ public class Leitura {
 	//Pega o nome de cada arquivo de uma pasta e coloca em um array
 	public static String[] nomesArquivos(File[] array) {
 		String[] saida = new String[array.length + 1];
-		saida[0] = "[Vazio]";
+		if (array.length > 0) saida[0] = "[None]";
+		else saida[0] = "[Empty]";
 		for (int i = 1; i < saida.length; i++) {
 			saida[i] = array[i-1].getName();
 		}
@@ -27,7 +28,7 @@ public class Leitura {
 	public static int[][] selecionarImagem(File[] array, ParteSprite parte) throws TamanhoErradoException {
 		int[][] matriz;
 		try {
-			matriz = lerImagem(array[parte.cmb.getSelectedIndex() - 1], parte.getCor());
+			matriz = lerImagem(array[parte.getCmb().getSelectedIndex() - 1], parte.getCor());
 		} catch (ArrayIndexOutOfBoundsException e) {
 			matriz = Imagem.gerarTransparencia();
 		} catch (IOException e) {
