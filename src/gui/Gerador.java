@@ -30,7 +30,6 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeListener;
 
-import classes.CorARGB;
 import classes.Dimensoes;
 import classes.ParteSprite;
 import classes.Pastas;
@@ -74,11 +73,10 @@ public class Gerador extends JFrame {
 		this.pastaArquivos = pastaArquivos;
 		this.pastas = new Pastas(pastaArquivos);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(50, 50, 676, 443);
+		setBounds(100, 50, 676, 443);
 		setResizable(false);
 		setTitle("Gerador de Sprite");
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -698,7 +696,15 @@ public class Gerador extends JFrame {
 		System.out.println("Sobrepor elmo: " + (System.nanoTime()-tempo));
 		
 		buffer = Imagem.matrizParaBuffer(sprite);
-		this.sprite.label.setIcon(new ImageIcon(buffer.getScaledInstance(2 * Dimensoes.LARGURA, 2 * Dimensoes.ALTURA, Image.SCALE_AREA_AVERAGING)));
+		this.sprite.label.setIcon(
+			new ImageIcon(
+				buffer.getScaledInstance(
+					Dimensoes.ZOOM * Dimensoes.LARGURA,
+					Dimensoes.ZOOM * Dimensoes.ALTURA,
+					Image.SCALE_AREA_AVERAGING
+				)
+			)
+		);
 	}
 
 	//Sobrepoe a imagem

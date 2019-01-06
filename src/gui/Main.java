@@ -12,6 +12,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JTextField;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.event.ChangeListener;
 
@@ -21,6 +22,7 @@ import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
+import javax.swing.JRadioButton;
 
 @SuppressWarnings("serial")
 public class Main extends JFrame {
@@ -55,10 +57,9 @@ public class Main extends JFrame {
 		frame = this;
 		setTitle("Gerador de Sprite");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 296, 164);
+		setBounds(100, 100, 390, 164);
 		setResizable(false);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -74,7 +75,7 @@ public class Main extends JFrame {
 				atualizaDimensoes();
 			}
 		});
-		comboBox.setBounds(80, 11, 200, 20);
+		comboBox.setBounds(80, 11, 294, 20);
 		contentPane.add(comboBox);
 		
 		JLabel lblLargura = new JLabel("Largura");
@@ -88,11 +89,11 @@ public class Main extends JFrame {
 			}
 		});
 		spinLargura.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		spinLargura.setBounds(80, 42, 60, 20);
+		spinLargura.setBounds(80, 42, 80, 20);
 		contentPane.add(spinLargura);
 		
 		JLabel lblAltura = new JLabel("Altura");
-		lblAltura.setBounds(150, 42, 60, 20);
+		lblAltura.setBounds(224, 42, 60, 20);
 		contentPane.add(lblAltura);
 		
 		spinAltura = new JSpinner();
@@ -102,7 +103,7 @@ public class Main extends JFrame {
 			}
 		});
 		spinAltura.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		spinAltura.setBounds(220, 42, 60, 20);
+		spinAltura.setBounds(294, 42, 80, 20);
 		contentPane.add(spinAltura);
 		
 		JLabel lblPasta = new JLabel("Pasta de arquivos");
@@ -111,7 +112,7 @@ public class Main extends JFrame {
 		
 		txtPasta = new JTextField();
 		txtPasta.setText("imagens");
-		txtPasta.setBounds(10, 104, 171, 20);
+		txtPasta.setBounds(130, 73, 244, 20);
 		contentPane.add(txtPasta);
 		txtPasta.setColumns(10);
 		
@@ -121,8 +122,48 @@ public class Main extends JFrame {
 				continuar();
 			}
 		});
-		btnContinuar.setBounds(191, 104, 89, 20);
+		btnContinuar.setBounds(270, 104, 104, 20);
 		contentPane.add(btnContinuar);
+		
+		JLabel lblZoom = new JLabel("Zoom");
+		lblZoom.setBounds(10, 104, 46, 20);
+		contentPane.add(lblZoom);
+		
+		ButtonGroup zoomGroup = new ButtonGroup();
+		
+		JRadioButton rdbtn1x = new JRadioButton("1x");
+		rdbtn1x.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Dimensoes.ZOOM = 1;
+			}
+		});
+		rdbtn1x.setBounds(80, 104, 60, 20);
+		contentPane.add(rdbtn1x);
+		zoomGroup.add(rdbtn1x);
+		
+		JRadioButton rdbtn2x = new JRadioButton("2x");
+		rdbtn2x.setSelected(true);
+		rdbtn2x.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Dimensoes.ZOOM = 2;
+			}
+		});
+		rdbtn2x.setBounds(142, 104, 60, 20);
+		contentPane.add(rdbtn2x);
+		zoomGroup.add(rdbtn2x);
+		
+		JRadioButton rdbtn4x = new JRadioButton("4x");
+		rdbtn4x.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Dimensoes.ZOOM = 4;
+			}
+		});
+		rdbtn4x.setBounds(204, 104, 60, 20);
+		contentPane.add(rdbtn4x);
+		zoomGroup.add(rdbtn4x);
 	}
 	
 	private void atualizaDimensoes() {
