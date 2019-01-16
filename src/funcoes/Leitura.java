@@ -28,7 +28,8 @@ public class Leitura {
 	public static int[][] selecionarImagem(File[] array, ParteSprite parte) throws TamanhoErradoException {
 		int[][] matriz;
 		try {
-			matriz = lerImagem(array[parte.getCmb().getSelectedIndex() - 1], parte.getCor());
+			matriz = lerImagem(array[parte.getCmb().getSelectedIndex() - 1]);
+			colorImageFilter(matriz, parte.getCor());
 		} catch (ArrayIndexOutOfBoundsException e) {
 			matriz = Imagem.gerarTransparencia();
 		} catch (IOException e) {
@@ -38,27 +39,30 @@ public class Leitura {
 		return matriz;
 	}
 
-	public static int[][] lerImagem(File arquivo, CorARGB cor) throws IOException, TamanhoErradoException {
+	public static int[][] lerImagem(File arquivo) throws IOException, TamanhoErradoException {
 		BufferedImage buffer = ImageIO.read(arquivo);	//Le o arquivo
+		
 		if (buffer.getWidth() != Dimensoes.LARGURA || buffer.getHeight() != Dimensoes.ALTURA)
 			throw new TamanhoErradoException(arquivo.getName(), Dimensoes.LARGURA, Dimensoes.ALTURA);
-		return bufferParaMatriz(buffer, cor);
+		return bufferToMatrix(buffer);
 	}
-
-	private static int[][] bufferParaMatriz(BufferedImage imagem, CorARGB cor) {
-		int[] pixels = imagem.getRGB(0, 0, Dimensoes.LARGURA, Dimensoes.ALTURA, null, 0, Dimensoes.LARGURA);	//Transformação da imagem em array de pixels
-		return arrayParaMatriz(pixels, cor);
+	
+	private static int[][] bufferToMatrix(BufferedImage image) {
+		int[][] matrix = new int[Dimensoes.LARGURA][Dimensoes.ALTURA];
+		for (int column = 0; column < Dimensoes.LARGURA; column++) {
+			image.getRGB(column, 0, 1, Dimensoes.ALTURA, matrix[column], 0, 1);	
+		}
+		return matrix;
 	}
-
-	private static int[][] arrayParaMatriz(int[] array, CorARGB cor) {
-		int[][] matriz = new int[Dimensoes.LARGURA][Dimensoes.ALTURA];
+	
+	private static void colorImageFilter(int[][] matriz, CorARGB cor) {
 		for (int coluna = 0; coluna < Dimensoes.LARGURA; coluna++) {
 			for (int linha = 0; linha < Dimensoes.ALTURA; linha++) {
-				CorARGB original = new CorARGB((cor.getAlpha() << 24) + (array[Dimensoes.LARGURA * linha + coluna] & 0xFFFFFF));
-				if ((array[Dimensoes.LARGURA * linha + coluna] & 0xFF000000) != 0)
+				if ((matriz[coluna][linha] & 0xFF000000) != 0) {
+					CorARGB original = new CorARGB((cor.getAlpha() << 24) + (matriz[coluna][linha] & 0xFFFFFF));
 					matriz[coluna][linha] = Imagem.filtrarCor(original, cor);
+				}
 			}
 		}
-		return matriz;
 	}
 }
