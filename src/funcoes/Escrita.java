@@ -23,7 +23,7 @@ public class Escrita {
 		return nome;
 	}
 
-	//Determina o nome com o qual o sprite será salvo
+	//Determina o name com o qual o sprite será salvo
 	@SuppressWarnings("resource")
 	public static String nomeSprite(Pastas pasta, String nomeImagem) {
 		pasta.criar("sprites");

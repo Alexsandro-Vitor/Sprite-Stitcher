@@ -1,5 +1,6 @@
 package funcoes;
 
+import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 
 import classes.CorARGB;
@@ -7,7 +8,6 @@ import classes.Dimensoes;
 
 public class Imagem {
 	private static int[][] TRANSPARENCIA;
-	
 	
 	/**
 	 * Filtra uma cor em escala de cinza com uma cor determinada
@@ -19,6 +19,17 @@ public class Imagem {
 		if (original.isGrayscale()) {
 			return filtro.filtrar(original).hashCode();
 		} else return original.hashCode();
+	}
+	
+	/**
+	 * Changes the hue of a color.
+	 * @param cor The color to be changed.
+	 * @param swap A value to be added to the hue.
+	 * @return The color with the new hue.
+	 */
+	public static int hueSwap(CorARGB original, float swap) {
+		float[] hsb = CorARGB.RGBtoHSB(original.getRed(), original.getGreen(), original.getBlue(), null);
+		return (original.getAlpha() << 24) + CorARGB.HSBtoRGB(hsb[0] + swap, hsb[1], hsb[2]);
 	}
 	
 	/**

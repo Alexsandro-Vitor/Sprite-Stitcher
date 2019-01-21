@@ -31,7 +31,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeListener;
 
 import classes.Dimensoes;
-import classes.ParteSprite;
+import classes.SpritePart;
 import classes.Pastas;
 import excecoes.TamanhoErradoException;
 import funcoes.*;
@@ -46,18 +46,18 @@ public class Generator extends JFrame {
 	private Pastas folders;
 	private BufferedImage buffer;
 	private static Random random = new Random();
-	private ParteSprite corpo;
-	private ParteSprite helm;
-	private ParteSprite hair;
-	private ParteSprite eyes;
-	private ParteSprite face;
-	private ParteSprite torsoA;
-	private ParteSprite torsoB;
-	private ParteSprite hands;
-	private ParteSprite legsA;
-	private ParteSprite legsB;
-	private ParteSprite back;
-	private ParteSprite shoes;
+	private SpritePart corpo;
+	private SpritePart helm;
+	private SpritePart hair;
+	private SpritePart eyes;
+	private SpritePart face;
+	private SpritePart torsoA;
+	private SpritePart torsoB;
+	private SpritePart hands;
+	private SpritePart legsA;
+	private SpritePart legsB;
+	private SpritePart back;
+	private SpritePart shoes;
 	private boolean deveAtualizar = true;
 	private boolean rgba = true;
 
@@ -72,7 +72,7 @@ public class Generator extends JFrame {
 		this.pastaArquivos = pastaArquivos;
 		this.folders = new Pastas(pastaArquivos);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 50, 676, 443);
+		setBounds(100, 50, 746, 443);
 		setResizable(false);
 		setTitle("Sprite Generator");
 		contentPane = new JPanel();
@@ -85,7 +85,7 @@ public class Generator extends JFrame {
 		contentPane.add(lblBody);
 
 		JComboBox<String> cmbBody = new JComboBox(Leitura.nomesArquivos(folders.body));
-		corpo = new ParteSprite("corpo", cmbBody, null, null, null, null);
+		corpo = new SpritePart("corpo", cmbBody, null, null, null, null, null);
 
 		cmbBody.setBackground(Color.WHITE);
 		cmbBody.addItemListener(itemListener);
@@ -112,18 +112,23 @@ public class Generator extends JFrame {
 		lblAlpha.setBounds(500, 11, 60, 20);
 		contentPane.add(lblAlpha);
 
-		JButton btnMSLA = new JButton("MSLA");
-		btnMSLA.addMouseListener(new MouseAdapter() {
+		JLabel lblHueSwap = new JLabel("Hue Swap");
+		lblHueSwap.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHueSwap.setBounds(570, 11, 60, 20);
+		contentPane.add(lblHueSwap);
+
+		JButton btnHSB = new JButton("HSB");
+		btnHSB.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				rgba = !rgba;
 				if (rgba) {
-					btnMSLA.setText("MSLA");
+					btnHSB.setText("HSB");
 					lblRed.setText("Red");
 					lblGreen.setText("Green");
 					lblBlue.setText("Blue");
 				} else {
-					btnMSLA.setText("RGBA");
+					btnHSB.setText("RGB");
 					lblRed.setText("Hue");
 					lblGreen.setText("Saturation");
 					lblBlue.setText("Bright");
@@ -144,8 +149,8 @@ public class Generator extends JFrame {
 				deveAtualizar = true;
 			}
 		});
-		btnMSLA.setBounds(570, 11, 90, 20);
-		contentPane.add(btnMSLA);
+		btnHSB.setBounds(640, 11, 90, 20);
+		contentPane.add(btnHSB);
 
 		JLabel lblHelm = new JLabel("Helm");
 		lblHelm.setBounds(10, 42, 60, 20);
@@ -156,7 +161,8 @@ public class Generator extends JFrame {
 		JSpinner spinHelmGreen = new JSpinner();
 		JSpinner spinHelmBlue = new JSpinner();
 		JSpinner spinHelmAlpha = new JSpinner();
-		helm = new ParteSprite("helm", cmbHelm, spinHelmRed, spinHelmGreen, spinHelmBlue, spinHelmAlpha);
+		JSpinner spinHelmHueSwap = new JSpinner();
+		helm = new SpritePart("helm", cmbHelm, spinHelmRed, spinHelmGreen, spinHelmBlue, spinHelmAlpha, spinHelmHueSwap);
 		configParteSprite(helm);
 		
 		cmbHelm.setBackground(Color.WHITE);
@@ -175,6 +181,9 @@ public class Generator extends JFrame {
 		spinHelmAlpha.setBounds(500, 42, 60, 20);
 		contentPane.add(spinHelmAlpha);
 
+		spinHelmHueSwap.setBounds(570, 42, 60, 20);
+		contentPane.add(spinHelmHueSwap);
+
 		JButton btnHelmRandom = new JButton("Random");
 		btnHelmRandom.addMouseListener(new MouseAdapter() {
 			@Override
@@ -182,7 +191,7 @@ public class Generator extends JFrame {
 				corParteAleatoria(helm);
 			}
 		});
-		btnHelmRandom.setBounds(570, 42, 90, 20);
+		btnHelmRandom.setBounds(640, 42, 90, 20);
 		contentPane.add(btnHelmRandom);
 
 		JLabel lblHair = new JLabel("Hair");
@@ -193,7 +202,8 @@ public class Generator extends JFrame {
 		JSpinner spinHairRed = new JSpinner();
 		JSpinner spinHairGreen = new JSpinner();
 		JSpinner spinHairBlue = new JSpinner();
-		hair = new ParteSprite("hair", cmbHair, spinHairRed, spinHairGreen, spinHairBlue, null);
+		JSpinner spinHairHueSwap = new JSpinner();
+		hair = new SpritePart("hair", cmbHair, spinHairRed, spinHairGreen, spinHairBlue, null, spinHairHueSwap);
 		configParteSprite(hair);
 		
 		cmbHair.setBackground(Color.WHITE);
@@ -201,13 +211,16 @@ public class Generator extends JFrame {
 		contentPane.add(cmbHair);
 
 		spinHairRed.setBounds(290, 73, 60, 20);
-		contentPane.add(hair.red);
+		contentPane.add(spinHairRed);
 
 		spinHairGreen.setBounds(360, 73, 60, 20);
-		contentPane.add(hair.green);
+		contentPane.add(spinHairGreen);
 
 		spinHairBlue.setBounds(430, 73, 60, 20);
-		contentPane.add(hair.blue);
+		contentPane.add(spinHairBlue);
+
+		spinHairHueSwap.setBounds(570, 73, 60, 20);
+		contentPane.add(spinHairHueSwap);
 
 		JButton btnHairRandom = new JButton("Random");
 		btnHairRandom.addMouseListener(new MouseAdapter() {
@@ -216,7 +229,7 @@ public class Generator extends JFrame {
 				corParteAleatoria(hair);
 			}
 		});
-		btnHairRandom.setBounds(570, 73, 90, 20);
+		btnHairRandom.setBounds(640, 73, 90, 20);
 		contentPane.add(btnHairRandom);
 
 		JLabel lblEyes = new JLabel("Eyes");
@@ -227,7 +240,8 @@ public class Generator extends JFrame {
 		JSpinner spinEyesRed = new JSpinner();
 		JSpinner spinEyesGreen = new JSpinner();
 		JSpinner spinEyesBlue = new JSpinner();
-		eyes = new ParteSprite("eyes", cmbEyes, spinEyesRed, spinEyesGreen, spinEyesBlue, null);
+		JSpinner spinEyesHueSwap = new JSpinner();
+		eyes = new SpritePart("eyes", cmbEyes, spinEyesRed, spinEyesGreen, spinEyesBlue, null, spinEyesHueSwap);
 		configParteSprite(eyes);
 		
 		cmbEyes.setBackground(Color.WHITE);
@@ -243,6 +257,9 @@ public class Generator extends JFrame {
 		spinEyesBlue.setBounds(430, 104, 60, 20);
 		contentPane.add(spinEyesBlue);
 
+		spinEyesHueSwap.setBounds(570, 104, 60, 20);
+		contentPane.add(spinEyesHueSwap);
+
 		JButton btnEyesRandom = new JButton("Random");
 		btnEyesRandom.addMouseListener(new MouseAdapter() {
 			@Override
@@ -250,7 +267,7 @@ public class Generator extends JFrame {
 				corParteAleatoria(eyes);
 			}
 		});
-		btnEyesRandom.setBounds(570, 104, 90, 20);
+		btnEyesRandom.setBounds(640, 104, 90, 20);
 		contentPane.add(btnEyesRandom);
 
 		JLabel lblFace = new JLabel("Face");
@@ -262,7 +279,8 @@ public class Generator extends JFrame {
 		JSpinner spinFaceGreen = new JSpinner();
 		JSpinner spinFaceBlue = new JSpinner();
 		JSpinner spinFaceAlpha = new JSpinner();
-		face = new ParteSprite("face", cmbFace, spinFaceRed, spinFaceGreen, spinFaceBlue, spinFaceAlpha);
+		JSpinner spinFaceHueSwap = new JSpinner();
+		face = new SpritePart("face", cmbFace, spinFaceRed, spinFaceGreen, spinFaceBlue, spinFaceAlpha, spinFaceHueSwap);
 		configParteSprite(face);
 		
 		cmbFace.setBackground(Color.WHITE);
@@ -281,6 +299,9 @@ public class Generator extends JFrame {
 		spinFaceAlpha.setBounds(500, 135, 60, 20);
 		contentPane.add(spinFaceAlpha);
 
+		spinFaceHueSwap.setBounds(570, 135, 60, 20);
+		contentPane.add(spinFaceHueSwap);
+
 		JButton btnFaceRandom = new JButton("Random");
 		btnFaceRandom.addMouseListener(new MouseAdapter() {
 			@Override
@@ -288,7 +309,7 @@ public class Generator extends JFrame {
 				corParteAleatoria(face);
 			}
 		});
-		btnFaceRandom.setBounds(570, 135, 90, 20);
+		btnFaceRandom.setBounds(640, 135, 90, 20);
 		contentPane.add(btnFaceRandom);
 
 		JLabel lblTorsoA = new JLabel("Torso A");
@@ -300,7 +321,8 @@ public class Generator extends JFrame {
 		JSpinner spinTorsoAGreen = new JSpinner();
 		JSpinner spinTorsoABlue = new JSpinner();
 		JSpinner spinTorsoAAlpha = new JSpinner();
-		torsoA = new ParteSprite("torso A", cmbTorsoA, spinTorsoARed, spinTorsoAGreen, spinTorsoABlue, spinTorsoAAlpha);
+		JSpinner spinTorsoAHueSwap = new JSpinner();
+		torsoA = new SpritePart("torso A", cmbTorsoA, spinTorsoARed, spinTorsoAGreen, spinTorsoABlue, spinTorsoAAlpha, spinTorsoAHueSwap);
 		configParteSprite(torsoA);
 		
 		cmbTorsoA.setBackground(Color.WHITE);
@@ -318,6 +340,9 @@ public class Generator extends JFrame {
 
 		spinTorsoAAlpha.setBounds(500, 166, 60, 20);
 		contentPane.add(spinTorsoAAlpha);
+
+		spinTorsoAHueSwap.setBounds(570, 166, 60, 20);
+		contentPane.add(spinTorsoAHueSwap);
 		
 		JButton btnTorsoARandom = new JButton("Random");
 		btnTorsoARandom.addMouseListener(new MouseAdapter() {
@@ -326,7 +351,7 @@ public class Generator extends JFrame {
 				corParteAleatoria(torsoA);
 			}
 		});
-		btnTorsoARandom.setBounds(570, 166, 90, 20);
+		btnTorsoARandom.setBounds(640, 166, 90, 20);
 		contentPane.add(btnTorsoARandom);
 
 		JLabel lblTorsoB = new JLabel("Torso B");
@@ -338,7 +363,8 @@ public class Generator extends JFrame {
 		JSpinner spinTorsoBGreen = new JSpinner();
 		JSpinner spinTorsoBBlue = new JSpinner();
 		JSpinner spinTorsoBAlpha = new JSpinner();
-		torsoB = new ParteSprite("torso B", cmbTorsoB, spinTorsoBRed, spinTorsoBGreen, spinTorsoBBlue, spinTorsoBAlpha);
+		JSpinner spinTorsoBHueSwap = new JSpinner();
+		torsoB = new SpritePart("torso B", cmbTorsoB, spinTorsoBRed, spinTorsoBGreen, spinTorsoBBlue, spinTorsoBAlpha, spinTorsoBHueSwap);
 		configParteSprite(torsoB);
 		
 		cmbTorsoB.setBackground(Color.WHITE);
@@ -357,6 +383,9 @@ public class Generator extends JFrame {
 		spinTorsoBAlpha.setBounds(500, 197, 60, 20);
 		contentPane.add(spinTorsoBAlpha);
 
+		spinTorsoBHueSwap.setBounds(570, 197, 60, 20);
+		contentPane.add(spinTorsoBHueSwap);
+
 		JButton btnTorsoBRandom = new JButton("Random");
 		btnTorsoBRandom.addMouseListener(new MouseAdapter() {
 			@Override
@@ -364,7 +393,7 @@ public class Generator extends JFrame {
 				corParteAleatoria(torsoB);
 			}
 		});
-		btnTorsoBRandom.setBounds(570, 197, 90, 20);
+		btnTorsoBRandom.setBounds(640, 197, 90, 20);
 		contentPane.add(btnTorsoBRandom);
 
 		JLabel lblHands = new JLabel("Hands");
@@ -376,7 +405,8 @@ public class Generator extends JFrame {
 		JSpinner spinHandsGreen = new JSpinner();
 		JSpinner spinHandsBlue = new JSpinner();
 		JSpinner spinHandsAlpha = new JSpinner();
-		hands = new ParteSprite("hands", cmbHands, spinHandsRed, spinHandsGreen, spinHandsBlue, spinHandsAlpha);
+		JSpinner spinHandsHueSwap = new JSpinner();
+		hands = new SpritePart("hands", cmbHands, spinHandsRed, spinHandsGreen, spinHandsBlue, spinHandsAlpha, spinHandsHueSwap);
 		configParteSprite(hands);
 		
 		cmbHands.setBackground(Color.WHITE);
@@ -395,6 +425,9 @@ public class Generator extends JFrame {
 		spinHandsAlpha.setBounds(500, 228, 60, 20);
 		contentPane.add(spinHandsAlpha);
 
+		spinHandsHueSwap.setBounds(570, 228, 60, 20);
+		contentPane.add(spinHandsHueSwap);
+
 		JButton btnHandsRandom = new JButton("Random");
 		btnHandsRandom.addMouseListener(new MouseAdapter() {
 			@Override
@@ -402,7 +435,7 @@ public class Generator extends JFrame {
 				corParteAleatoria(hands);
 			}
 		});
-		btnHandsRandom.setBounds(570, 228, 90, 20);
+		btnHandsRandom.setBounds(640, 228, 90, 20);
 		contentPane.add(btnHandsRandom);
 
 		JLabel lblLegsA = new JLabel("Legs A");
@@ -414,7 +447,8 @@ public class Generator extends JFrame {
 		JSpinner spinLegsAGreen = new JSpinner();
 		JSpinner spinLegsABlue = new JSpinner();
 		JSpinner spinLegsAAlpha = new JSpinner();
-		legsA = new ParteSprite("legs A", cmbLegsA, spinLegsARed, spinLegsAGreen, spinLegsABlue, spinLegsAAlpha);
+		JSpinner spinLegsAHueSwap = new JSpinner();
+		legsA = new SpritePart("legs A", cmbLegsA, spinLegsARed, spinLegsAGreen, spinLegsABlue, spinLegsAAlpha, spinLegsAHueSwap);
 		configParteSprite(legsA);
 		
 		cmbLegsA.setBackground(Color.WHITE);
@@ -433,6 +467,9 @@ public class Generator extends JFrame {
 		spinLegsAAlpha.setBounds(500, 259, 60, 20);
 		contentPane.add(spinLegsAAlpha);
 
+		spinLegsAHueSwap.setBounds(570, 259, 60, 20);
+		contentPane.add(spinLegsAHueSwap);
+
 		JButton btnLegsARandom = new JButton("Random");
 		btnLegsARandom.addMouseListener(new MouseAdapter() {
 			@Override
@@ -440,7 +477,7 @@ public class Generator extends JFrame {
 				corParteAleatoria(legsA);
 			}
 		});
-		btnLegsARandom.setBounds(570, 259, 90, 20);
+		btnLegsARandom.setBounds(640, 259, 90, 20);
 		contentPane.add(btnLegsARandom);
 
 		JLabel lblLegsB = new JLabel("Legs B");
@@ -452,7 +489,8 @@ public class Generator extends JFrame {
 		JSpinner spinLegsBGreen = new JSpinner();
 		JSpinner spinLegsBBlue = new JSpinner();
 		JSpinner spinLegsBAlpha = new JSpinner();
-		legsB = new ParteSprite("legs B", cmbLegsB, spinLegsBRed, spinLegsBGreen, spinLegsBBlue, spinLegsBAlpha);
+		JSpinner spinLegsBHueSwap = new JSpinner();
+		legsB = new SpritePart("legs B", cmbLegsB, spinLegsBRed, spinLegsBGreen, spinLegsBBlue, spinLegsBAlpha, spinLegsBHueSwap);
 		configParteSprite(legsB);
 		
 		cmbLegsB.setBounds(80, 290, 200, 20);
@@ -470,6 +508,9 @@ public class Generator extends JFrame {
 		spinLegsBAlpha.setBounds(500, 290, 60, 20);
 		contentPane.add(spinLegsBAlpha);
 
+		spinLegsBHueSwap.setBounds(570, 290, 60, 20);
+		contentPane.add(spinLegsBHueSwap);
+
 		JButton btnLegsBRandom = new JButton("Random");
 		btnLegsBRandom.addMouseListener(new MouseAdapter() {
 			@Override
@@ -477,7 +518,7 @@ public class Generator extends JFrame {
 				corParteAleatoria(legsB);
 			}
 		});
-		btnLegsBRandom.setBounds(570, 290, 90, 20);
+		btnLegsBRandom.setBounds(640, 290, 90, 20);
 		contentPane.add(btnLegsBRandom);
 
 		JLabel lblBack = new JLabel("Back");
@@ -489,7 +530,8 @@ public class Generator extends JFrame {
 		JSpinner spinBackGreen = new JSpinner();
 		JSpinner spinBackBlue = new JSpinner();
 		JSpinner spinBackAlpha = new JSpinner();
-		back = new ParteSprite("back", cmbBack, spinBackRed, spinBackGreen, spinBackBlue, spinBackAlpha);
+		JSpinner spinBackHueSwap = new JSpinner();
+		back = new SpritePart("back", cmbBack, spinBackRed, spinBackGreen, spinBackBlue, spinBackAlpha, spinBackHueSwap);
 		configParteSprite(back);
 		
 		cmbBack.setBackground(Color.WHITE);
@@ -508,6 +550,9 @@ public class Generator extends JFrame {
 		spinBackAlpha.setBounds(500, 321, 60, 20);
 		contentPane.add(spinBackAlpha);
 
+		spinBackHueSwap.setBounds(570, 321, 60, 20);
+		contentPane.add(spinBackHueSwap);
+
 		JButton btnBackRandom = new JButton("Random");
 		btnBackRandom.addMouseListener(new MouseAdapter() {
 			@Override
@@ -515,7 +560,7 @@ public class Generator extends JFrame {
 				corParteAleatoria(back);
 			}
 		});
-		btnBackRandom.setBounds(570, 321, 90, 20);
+		btnBackRandom.setBounds(640, 321, 90, 20);
 		contentPane.add(btnBackRandom);
 
 		JLabel lblShoes = new JLabel("Shoes");
@@ -527,7 +572,8 @@ public class Generator extends JFrame {
 		JSpinner spinShoesGreen = new JSpinner();
 		JSpinner spinShoesBlue = new JSpinner();
 		JSpinner spinShoesAlpha = new JSpinner();
-		shoes = new ParteSprite("shoes", cmbShoes, spinShoesRed, spinShoesGreen, spinShoesBlue, spinShoesAlpha);
+		JSpinner spinShoesHueSwap = new JSpinner();
+		shoes = new SpritePart("shoes", cmbShoes, spinShoesRed, spinShoesGreen, spinShoesBlue, spinShoesAlpha, spinShoesHueSwap);
 		configParteSprite(shoes);
 		
 		cmbShoes.setBackground(Color.WHITE);
@@ -546,6 +592,9 @@ public class Generator extends JFrame {
 		spinShoesAlpha.setBounds(500, 352, 60, 20);
 		contentPane.add(spinShoesAlpha);
 
+		spinShoesHueSwap.setBounds(570, 352, 60, 20);
+		contentPane.add(spinShoesHueSwap);
+
 		JButton btnShoesRandom = new JButton("Random");
 		btnShoesRandom.addMouseListener(new MouseAdapter() {
 			@Override
@@ -553,7 +602,7 @@ public class Generator extends JFrame {
 				corParteAleatoria(shoes);
 			}
 		});
-		btnShoesRandom.setBounds(570, 352, 90, 20);
+		btnShoesRandom.setBounds(640, 352, 90, 20);
 		contentPane.add(btnShoesRandom);
 
 		JButton btnAtualizarPastas = new JButton("Update folders");
@@ -569,9 +618,9 @@ public class Generator extends JFrame {
 				spriteRandom();
 			}
 		});
-		btnRandom.setBounds(520, 383, 140, 20);
+		btnRandom.setBounds(590, 383, 140, 20);
 		contentPane.add(btnRandom);
-		btnAtualizarPastas.setBounds(380, 383, 130, 20);
+		btnAtualizarPastas.setBounds(450, 383, 130, 20);
 		contentPane.add(btnAtualizarPastas);
 
 		JLabel lblName = new JLabel("Name");
@@ -589,26 +638,29 @@ public class Generator extends JFrame {
 				salvarSprite();
 			}
 		});
-		btnSave.setBounds(290, 383, 80, 20);
+		btnSave.setBounds(290, 383, 150, 20);
 		contentPane.add(btnSave);
 	}
 	
-	void configParteSprite(ParteSprite parte) {
+	void configParteSprite(SpritePart parte) {
 		parte.getCmb().addItemListener(itemListener);
-		parte.red.setToolTipText("Red color of " + parte.nome);
+		parte.red.setToolTipText("Red color of " + parte.name);
 		parte.red.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		parte.red.addChangeListener(changeListener);
-		parte.green.setToolTipText("Green color of " + parte.nome);
+		parte.green.setToolTipText("Green color of " + parte.name);
 		parte.green.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		parte.green.addChangeListener(changeListener);
-		parte.blue.setToolTipText("Blue color of " + parte.nome);
+		parte.blue.setToolTipText("Blue color of " + parte.name);
 		parte.blue.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		parte.blue.addChangeListener(changeListener);
 		if (parte.alfa != null) {
-			parte.alfa.setToolTipText("Alpha of " + parte.nome);
+			parte.alfa.setToolTipText("Alpha of " + parte.name);
 			parte.alfa.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 			parte.alfa.addChangeListener(changeListener);
 		}
+		parte.hueSwap.setToolTipText("Hue Swap of " + parte.name);
+		parte.hueSwap.setModel(new SpinnerNumberModel(0, 0, 360, 1));
+		parte.hueSwap.addChangeListener(changeListener);
 	}
 
 	ItemListener itemListener = new ItemListener() {
@@ -626,7 +678,7 @@ public class Generator extends JFrame {
 	//Atualiza o sprite com as partes selecionadas
 	private void atualizaSprite() {
 		int[][] sprite;
-		back.atualizaCor(rgba);
+		back.updateColor(rgba);
 		try {
 			sprite = Imagem.capaAtras(Leitura.selecionarImagem(folders.back, back));
 		} catch (TamanhoErradoException e) {
@@ -634,47 +686,47 @@ public class Generator extends JFrame {
 		}
 		System.out.println("Tempos:");
 		long tempo = System.nanoTime();
-		corpo.atualizaCor(rgba);
+		corpo.updateColor(rgba);
 		sprite = sobreporImagemArquivo(sprite, folders.body, corpo);
 		System.out.println("Sobrepor corpo: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
-		eyes.atualizaCor(rgba);
+		eyes.updateColor(rgba);
 		sprite = sobreporImagemArquivo(sprite, folders.eyes, eyes);
 		System.out.println("Sobrepor eyes: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
-		legsB.atualizaCor(rgba);
+		legsB.updateColor(rgba);
 		sprite = sobreporImagemArquivo(sprite, folders.legs, legsB);
 		System.out.println("Sobrepor legsB: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
-		torsoB.atualizaCor(rgba);
+		torsoB.updateColor(rgba);
 		sprite = sobreporImagemArquivo(sprite, folders.torso, torsoB);
 		System.out.println("Sobrepor torsoB: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
-		hands.atualizaCor(rgba);
+		hands.updateColor(rgba);
 		sprite = sobreporImagemArquivo(sprite, folders.hands, hands);
 		System.out.println("Sobrepor hands: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
-		shoes.atualizaCor(rgba);
+		shoes.updateColor(rgba);
 		sprite = sobreporImagemArquivo(sprite, folders.shoes, shoes);
 		System.out.println("Sobrepor shoes: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
-		legsA.atualizaCor(rgba);
+		legsA.updateColor(rgba);
 		sprite = sobreporImagemArquivo(sprite, folders.legs, legsA);
 		System.out.println("Sobrepor legsA: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
-		torsoA.atualizaCor(rgba);
+		torsoA.updateColor(rgba);
 		sprite = sobreporImagemArquivo(sprite, folders.torso, torsoA);
 		System.out.println("Sobrepor torsoA: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
-		face.atualizaCor(rgba);
+		face.updateColor(rgba);
 		sprite = sobreporImagemArquivo(sprite, folders.faces, face);
 		System.out.println("Sobrepor face: " + (System.nanoTime()-tempo));
 		
@@ -685,12 +737,12 @@ public class Generator extends JFrame {
 		System.out.println("Sobrepor back: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
-		hair.atualizaCor(rgba);
+		hair.updateColor(rgba);
 		sprite = sobreporImagemArquivo(sprite, folders.hair, hair);
 		System.out.println("Sobrepor hair: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
-		helm.atualizaCor(rgba);
+		helm.updateColor(rgba);
 		sprite = sobreporImagemArquivo(sprite, folders.helm, helm);
 		System.out.println("Sobrepor helm: " + (System.nanoTime()-tempo));
 		
@@ -707,7 +759,7 @@ public class Generator extends JFrame {
 	}
 
 	//Sobrepoe a imagem
-	private int[][] sobreporImagemArquivo(int[][] base, File[] array, ParteSprite parte) {
+	private int[][] sobreporImagemArquivo(int[][] base, File[] array, SpritePart parte) {
 		if (parte.getCmb().getSelectedIndex() == 0) return base;
 		try {
 			int[][] imagem = Leitura.selecionarImagem(array, parte);
@@ -734,7 +786,7 @@ public class Generator extends JFrame {
 		JOptionPane.showMessageDialog(null, "Updated folders");
 	}
 
-	void atualizaCmb(ParteSprite parte, File[] arq) {
+	void atualizaCmb(SpritePart parte, File[] arq) {
 		JComboBox<String> novo = new JComboBox<String>(Leitura.nomesArquivos(arq));
 		novo.addItemListener(itemListener);
 		novo.setBackground(Color.WHITE);
@@ -763,7 +815,7 @@ public class Generator extends JFrame {
 		deveAtualizar = true;
 	}
 
-	private void corParteAleatoria(ParteSprite parte) {
+	private void corParteAleatoria(SpritePart parte) {
 		deveAtualizar = false;
 		parte.red.setValue(random.nextInt((Integer) ((SpinnerNumberModel) parte.red.getModel()).getMaximum() + 1));
 		parte.green.setValue(random.nextInt(256));
@@ -777,6 +829,6 @@ public class Generator extends JFrame {
 	}
 
 	private void salvarSprite() throws HeadlessException {
-		JOptionPane.showMessageDialog(null, "Sprite salvo com o nome \"" + Escrita.salvarSprite(folders, txtNameSprite.getText(), buffer) + "\"");
+		JOptionPane.showMessageDialog(null, "Sprite salvo com o name \"" + Escrita.salvarSprite(folders, txtNameSprite.getText(), buffer) + "\"");
 	}
 }

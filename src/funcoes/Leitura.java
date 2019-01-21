@@ -8,12 +8,12 @@ import javax.imageio.ImageIO;
 
 import classes.CorARGB;
 import classes.Dimensoes;
-import classes.ParteSprite;
+import classes.SpritePart;
 import excecoes.TamanhoErradoException;
 
 public class Leitura {
 	
-	//Pega o nome de cada arquivo de uma pasta e coloca em um array
+	//Pega o name de cada arquivo de uma pasta e coloca em um array
 	public static String[] nomesArquivos(File[] array) {
 		String[] saida = new String[array.length + 1];
 		if (array.length > 0) saida[0] = "[None]";
@@ -25,11 +25,12 @@ public class Leitura {
 	}
 	
 	//Pega a imagem selecionada pelo comboBox
-	public static int[][] selecionarImagem(File[] array, ParteSprite parte) throws TamanhoErradoException {
+	public static int[][] selecionarImagem(File[] array, SpritePart parte) throws TamanhoErradoException {
 		int[][] matriz;
 		try {
 			matriz = lerImagem(array[parte.getCmb().getSelectedIndex() - 1]);
-			colorImageFilter(matriz, parte.getCor());
+			colorImageHueSwap(matriz, parte.getHueSwap());
+			colorImageFilter(matriz, parte.getColor());
 		} catch (ArrayIndexOutOfBoundsException e) {
 			matriz = Imagem.gerarTransparencia();
 		} catch (IOException e) {
@@ -61,6 +62,17 @@ public class Leitura {
 				if ((matriz[coluna][linha] & 0xFF000000) != 0) {
 					CorARGB original = new CorARGB((cor.getAlpha() << 24) + (matriz[coluna][linha] & 0xFFFFFF));
 					matriz[coluna][linha] = Imagem.filtrarCor(original, cor);
+				}
+			}
+		}
+	}
+	
+	private static void colorImageHueSwap(int[][] matrix, float swap) {
+		for (int column = 0; column < Dimensoes.LARGURA; column++) {
+			for (int line = 0; line < Dimensoes.ALTURA; line++) {
+				if ((matrix[column][line] & 0xFF000000) != 0) {
+					CorARGB original = new CorARGB(matrix[column][line]);
+					matrix[column][line] = Imagem.hueSwap(original, swap);
 				}
 			}
 		}
