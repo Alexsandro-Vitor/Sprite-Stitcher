@@ -13,6 +13,7 @@ import java.io.File;
 
 import java.util.Random;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -46,7 +47,7 @@ public class Generator extends JFrame {
 	private Pastas folders;
 	private BufferedImage buffer;
 	private static Random random = new Random();
-	private SpritePart corpo;
+	private SpritePart body;
 	private SpritePart helm;
 	private SpritePart hair;
 	private SpritePart eyes;
@@ -85,7 +86,7 @@ public class Generator extends JFrame {
 		contentPane.add(lblBody);
 
 		JComboBox<String> cmbBody = new JComboBox(Leitura.nomesArquivos(folders.body));
-		corpo = new SpritePart("corpo", cmbBody, null, null, null, null, null);
+		body = new SpritePart("body", cmbBody, null, null, null, null, null);
 
 		cmbBody.setBackground(Color.WHITE);
 		cmbBody.addItemListener(itemListener);
@@ -188,7 +189,7 @@ public class Generator extends JFrame {
 		btnHelmRandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				corParteAleatoria(helm);
+				randomPartColor(helm);
 			}
 		});
 		btnHelmRandom.setBounds(640, 42, 90, 20);
@@ -226,7 +227,7 @@ public class Generator extends JFrame {
 		btnHairRandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				corParteAleatoria(hair);
+				randomPartColor(hair);
 			}
 		});
 		btnHairRandom.setBounds(640, 73, 90, 20);
@@ -264,7 +265,7 @@ public class Generator extends JFrame {
 		btnEyesRandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				corParteAleatoria(eyes);
+				randomPartColor(eyes);
 			}
 		});
 		btnEyesRandom.setBounds(640, 104, 90, 20);
@@ -306,7 +307,7 @@ public class Generator extends JFrame {
 		btnFaceRandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				corParteAleatoria(face);
+				randomPartColor(face);
 			}
 		});
 		btnFaceRandom.setBounds(640, 135, 90, 20);
@@ -348,7 +349,7 @@ public class Generator extends JFrame {
 		btnTorsoARandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				corParteAleatoria(torsoA);
+				randomPartColor(torsoA);
 			}
 		});
 		btnTorsoARandom.setBounds(640, 166, 90, 20);
@@ -390,7 +391,7 @@ public class Generator extends JFrame {
 		btnTorsoBRandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				corParteAleatoria(torsoB);
+				randomPartColor(torsoB);
 			}
 		});
 		btnTorsoBRandom.setBounds(640, 197, 90, 20);
@@ -432,7 +433,7 @@ public class Generator extends JFrame {
 		btnHandsRandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				corParteAleatoria(hands);
+				randomPartColor(hands);
 			}
 		});
 		btnHandsRandom.setBounds(640, 228, 90, 20);
@@ -474,7 +475,7 @@ public class Generator extends JFrame {
 		btnLegsARandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				corParteAleatoria(legsA);
+				randomPartColor(legsA);
 			}
 		});
 		btnLegsARandom.setBounds(640, 259, 90, 20);
@@ -515,7 +516,7 @@ public class Generator extends JFrame {
 		btnLegsBRandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				corParteAleatoria(legsB);
+				randomPartColor(legsB);
 			}
 		});
 		btnLegsBRandom.setBounds(640, 290, 90, 20);
@@ -557,7 +558,7 @@ public class Generator extends JFrame {
 		btnBackRandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				corParteAleatoria(back);
+				randomPartColor(back);
 			}
 		});
 		btnBackRandom.setBounds(640, 321, 90, 20);
@@ -599,7 +600,7 @@ public class Generator extends JFrame {
 		btnShoesRandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				corParteAleatoria(shoes);
+				randomPartColor(shoes);
 			}
 		});
 		btnShoesRandom.setBounds(640, 352, 90, 20);
@@ -608,7 +609,7 @@ public class Generator extends JFrame {
 		JButton btnAtualizarPastas = new JButton("Update folders");
 		btnAtualizarPastas.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				atualizaPastas();
+				updateFolders();
 			}
 		});
 
@@ -635,7 +636,7 @@ public class Generator extends JFrame {
 		JButton btnSave = new JButton("Save");
 		btnSave.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				salvarSprite();
+				saveSprite();
 			}
 		});
 		btnSave.setBounds(290, 383, 150, 20);
@@ -686,8 +687,8 @@ public class Generator extends JFrame {
 		}
 		System.out.println("Tempos:");
 		long tempo = System.nanoTime();
-		corpo.updateColor(rgba);
-		sprite = sobreporImagemArquivo(sprite, folders.body, corpo);
+		body.updateColor(rgba);
+		sprite = sobreporImagemArquivo(sprite, folders.body, body);
 		System.out.println("Sobrepor corpo: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
@@ -769,66 +770,60 @@ public class Generator extends JFrame {
 		}
 	}
 
-	private void atualizaPastas() {
+	private void updateFolders() {
 		folders = new Pastas(pastaArquivos);
-		atualizaCmb(corpo, folders.body);
-		atualizaCmb(helm, folders.helm);
-		atualizaCmb(hair, folders.hair);
-		atualizaCmb(eyes, folders.eyes);
-		atualizaCmb(face, folders.faces);
-		atualizaCmb(torsoA, folders.torso);
-		atualizaCmb(torsoB, folders.torso);
-		atualizaCmb(hands, folders.hands);
-		atualizaCmb(legsA, folders.legs);
-		atualizaCmb(legsB, folders.legs);
-		atualizaCmb(back, folders.back);
-		atualizaCmb(shoes, folders.shoes);
+		updateCmb(body, folders.body);
+		updateCmb(helm, folders.helm);
+		updateCmb(hair, folders.hair);
+		updateCmb(eyes, folders.eyes);
+		updateCmb(face, folders.faces);
+		updateCmb(torsoA, folders.torso);
+		updateCmb(torsoB, folders.torso);
+		updateCmb(hands, folders.hands);
+		updateCmb(legsA, folders.legs);
+		updateCmb(legsB, folders.legs);
+		updateCmb(back, folders.back);
+		updateCmb(shoes, folders.shoes);
 		JOptionPane.showMessageDialog(null, "Updated folders");
 	}
 
-	void atualizaCmb(SpritePart parte, File[] arq) {
-		JComboBox<String> novo = new JComboBox<String>(Leitura.nomesArquivos(arq));
-		novo.addItemListener(itemListener);
-		novo.setBackground(Color.WHITE);
-		novo.setBounds(parte.getCmb().getBounds());
-		contentPane.remove(parte.getCmb());
-		contentPane.add(novo);
-		parte.setCmb(novo);
+	void updateCmb(SpritePart parte, File[] arq) {
+		parte.getCmb().setModel(new DefaultComboBoxModel<String>(Leitura.nomesArquivos(arq)));
 	}
 
 	//Seleciona aleatoriamente partes do sprite para criar um sprite aleatorio
 	private void spriteRandom() {
 		deveAtualizar = false;
-		selecaoItemRandom(corpo.getCmb());
-		selecaoItemRandom(helm.getCmb());
-		selecaoItemRandom(hair.getCmb());
-		selecaoItemRandom(eyes.getCmb());
-		selecaoItemRandom(face.getCmb());
-		selecaoItemRandom(torsoA.getCmb());
-		selecaoItemRandom(torsoB.getCmb());
-		selecaoItemRandom(hands.getCmb());
-		selecaoItemRandom(legsA.getCmb());
-		selecaoItemRandom(legsB.getCmb());
-		selecaoItemRandom(back.getCmb());
-		selecaoItemRandom(shoes.getCmb());
+		randomItemSelection(body.getCmb());
+		randomItemSelection(helm.getCmb());
+		randomItemSelection(hair.getCmb());
+		randomItemSelection(eyes.getCmb());
+		randomItemSelection(face.getCmb());
+		randomItemSelection(torsoA.getCmb());
+		randomItemSelection(torsoB.getCmb());
+		randomItemSelection(hands.getCmb());
+		randomItemSelection(legsA.getCmb());
+		randomItemSelection(legsB.getCmb());
+		randomItemSelection(back.getCmb());
+		randomItemSelection(shoes.getCmb());
 		atualizaSprite();
 		deveAtualizar = true;
 	}
 
-	private void corParteAleatoria(SpritePart parte) {
+	private void randomPartColor(SpritePart part) {
 		deveAtualizar = false;
-		parte.red.setValue(random.nextInt((Integer) ((SpinnerNumberModel) parte.red.getModel()).getMaximum() + 1));
-		parte.green.setValue(random.nextInt(256));
-		parte.blue.setValue(random.nextInt(256));
+		part.red.setValue(random.nextInt((Integer) ((SpinnerNumberModel) part.red.getModel()).getMaximum() + 1));
+		part.green.setValue(random.nextInt(256));
+		part.blue.setValue(random.nextInt(256));
 		atualizaSprite();
 		deveAtualizar = true;
 	}
 
-	private void selecaoItemRandom(JComboBox<String> cmb) {
+	private void randomItemSelection(JComboBox<String> cmb) {
 		cmb.setSelectedIndex(random.nextInt(cmb.getItemCount()));
 	}
 
-	private void salvarSprite() throws HeadlessException {
-		JOptionPane.showMessageDialog(null, "Sprite salvo com o name \"" + Escrita.salvarSprite(folders, txtNameSprite.getText(), buffer) + "\"");
+	private void saveSprite() throws HeadlessException {
+		JOptionPane.showMessageDialog(null, "Saved sprite as \"" + Escrita.saveSprite(folders, txtNameSprite.getText(), buffer) + "\"");
 	}
 }

@@ -18,7 +18,7 @@ public class SpritePart {
 
 	public SpritePart(String name, JComboBox<String> cmb, JSpinner red, JSpinner green, JSpinner blue, JSpinner alfa, JSpinner hueSwap) {
 		this.name = name;
-		this.setCmb(cmb);
+		this.cmb = cmb;
 		this.red = red;
 		this.green = green;
 		this.blue = blue;
@@ -34,11 +34,6 @@ public class SpritePart {
 	
 	public JComboBox<String> getCmb() {
 		return this.cmb;
-	}
-	
-	public void setCmb(JComboBox<String> cmb) {
-		this.cmb = cmb;
-		if (this.cmb.getItemAt(0).equals("[Empty]")) this.cmb.setEnabled(false);
 	}
 	
 	int getRed() {

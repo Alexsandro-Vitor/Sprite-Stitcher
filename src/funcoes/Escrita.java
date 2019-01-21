@@ -13,7 +13,7 @@ import classes.Pastas;
 public class Escrita {
 
 	//Salva o sprite gerado e exibe uma mensagem avisando
-	public static String salvarSprite(Pastas pasta, String nomeArquivo, BufferedImage buffer) {
+	public static String saveSprite(Pastas pasta, String nomeArquivo, BufferedImage buffer) {
 		String nome = Escrita.nomeSprite(pasta, nomeArquivo);
 		try {
 			ImageIO.write(buffer, "PNG", new File(pasta.nome +"\\sprites\\" + nome));
