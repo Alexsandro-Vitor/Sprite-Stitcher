@@ -68,7 +68,7 @@ public class Main extends JFrame {
 		lblModelo.setBounds(10, 11, 60, 20);
 		contentPane.add(lblModelo);
 		
-		comboBox = new JComboBox(new String[] {"Outro", "Koemushi (96 x 192)", "Looseleaf (96 x 192)", "RTP (96 x 128)"});
+		comboBox = new JComboBox(new String[] {"Outro", "Cabbit (72 x 128)"});
 		comboBox.setBackground(Color.WHITE);
 		comboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -167,18 +167,10 @@ public class Main extends JFrame {
 	}
 	
 	private void atualizaDimensoes() {
-		if (comboBox.getSelectedItem() == "Koemushi (96 x 192)") {
-			spinLargura.setValue(96);
-			spinAltura.setValue(192);
-			txtPasta.setText("Koemushi");
-		} else if (comboBox.getSelectedItem() == "Looseleaf (96 x 192)") {
-			spinLargura.setValue(96);
-			spinAltura.setValue(192);
-			txtPasta.setText("Looseleaf");
-		} else if (comboBox.getSelectedItem() == "RTP (96 x 128)") {
-			spinLargura.setValue(96);
+		if (comboBox.getSelectedItem() == "Cabbit (72 x 128)") {
+			spinLargura.setValue(72);
 			spinAltura.setValue(128);
-			txtPasta.setText("RTP");
+			txtPasta.setText("Cabbit");
 		}
 	}
 	
