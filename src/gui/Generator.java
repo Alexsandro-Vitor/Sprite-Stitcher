@@ -493,7 +493,8 @@ public class Generator extends JFrame {
 		JSpinner spinLegsBHueSwap = new JSpinner();
 		legsB = new SpritePart("legs B", cmbLegsB, spinLegsBRed, spinLegsBGreen, spinLegsBBlue, spinLegsBAlpha, spinLegsBHueSwap);
 		configParteSprite(legsB);
-		
+
+		cmbLegsB.setBackground(Color.WHITE);
 		cmbLegsB.setBounds(80, 290, 200, 20);
 		contentPane.add(cmbLegsB);
 
