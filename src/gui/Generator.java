@@ -33,7 +33,7 @@ import javax.swing.event.ChangeListener;
 
 import classes.Dimensoes;
 import classes.SpritePart;
-import classes.Pastas;
+import classes.Folders;
 import excecoes.TamanhoErradoException;
 import funcoes.*;
 
@@ -44,7 +44,7 @@ public class Generator extends JFrame {
 
 	private Sprite sprite;
 	private String pastaArquivos;
-	private Pastas folders;
+	private Folders folders;
 	private BufferedImage buffer;
 	private static Random random = new Random();
 	private SpritePart body;
@@ -71,7 +71,7 @@ public class Generator extends JFrame {
 	public Generator(Sprite sprite, String pastaArquivos) {
 		this.sprite = sprite;
 		this.pastaArquivos = pastaArquivos;
-		this.folders = new Pastas(pastaArquivos);
+		this.folders = new Folders(pastaArquivos);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 50, 746, 443);
 		setResizable(false);
@@ -772,7 +772,7 @@ public class Generator extends JFrame {
 	}
 
 	private void updateFolders() {
-		folders = new Pastas(pastaArquivos);
+		folders = new Folders(pastaArquivos);
 		updateCmb(body, folders.body);
 		updateCmb(helm, folders.helm);
 		updateCmb(hair, folders.hair);

@@ -8,15 +8,15 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import classes.Pastas;
+import classes.Folders;
 
 public class Escrita {
 
 	//Salva o sprite gerado e exibe uma mensagem avisando
-	public static String saveSprite(Pastas pasta, String nomeArquivo, BufferedImage buffer) {
+	public static String saveSprite(Folders pasta, String nomeArquivo, BufferedImage buffer) {
 		String nome = Escrita.nomeSprite(pasta, nomeArquivo);
 		try {
-			ImageIO.write(buffer, "PNG", new File(pasta.nome +"\\sprites\\" + nome));
+			ImageIO.write(buffer, "PNG", new File(pasta.name +"\\sprites\\" + nome));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -25,13 +25,13 @@ public class Escrita {
 
 	//Determina o name com o qual o sprite será salvo
 	@SuppressWarnings("resource")
-	public static String nomeSprite(Pastas pasta, String nomeImagem) {
-		pasta.criar("sprites");
+	public static String nomeSprite(Folders pasta, String nomeImagem) {
+		pasta.create("sprites");
 		try {
-			new FileReader(pasta.nome +"\\sprites\\" + nomeImagem + ".png");
+			new FileReader(pasta.name +"\\sprites\\" + nomeImagem + ".png");
 			for (int i = 2; ; i++) {
 				try {
-					new FileReader(pasta.nome +"\\sprites\\" + nomeImagem + '('+ i + ").png");
+					new FileReader(pasta.name +"\\sprites\\" + nomeImagem + '('+ i + ").png");
 				} catch (FileNotFoundException e) {
 					return nomeImagem + '(' + i + ").png";
 				}
