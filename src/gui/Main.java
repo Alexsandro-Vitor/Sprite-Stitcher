@@ -29,9 +29,9 @@ public class Main extends JFrame {
 	private Main frame;
 	private JPanel contentPane;
 	private JComboBox<String> comboBox;
-	private JSpinner spinLargura;
-	private JSpinner spinAltura;
-	private JTextField txtPasta;
+	private JSpinner spinWidth;
+	private JSpinner spinHeight;
+	private JTextField txtFolder;
 
 	/**
 	 * Launch the application.
@@ -64,66 +64,66 @@ public class Main extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblModelo = new JLabel("Modelo");
-		lblModelo.setBounds(10, 11, 60, 20);
-		contentPane.add(lblModelo);
+		JLabel lblModel = new JLabel("Model");
+		lblModel.setBounds(10, 11, 60, 20);
+		contentPane.add(lblModel);
 		
-		comboBox = new JComboBox(new String[] {"Outro", "Antifarea (48 x 72)", "Cabbit (72 x 128)"});
+		comboBox = new JComboBox(new String[] {"Other", "Antifarea (48 x 72)", "Cabbit (72 x 128)"});
 		comboBox.setBackground(Color.WHITE);
 		comboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				atualizaDimensoes();
+				updateDimensions();
 			}
 		});
 		comboBox.setBounds(80, 11, 294, 20);
 		contentPane.add(comboBox);
 		
-		JLabel lblLargura = new JLabel("Largura");
-		lblLargura.setBounds(10, 42, 60, 20);
-		contentPane.add(lblLargura);
+		JLabel lblWidth = new JLabel("Width");
+		lblWidth.setBounds(10, 42, 60, 20);
+		contentPane.add(lblWidth);
 		
-		spinLargura = new JSpinner();
-		spinLargura.addChangeListener(new ChangeListener() {
+		spinWidth = new JSpinner();
+		spinWidth.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
-				mudarModelo();
+				changeModel();
 			}
 		});
-		spinLargura.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		spinLargura.setBounds(80, 42, 80, 20);
-		contentPane.add(spinLargura);
+		spinWidth.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		spinWidth.setBounds(80, 42, 80, 20);
+		contentPane.add(spinWidth);
 		
-		JLabel lblAltura = new JLabel("Altura");
-		lblAltura.setBounds(224, 42, 60, 20);
-		contentPane.add(lblAltura);
+		JLabel lblHeight = new JLabel("Height");
+		lblHeight.setBounds(224, 42, 60, 20);
+		contentPane.add(lblHeight);
 		
-		spinAltura = new JSpinner();
-		spinAltura.addChangeListener(new ChangeListener() {
+		spinHeight = new JSpinner();
+		spinHeight.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
-				mudarModelo();
+				changeModel();
 			}
 		});
-		spinAltura.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		spinAltura.setBounds(294, 42, 80, 20);
-		contentPane.add(spinAltura);
+		spinHeight.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		spinHeight.setBounds(294, 42, 80, 20);
+		contentPane.add(spinHeight);
 		
-		JLabel lblPasta = new JLabel("Pasta de arquivos");
-		lblPasta.setBounds(10, 73, 110, 20);
-		contentPane.add(lblPasta);
+		JLabel lblFolder = new JLabel("Images folder");
+		lblFolder.setBounds(10, 73, 90, 20);
+		contentPane.add(lblFolder);
 		
-		txtPasta = new JTextField();
-		txtPasta.setText("imagens");
-		txtPasta.setBounds(130, 73, 244, 20);
-		contentPane.add(txtPasta);
-		txtPasta.setColumns(10);
+		txtFolder = new JTextField();
+		txtFolder.setText("images");
+		txtFolder.setBounds(110, 73, 264, 20);
+		contentPane.add(txtFolder);
+		txtFolder.setColumns(10);
 		
-		JButton btnContinuar = new JButton("Continuar");
-		btnContinuar.addMouseListener(new MouseAdapter() {
+		JButton btnContinue = new JButton("Continue");
+		btnContinue.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				continuar();
+				continueToGenerator();
 			}
 		});
-		btnContinuar.setBounds(270, 104, 104, 20);
-		contentPane.add(btnContinuar);
+		btnContinue.setBounds(270, 104, 104, 20);
+		contentPane.add(btnContinue);
 		
 		JLabel lblZoom = new JLabel("Zoom");
 		lblZoom.setBounds(10, 104, 46, 20);
@@ -166,30 +166,33 @@ public class Main extends JFrame {
 		zoomGroup.add(rdbtn4x);
 	}
 	
-	private void atualizaDimensoes() {
+	/**
+	 * Updates the dimensions to match the selected one at the comboBox.
+	 */
+	private void updateDimensions() {
 		if (comboBox.getSelectedItem() == "Antifarea (48 x 72)") {
-			spinLargura.setValue(48);
-			spinAltura.setValue(72);
-			txtPasta.setText("Antifarea");
+			spinWidth.setValue(48);
+			spinHeight.setValue(72);
+			txtFolder.setText("Antifarea");
 		} else if (comboBox.getSelectedItem() == "Cabbit (72 x 128)") {
-			spinLargura.setValue(72);
-			spinAltura.setValue(128);
-			txtPasta.setText("Cabbit");
+			spinWidth.setValue(72);
+			spinHeight.setValue(128);
+			txtFolder.setText("Cabbit");
 		}
 	}
 	
-	private void mudarModelo() {
+	private void changeModel() {
 		comboBox.setSelectedIndex(0);
 	}
 	
-	private void continuar() {
-		Dimensoes.LARGURA = (short)(int)spinLargura.getValue();
-		Dimensoes.ALTURA = (short)(int)spinAltura.getValue();
+	private void continueToGenerator() {
+		Dimensoes.LARGURA = (short)(int)spinWidth.getValue();
+		Dimensoes.ALTURA = (short)(int)spinHeight.getValue();
 		Dimensoes.ALTURA_CAPA = (short)((Dimensoes.ALTURA * 3) >> 2);
 		Sprite sprite = new Sprite();
 		sprite.setVisible(true);
-		Generator tela = new Generator(sprite, txtPasta.getText());
-		tela.setVisible(true);
+		Generator screen = new Generator(sprite, txtFolder.getText());
+		screen.setVisible(true);
 		frame.setVisible(false);
 	}
 }
