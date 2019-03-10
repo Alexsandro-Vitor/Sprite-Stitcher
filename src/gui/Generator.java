@@ -811,11 +811,16 @@ public class Generator extends JFrame {
 		deveAtualizar = true;
 	}
 
+	/**
+	 * Sets a random color for the part.
+	 * @param part The part which colors will be changed.
+	 */
 	private void randomPartColor(SpritePart part) {
 		deveAtualizar = false;
 		part.red.setValue(random.nextInt((Integer) ((SpinnerNumberModel) part.red.getModel()).getMaximum() + 1));
-		part.green.setValue(random.nextInt(256));
-		part.blue.setValue(random.nextInt(256));
+		part.green.setValue(random.nextInt((Integer) ((SpinnerNumberModel) part.green.getModel()).getMaximum() + 1));
+		part.blue.setValue(random.nextInt((Integer) ((SpinnerNumberModel) part.blue.getModel()).getMaximum() + 1));
+		part.hueSwap.setValue(random.nextInt(361));
 		atualizaSprite();
 		deveAtualizar = true;
 	}
