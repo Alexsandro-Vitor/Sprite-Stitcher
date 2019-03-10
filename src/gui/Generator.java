@@ -59,7 +59,7 @@ public class Generator extends JFrame {
 	private SpritePart legsB;
 	private SpritePart back;
 	private SpritePart shoes;
-	private boolean deveAtualizar = true;
+	private boolean shouldUpdate = true;
 	private boolean rgba = true;
 
 	private JPanel contentPane;
@@ -134,7 +134,7 @@ public class Generator extends JFrame {
 					lblGreen.setText("Saturation");
 					lblBlue.setText("Bright");
 				}
-				deveAtualizar = false;
+				shouldUpdate = false;
 				helm.setRGBA(rgba);
 				hair.setRGBA(rgba);
 				eyes.setRGBA(rgba);
@@ -146,8 +146,8 @@ public class Generator extends JFrame {
 				legsB.setRGBA(rgba);
 				back.setRGBA(rgba);
 				shoes.setRGBA(rgba);
-				atualizaSprite();
-				deveAtualizar = true;
+				updateSprite();
+				shouldUpdate = true;
 			}
 		});
 		btnHSB.setBounds(640, 11, 90, 20);
@@ -164,7 +164,7 @@ public class Generator extends JFrame {
 		JSpinner spinHelmAlpha = new JSpinner();
 		JSpinner spinHelmHueSwap = new JSpinner();
 		helm = new SpritePart("helm", cmbHelm, spinHelmRed, spinHelmGreen, spinHelmBlue, spinHelmAlpha, spinHelmHueSwap);
-		configParteSprite(helm);
+		configSpritePartUI(helm);
 		
 		cmbHelm.setBackground(Color.WHITE);
 		cmbHelm.setBounds(80, 42, 200, 20);
@@ -205,7 +205,7 @@ public class Generator extends JFrame {
 		JSpinner spinHairBlue = new JSpinner();
 		JSpinner spinHairHueSwap = new JSpinner();
 		hair = new SpritePart("hair", cmbHair, spinHairRed, spinHairGreen, spinHairBlue, null, spinHairHueSwap);
-		configParteSprite(hair);
+		configSpritePartUI(hair);
 		
 		cmbHair.setBackground(Color.WHITE);
 		cmbHair.setBounds(80, 73, 200, 20);
@@ -243,7 +243,7 @@ public class Generator extends JFrame {
 		JSpinner spinEyesBlue = new JSpinner();
 		JSpinner spinEyesHueSwap = new JSpinner();
 		eyes = new SpritePart("eyes", cmbEyes, spinEyesRed, spinEyesGreen, spinEyesBlue, null, spinEyesHueSwap);
-		configParteSprite(eyes);
+		configSpritePartUI(eyes);
 		
 		cmbEyes.setBackground(Color.WHITE);
 		cmbEyes.setBounds(80, 104, 200, 20);
@@ -282,7 +282,7 @@ public class Generator extends JFrame {
 		JSpinner spinFaceAlpha = new JSpinner();
 		JSpinner spinFaceHueSwap = new JSpinner();
 		face = new SpritePart("face", cmbFace, spinFaceRed, spinFaceGreen, spinFaceBlue, spinFaceAlpha, spinFaceHueSwap);
-		configParteSprite(face);
+		configSpritePartUI(face);
 		
 		cmbFace.setBackground(Color.WHITE);
 		cmbFace.setBounds(80, 135, 200, 20);
@@ -324,7 +324,7 @@ public class Generator extends JFrame {
 		JSpinner spinTorsoAAlpha = new JSpinner();
 		JSpinner spinTorsoAHueSwap = new JSpinner();
 		torsoA = new SpritePart("torso A", cmbTorsoA, spinTorsoARed, spinTorsoAGreen, spinTorsoABlue, spinTorsoAAlpha, spinTorsoAHueSwap);
-		configParteSprite(torsoA);
+		configSpritePartUI(torsoA);
 		
 		cmbTorsoA.setBackground(Color.WHITE);
 		cmbTorsoA.setBounds(80, 166, 200, 20);
@@ -366,7 +366,7 @@ public class Generator extends JFrame {
 		JSpinner spinTorsoBAlpha = new JSpinner();
 		JSpinner spinTorsoBHueSwap = new JSpinner();
 		torsoB = new SpritePart("torso B", cmbTorsoB, spinTorsoBRed, spinTorsoBGreen, spinTorsoBBlue, spinTorsoBAlpha, spinTorsoBHueSwap);
-		configParteSprite(torsoB);
+		configSpritePartUI(torsoB);
 		
 		cmbTorsoB.setBackground(Color.WHITE);
 		cmbTorsoB.setBounds(80, 197, 200, 20);
@@ -408,7 +408,7 @@ public class Generator extends JFrame {
 		JSpinner spinHandsAlpha = new JSpinner();
 		JSpinner spinHandsHueSwap = new JSpinner();
 		hands = new SpritePart("hands", cmbHands, spinHandsRed, spinHandsGreen, spinHandsBlue, spinHandsAlpha, spinHandsHueSwap);
-		configParteSprite(hands);
+		configSpritePartUI(hands);
 		
 		cmbHands.setBackground(Color.WHITE);
 		cmbHands.setBounds(80, 228, 200, 20);
@@ -450,7 +450,7 @@ public class Generator extends JFrame {
 		JSpinner spinLegsAAlpha = new JSpinner();
 		JSpinner spinLegsAHueSwap = new JSpinner();
 		legsA = new SpritePart("legs A", cmbLegsA, spinLegsARed, spinLegsAGreen, spinLegsABlue, spinLegsAAlpha, spinLegsAHueSwap);
-		configParteSprite(legsA);
+		configSpritePartUI(legsA);
 		
 		cmbLegsA.setBackground(Color.WHITE);
 		cmbLegsA.setBounds(80, 259, 200, 20);
@@ -492,7 +492,7 @@ public class Generator extends JFrame {
 		JSpinner spinLegsBAlpha = new JSpinner();
 		JSpinner spinLegsBHueSwap = new JSpinner();
 		legsB = new SpritePart("legs B", cmbLegsB, spinLegsBRed, spinLegsBGreen, spinLegsBBlue, spinLegsBAlpha, spinLegsBHueSwap);
-		configParteSprite(legsB);
+		configSpritePartUI(legsB);
 
 		cmbLegsB.setBackground(Color.WHITE);
 		cmbLegsB.setBounds(80, 290, 200, 20);
@@ -534,7 +534,7 @@ public class Generator extends JFrame {
 		JSpinner spinBackAlpha = new JSpinner();
 		JSpinner spinBackHueSwap = new JSpinner();
 		back = new SpritePart("back", cmbBack, spinBackRed, spinBackGreen, spinBackBlue, spinBackAlpha, spinBackHueSwap);
-		configParteSprite(back);
+		configSpritePartUI(back);
 		
 		cmbBack.setBackground(Color.WHITE);
 		cmbBack.setBounds(80, 321, 200, 20);
@@ -576,7 +576,7 @@ public class Generator extends JFrame {
 		JSpinner spinShoesAlpha = new JSpinner();
 		JSpinner spinShoesHueSwap = new JSpinner();
 		shoes = new SpritePart("shoes", cmbShoes, spinShoesRed, spinShoesGreen, spinShoesBlue, spinShoesAlpha, spinShoesHueSwap);
-		configParteSprite(shoes);
+		configSpritePartUI(shoes);
 		
 		cmbShoes.setBackground(Color.WHITE);
 		cmbShoes.setBounds(80, 352, 200, 20);
@@ -644,41 +644,53 @@ public class Generator extends JFrame {
 		contentPane.add(btnSave);
 	}
 	
-	void configParteSprite(SpritePart parte) {
-		parte.getCmb().addItemListener(itemListener);
-		parte.red.setToolTipText("Red color of " + parte.name);
-		parte.red.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		parte.red.addChangeListener(changeListener);
-		parte.green.setToolTipText("Green color of " + parte.name);
-		parte.green.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		parte.green.addChangeListener(changeListener);
-		parte.blue.setToolTipText("Blue color of " + parte.name);
-		parte.blue.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		parte.blue.addChangeListener(changeListener);
-		if (parte.alfa != null) {
-			parte.alfa.setToolTipText("Alpha of " + parte.name);
-			parte.alfa.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-			parte.alfa.addChangeListener(changeListener);
+	/**
+	 * Configures the UI components of a sprite part.
+	 * @param part The part which UI components will be configured.
+	 */
+	void configSpritePartUI(SpritePart part) {
+		part.getCmb().addItemListener(itemListener);
+		part.red.setToolTipText("Red color of " + part.name);
+		part.red.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		part.red.addChangeListener(changeListener);
+		part.green.setToolTipText("Green color of " + part.name);
+		part.green.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		part.green.addChangeListener(changeListener);
+		part.blue.setToolTipText("Blue color of " + part.name);
+		part.blue.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		part.blue.addChangeListener(changeListener);
+		if (part.alfa != null) {
+			part.alfa.setToolTipText("Alpha of " + part.name);
+			part.alfa.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+			part.alfa.addChangeListener(changeListener);
 		}
-		parte.hueSwap.setToolTipText("Hue Swap of " + parte.name);
-		parte.hueSwap.setModel(new SpinnerNumberModel(0, 0, 360, 1));
-		parte.hueSwap.addChangeListener(changeListener);
+		part.hueSwap.setToolTipText("Hue Swap of " + part.name);
+		part.hueSwap.setModel(new SpinnerNumberModel(0, 0, 360, 1));
+		part.hueSwap.addChangeListener(changeListener);
 	}
 
+	/**
+	 * The listener of the combo boxes.
+	 */
 	ItemListener itemListener = new ItemListener() {
 		public void itemStateChanged(ItemEvent e) {
-			if (deveAtualizar) atualizaSprite();
+			if (shouldUpdate) updateSprite();
 		}
 	};
 
+	/**
+	 * The listener of the spinners.
+	 */
 	ChangeListener changeListener = new ChangeListener() {
 		public void stateChanged(ChangeEvent e) {
-			if (deveAtualizar) atualizaSprite();
+			if (shouldUpdate) updateSprite();
 		}
 	};
 
-	//Atualiza o sprite com as partes selecionadas
-	private void atualizaSprite() {
+	/**
+	 * Updates the sprite with the selected parts.
+	 */
+	private void updateSprite() {
 		int[][] sprite;
 		back.updateColor(rgba);
 		try {
@@ -689,47 +701,47 @@ public class Generator extends JFrame {
 		System.out.println("Tempos:");
 		long tempo = System.nanoTime();
 		body.updateColor(rgba);
-		sprite = sobreporImagemArquivo(sprite, folders.body, body);
+		sprite = overlapImageWithFile(sprite, folders.body, body);
 		System.out.println("Sobrepor corpo: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
 		eyes.updateColor(rgba);
-		sprite = sobreporImagemArquivo(sprite, folders.eyes, eyes);
+		sprite = overlapImageWithFile(sprite, folders.eyes, eyes);
 		System.out.println("Sobrepor eyes: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
 		legsB.updateColor(rgba);
-		sprite = sobreporImagemArquivo(sprite, folders.legs, legsB);
+		sprite = overlapImageWithFile(sprite, folders.legs, legsB);
 		System.out.println("Sobrepor legsB: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
 		torsoB.updateColor(rgba);
-		sprite = sobreporImagemArquivo(sprite, folders.torso, torsoB);
+		sprite = overlapImageWithFile(sprite, folders.torso, torsoB);
 		System.out.println("Sobrepor torsoB: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
 		hands.updateColor(rgba);
-		sprite = sobreporImagemArquivo(sprite, folders.hands, hands);
+		sprite = overlapImageWithFile(sprite, folders.hands, hands);
 		System.out.println("Sobrepor hands: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
 		shoes.updateColor(rgba);
-		sprite = sobreporImagemArquivo(sprite, folders.shoes, shoes);
+		sprite = overlapImageWithFile(sprite, folders.shoes, shoes);
 		System.out.println("Sobrepor shoes: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
 		legsA.updateColor(rgba);
-		sprite = sobreporImagemArquivo(sprite, folders.legs, legsA);
+		sprite = overlapImageWithFile(sprite, folders.legs, legsA);
 		System.out.println("Sobrepor legsA: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
 		torsoA.updateColor(rgba);
-		sprite = sobreporImagemArquivo(sprite, folders.torso, torsoA);
+		sprite = overlapImageWithFile(sprite, folders.torso, torsoA);
 		System.out.println("Sobrepor torsoA: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
 		face.updateColor(rgba);
-		sprite = sobreporImagemArquivo(sprite, folders.faces, face);
+		sprite = overlapImageWithFile(sprite, folders.faces, face);
 		System.out.println("Sobrepor face: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
@@ -740,12 +752,12 @@ public class Generator extends JFrame {
 		
 		tempo = System.nanoTime();
 		hair.updateColor(rgba);
-		sprite = sobreporImagemArquivo(sprite, folders.hair, hair);
+		sprite = overlapImageWithFile(sprite, folders.hair, hair);
 		System.out.println("Sobrepor hair: " + (System.nanoTime()-tempo));
 		
 		tempo = System.nanoTime();
 		helm.updateColor(rgba);
-		sprite = sobreporImagemArquivo(sprite, folders.helm, helm);
+		sprite = overlapImageWithFile(sprite, folders.helm, helm);
 		System.out.println("Sobrepor helm: " + (System.nanoTime()-tempo));
 		
 		buffer = Imagem.matrizParaBuffer(sprite);
@@ -760,17 +772,26 @@ public class Generator extends JFrame {
 		);
 	}
 
-	//Sobrepoe a imagem
-	private int[][] sobreporImagemArquivo(int[][] base, File[] array, SpritePart parte) {
-		if (parte.getCmb().getSelectedIndex() == 0) return base;
+	/**
+	 * Reads a image and overlaps another one with it
+	 * @param base The image to be overlapped.
+	 * @param array The image array.
+	 * @param part The sprite part of the overlapping image.
+	 * @return The overlapped image.
+	 */
+	private int[][] overlapImageWithFile(int[][] base, File[] array, SpritePart part) {
+		if (part.getCmb().getSelectedIndex() == 0) return base;
 		try {
-			int[][] imagem = Leitura.selecionarImagem(array, parte);
-			return Imagem.sobreporImagem(imagem, base);
+			int[][] image = Leitura.selecionarImagem(array, part);
+			return Imagem.sobreporImagem(image, base);
 		} catch (TamanhoErradoException e) {
 			return e.tratar(base);
 		}
 	}
 
+	/**
+	 * Updates all combo boxes with the folders' current content.
+	 */
 	private void updateFolders() {
 		folders = new Folders(pastaArquivos);
 		updateCmb(body, folders.body);
@@ -785,16 +806,23 @@ public class Generator extends JFrame {
 		updateCmb(legsB, folders.legs);
 		updateCmb(back, folders.back);
 		updateCmb(shoes, folders.shoes);
-		JOptionPane.showMessageDialog(null, "Updated folders");
+		JOptionPane.showMessageDialog(null, "Updated the folders");
 	}
 
-	void updateCmb(SpritePart parte, File[] arq) {
-		parte.getCmb().setModel(new DefaultComboBoxModel<String>(Leitura.nomesArquivos(arq)));
+	/**
+	 * Updates the combo box of an part to show the current filenames in the part folder.
+	 * @param part The part which combo box will be updated.
+	 * @param files The files currently in the part folder.
+	 */
+	void updateCmb(SpritePart part, File[] files) {
+		part.getCmb().setModel(new DefaultComboBoxModel<String>(Leitura.nomesArquivos(files)));
 	}
 
-	//Seleciona aleatoriamente partes do sprite para criar um sprite aleatorio
+	/**
+	 * Selects random sprite parts to create a random sprite.
+	 */
 	private void spriteRandom() {
-		deveAtualizar = false;
+		shouldUpdate = false;
 		randomItemSelection(body.getCmb());
 		randomItemSelection(helm.getCmb());
 		randomItemSelection(hair.getCmb());
@@ -807,8 +835,16 @@ public class Generator extends JFrame {
 		randomItemSelection(legsB.getCmb());
 		randomItemSelection(back.getCmb());
 		randomItemSelection(shoes.getCmb());
-		atualizaSprite();
-		deveAtualizar = true;
+		updateSprite();
+		shouldUpdate = true;
+	}
+
+	/**
+	 * Selects a random item in a combo box.
+	 * @param cmb The combo box which item will be chosen.
+	 */
+	private void randomItemSelection(JComboBox<String> cmb) {
+		cmb.setSelectedIndex(random.nextInt(cmb.getItemCount()));
 	}
 
 	/**
@@ -816,19 +852,19 @@ public class Generator extends JFrame {
 	 * @param part The part which colors will be changed.
 	 */
 	private void randomPartColor(SpritePart part) {
-		deveAtualizar = false;
+		shouldUpdate = false;
 		part.red.setValue(random.nextInt((Integer) ((SpinnerNumberModel) part.red.getModel()).getMaximum() + 1));
 		part.green.setValue(random.nextInt((Integer) ((SpinnerNumberModel) part.green.getModel()).getMaximum() + 1));
 		part.blue.setValue(random.nextInt((Integer) ((SpinnerNumberModel) part.blue.getModel()).getMaximum() + 1));
 		part.hueSwap.setValue(random.nextInt(361));
-		atualizaSprite();
-		deveAtualizar = true;
+		updateSprite();
+		shouldUpdate = true;
 	}
 
-	private void randomItemSelection(JComboBox<String> cmb) {
-		cmb.setSelectedIndex(random.nextInt(cmb.getItemCount()));
-	}
-
+	/**
+	 * Saves the sprite generated.
+	 * @throws HeadlessException If GraphicsEnvironment.isHeadless returns true.
+	 */
 	private void saveSprite() throws HeadlessException {
 		JOptionPane.showMessageDialog(null, "Saved sprite as \"" + Escrita.saveSprite(folders, txtNameSprite.getText(), buffer) + "\"");
 	}
