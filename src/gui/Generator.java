@@ -73,7 +73,7 @@ public class Generator extends JFrame {
 		this.pastaArquivos = pastaArquivos;
 		this.folders = new Folders(pastaArquivos);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 50, 746, 443);
+		setBounds(100, 50, 746, 474);
 		setResizable(false);
 		setTitle("Sprite Generator");
 		contentPane = new JPanel();
@@ -81,44 +81,33 @@ public class Generator extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblBody = new JLabel("Body");
-		lblBody.setBounds(10, 11, 60, 20);
-		contentPane.add(lblBody);
-
-		JComboBox<String> cmbBody = new JComboBox(Leitura.nomesArquivos(folders.body));
-		body = new SpritePart("body", cmbBody, null, null, null, null, null);
-
-		cmbBody.setBackground(Color.WHITE);
-		cmbBody.addItemListener(itemListener);
-		cmbBody.setBounds(80, 11, 200, 20);
-		contentPane.add(cmbBody);
-
 		JLabel lblRed = new JLabel("Red");
-		lblRed.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRed.setBounds(290, 11, 60, 20);
+		lblRed.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblRed);
 
 		JLabel lblGreen = new JLabel("Green");
-		lblGreen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGreen.setBounds(360, 11, 60, 20);
+		lblGreen.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblGreen);
 
 		JLabel lblBlue = new JLabel("Blue");
-		lblBlue.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBlue.setBounds(430, 11, 60, 20);
+		lblBlue.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblBlue);
 
 		JLabel lblAlpha = new JLabel("Alpha");
-		lblAlpha.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAlpha.setBounds(500, 11, 60, 20);
+		lblAlpha.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblAlpha);
 
 		JLabel lblHueSwap = new JLabel("Hue Swap");
-		lblHueSwap.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHueSwap.setBounds(570, 11, 60, 20);
+		lblHueSwap.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblHueSwap);
 
 		JButton btnHSB = new JButton("HSB");
+		btnHSB.setBounds(640, 11, 90, 20);
 		btnHSB.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -150,464 +139,494 @@ public class Generator extends JFrame {
 				shouldUpdate = true;
 			}
 		});
-		btnHSB.setBounds(640, 11, 90, 20);
 		contentPane.add(btnHSB);
 
+		JPanel panelBody = new JPanel();
+		panelBody.setBounds(10, 42, 720, 20);
+		contentPane.add(panelBody);
+		panelBody.setLayout(null);
+
+		JLabel lblBody = new JLabel("Body");
+		lblBody.setBounds(0, 0, 60, 20);
+		panelBody.add(lblBody);
+
+		JComboBox<String> cmbBody = new JComboBox(Leitura.nomesArquivos(folders.body));
+		cmbBody.setBounds(70, 0, 200, 20);
+		panelBody.add(cmbBody);
+		body = new SpritePart("body", cmbBody, null, null, null, null, null);
+
+		cmbBody.setBackground(Color.WHITE);
+		cmbBody.addItemListener(itemListener);
+
+		JPanel panelHelm = new JPanel();
+		panelHelm.setBounds(10, 73, 720, 20);
+		contentPane.add(panelHelm);
+		panelHelm.setLayout(null);
+
 		JLabel lblHelm = new JLabel("Helm");
-		lblHelm.setBounds(10, 42, 60, 20);
-		contentPane.add(lblHelm);
-		
+		lblHelm.setBounds(0, 0, 60, 20);
+		panelHelm.add(lblHelm);
+
 		JComboBox<String> cmbHelm = new JComboBox(Leitura.nomesArquivos(folders.helm));
-		JSpinner spinHelmRed = new JSpinner();
-		JSpinner spinHelmGreen = new JSpinner();
-		JSpinner spinHelmBlue = new JSpinner();
-		JSpinner spinHelmAlpha = new JSpinner();
-		JSpinner spinHelmHueSwap = new JSpinner();
-		helm = new SpritePart("helm", cmbHelm, spinHelmRed, spinHelmGreen, spinHelmBlue, spinHelmAlpha, spinHelmHueSwap);
-		configSpritePartUI(helm);
-		
+		cmbHelm.setBounds(70, 0, 200, 20);
+		panelHelm.add(cmbHelm);
+
 		cmbHelm.setBackground(Color.WHITE);
-		cmbHelm.setBounds(80, 42, 200, 20);
-		contentPane.add(cmbHelm);
-
-		spinHelmRed.setBounds(290, 42, 60, 20);
-		contentPane.add(spinHelmRed);
-
-		spinHelmGreen.setBounds(360, 42, 60, 20);
-		contentPane.add(spinHelmGreen);
-
-		spinHelmBlue.setBounds(430, 42, 60, 20);
-		contentPane.add(spinHelmBlue);
-
-		spinHelmAlpha.setBounds(500, 42, 60, 20);
-		contentPane.add(spinHelmAlpha);
-
-		spinHelmHueSwap.setBounds(570, 42, 60, 20);
-		contentPane.add(spinHelmHueSwap);
+		JSpinner spinHelmRed = new JSpinner();
+		spinHelmRed.setBounds(280, 0, 60, 20);
+		panelHelm.add(spinHelmRed);
+		JSpinner spinHelmGreen = new JSpinner();
+		spinHelmGreen.setBounds(350, 0, 60, 20);
+		panelHelm.add(spinHelmGreen);
+		JSpinner spinHelmBlue = new JSpinner();
+		spinHelmBlue.setBounds(420, 0, 60, 20);
+		panelHelm.add(spinHelmBlue);
+		JSpinner spinHelmAlpha = new JSpinner();
+		spinHelmAlpha.setBounds(490, 0, 60, 20);
+		panelHelm.add(spinHelmAlpha);
+		JSpinner spinHelmHueSwap = new JSpinner();
+		spinHelmHueSwap.setBounds(560, 0, 60, 20);
+		panelHelm.add(spinHelmHueSwap);
 
 		JButton btnHelmRandom = new JButton("Random");
+		btnHelmRandom.setBounds(630, 0, 90, 20);
+		panelHelm.add(btnHelmRandom);
 		btnHelmRandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				randomPartColor(helm);
 			}
 		});
-		btnHelmRandom.setBounds(640, 42, 90, 20);
-		contentPane.add(btnHelmRandom);
+
+		helm = new SpritePart("helm", cmbHelm, spinHelmRed, spinHelmGreen, spinHelmBlue, spinHelmAlpha, spinHelmHueSwap);
+		configSpritePartUI(helm);
+
+		JPanel panelHair = new JPanel();
+		panelHair.setLayout(null);
+		panelHair.setBounds(10, 104, 720, 20);
+		contentPane.add(panelHair);
 
 		JLabel lblHair = new JLabel("Hair");
-		lblHair.setBounds(10, 73, 60, 20);
-		contentPane.add(lblHair);
+		lblHair.setBounds(0, 0, 60, 20);
+		panelHair.add(lblHair);
 
 		JComboBox<String> cmbHair = new JComboBox(Leitura.nomesArquivos(folders.hair));
-		JSpinner spinHairRed = new JSpinner();
-		JSpinner spinHairGreen = new JSpinner();
-		JSpinner spinHairBlue = new JSpinner();
-		JSpinner spinHairHueSwap = new JSpinner();
-		hair = new SpritePart("hair", cmbHair, spinHairRed, spinHairGreen, spinHairBlue, null, spinHairHueSwap);
-		configSpritePartUI(hair);
-		
+		cmbHair.setBounds(70, 0, 200, 20);
+		panelHair.add(cmbHair);
+
 		cmbHair.setBackground(Color.WHITE);
-		cmbHair.setBounds(80, 73, 200, 20);
-		contentPane.add(cmbHair);
-
-		spinHairRed.setBounds(290, 73, 60, 20);
-		contentPane.add(spinHairRed);
-
-		spinHairGreen.setBounds(360, 73, 60, 20);
-		contentPane.add(spinHairGreen);
-
-		spinHairBlue.setBounds(430, 73, 60, 20);
-		contentPane.add(spinHairBlue);
-
-		spinHairHueSwap.setBounds(570, 73, 60, 20);
-		contentPane.add(spinHairHueSwap);
+		JSpinner spinHairRed = new JSpinner();
+		spinHairRed.setBounds(280, 0, 60, 20);
+		panelHair.add(spinHairRed);
+		JSpinner spinHairGreen = new JSpinner();
+		spinHairGreen.setBounds(350, 0, 60, 20);
+		panelHair.add(spinHairGreen);
+		JSpinner spinHairBlue = new JSpinner();
+		spinHairBlue.setBounds(420, 0, 60, 20);
+		panelHair.add(spinHairBlue);
+		JSpinner spinHairHueSwap = new JSpinner();
+		spinHairHueSwap.setBounds(560, 0, 60, 20);
+		panelHair.add(spinHairHueSwap);
 
 		JButton btnHairRandom = new JButton("Random");
+		btnHairRandom.setBounds(630, 0, 90, 20);
+		panelHair.add(btnHairRandom);
 		btnHairRandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				randomPartColor(hair);
 			}
 		});
-		btnHairRandom.setBounds(640, 73, 90, 20);
-		contentPane.add(btnHairRandom);
+
+		hair = new SpritePart("hair", cmbHair, spinHairRed, spinHairGreen, spinHairBlue, null, spinHairHueSwap);
+		configSpritePartUI(hair);
+
+		JPanel panelEyes = new JPanel();
+		panelEyes.setLayout(null);
+		panelEyes.setBounds(10, 135, 720, 20);
+		contentPane.add(panelEyes);
 
 		JLabel lblEyes = new JLabel("Eyes");
-		lblEyes.setBounds(10, 104, 60, 20);
-		contentPane.add(lblEyes);
+		lblEyes.setBounds(0, 0, 60, 20);
+		panelEyes.add(lblEyes);
 
 		JComboBox<String> cmbEyes = new JComboBox(Leitura.nomesArquivos(folders.eyes));
-		JSpinner spinEyesRed = new JSpinner();
-		JSpinner spinEyesGreen = new JSpinner();
-		JSpinner spinEyesBlue = new JSpinner();
-		JSpinner spinEyesHueSwap = new JSpinner();
-		eyes = new SpritePart("eyes", cmbEyes, spinEyesRed, spinEyesGreen, spinEyesBlue, null, spinEyesHueSwap);
-		configSpritePartUI(eyes);
-		
+		cmbEyes.setBounds(70, 0, 200, 20);
+		panelEyes.add(cmbEyes);
+
 		cmbEyes.setBackground(Color.WHITE);
-		cmbEyes.setBounds(80, 104, 200, 20);
-		contentPane.add(cmbEyes);
-
-		spinEyesRed.setBounds(290, 104, 60, 20);
-		contentPane.add(spinEyesRed);
-
-		spinEyesGreen.setBounds(360, 104, 60, 20);
-		contentPane.add(spinEyesGreen);
-
-		spinEyesBlue.setBounds(430, 104, 60, 20);
-		contentPane.add(spinEyesBlue);
-
-		spinEyesHueSwap.setBounds(570, 104, 60, 20);
-		contentPane.add(spinEyesHueSwap);
+		JSpinner spinEyesRed = new JSpinner();
+		spinEyesRed.setBounds(280, 0, 60, 20);
+		panelEyes.add(spinEyesRed);
+		JSpinner spinEyesGreen = new JSpinner();
+		spinEyesGreen.setBounds(350, 0, 60, 20);
+		panelEyes.add(spinEyesGreen);
+		JSpinner spinEyesBlue = new JSpinner();
+		spinEyesBlue.setBounds(420, 0, 60, 20);
+		panelEyes.add(spinEyesBlue);
+		JSpinner spinEyesHueSwap = new JSpinner();
+		spinEyesHueSwap.setBounds(560, 0, 60, 20);
+		panelEyes.add(spinEyesHueSwap);
 
 		JButton btnEyesRandom = new JButton("Random");
+		btnEyesRandom.setBounds(630, 0, 90, 20);
+		panelEyes.add(btnEyesRandom);
 		btnEyesRandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				randomPartColor(eyes);
 			}
 		});
-		btnEyesRandom.setBounds(640, 104, 90, 20);
-		contentPane.add(btnEyesRandom);
+
+		eyes = new SpritePart("eyes", cmbEyes, spinEyesRed, spinEyesGreen, spinEyesBlue, null, spinEyesHueSwap);
+		configSpritePartUI(eyes);
+
+		JPanel panelFace = new JPanel();
+		panelFace.setLayout(null);
+		panelFace.setBounds(10, 166, 720, 20);
+		contentPane.add(panelFace);
 
 		JLabel lblFace = new JLabel("Face");
-		lblFace.setBounds(10, 135, 60, 20);
-		contentPane.add(lblFace);
+		lblFace.setBounds(0, 0, 60, 20);
+		panelFace.add(lblFace);
 
 		JComboBox<String> cmbFace = new JComboBox(Leitura.nomesArquivos(folders.faces));
-		JSpinner spinFaceRed = new JSpinner();
-		JSpinner spinFaceGreen = new JSpinner();
-		JSpinner spinFaceBlue = new JSpinner();
-		JSpinner spinFaceAlpha = new JSpinner();
-		JSpinner spinFaceHueSwap = new JSpinner();
-		face = new SpritePart("face", cmbFace, spinFaceRed, spinFaceGreen, spinFaceBlue, spinFaceAlpha, spinFaceHueSwap);
-		configSpritePartUI(face);
-		
+		cmbFace.setBounds(70, 0, 200, 20);
+		panelFace.add(cmbFace);
+
 		cmbFace.setBackground(Color.WHITE);
-		cmbFace.setBounds(80, 135, 200, 20);
-		contentPane.add(cmbFace);
-
-		spinFaceRed.setBounds(290, 135, 60, 20);
-		contentPane.add(spinFaceRed);
-
-		spinFaceGreen.setBounds(360, 135, 60, 20);
-		contentPane.add(spinFaceGreen);
-
-		spinFaceBlue.setBounds(430, 135, 60, 20);
-		contentPane.add(spinFaceBlue);
-
-		spinFaceAlpha.setBounds(500, 135, 60, 20);
-		contentPane.add(spinFaceAlpha);
-
-		spinFaceHueSwap.setBounds(570, 135, 60, 20);
-		contentPane.add(spinFaceHueSwap);
+		JSpinner spinFaceRed = new JSpinner();
+		spinFaceRed.setBounds(280, 0, 60, 20);
+		panelFace.add(spinFaceRed);
+		JSpinner spinFaceGreen = new JSpinner();
+		spinFaceGreen.setBounds(350, 0, 60, 20);
+		panelFace.add(spinFaceGreen);
+		JSpinner spinFaceBlue = new JSpinner();
+		spinFaceBlue.setBounds(420, 0, 60, 20);
+		panelFace.add(spinFaceBlue);
+		JSpinner spinFaceAlpha = new JSpinner();
+		spinFaceAlpha.setBounds(490, 0, 60, 20);
+		panelFace.add(spinFaceAlpha);
+		JSpinner spinFaceHueSwap = new JSpinner();
+		spinFaceHueSwap.setBounds(560, 0, 60, 20);
+		panelFace.add(spinFaceHueSwap);
 
 		JButton btnFaceRandom = new JButton("Random");
+		btnFaceRandom.setBounds(630, 0, 90, 20);
+		panelFace.add(btnFaceRandom);
 		btnFaceRandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				randomPartColor(face);
 			}
 		});
-		btnFaceRandom.setBounds(640, 135, 90, 20);
-		contentPane.add(btnFaceRandom);
+
+		face = new SpritePart("face", cmbFace, spinFaceRed, spinFaceGreen, spinFaceBlue, spinFaceAlpha, spinFaceHueSwap);
+		configSpritePartUI(face);
+
+		JPanel panelTorsoA = new JPanel();
+		panelTorsoA.setLayout(null);
+		panelTorsoA.setBounds(10, 197, 720, 20);
+		contentPane.add(panelTorsoA);
 
 		JLabel lblTorsoA = new JLabel("Torso A");
-		lblTorsoA.setBounds(10, 166, 60, 20);
-		contentPane.add(lblTorsoA);
+		lblTorsoA.setBounds(0, 0, 60, 20);
+		panelTorsoA.add(lblTorsoA);
 
 		JComboBox<String> cmbTorsoA = new JComboBox(Leitura.nomesArquivos(folders.torso));
-		JSpinner spinTorsoARed = new JSpinner();
-		JSpinner spinTorsoAGreen = new JSpinner();
-		JSpinner spinTorsoABlue = new JSpinner();
-		JSpinner spinTorsoAAlpha = new JSpinner();
-		JSpinner spinTorsoAHueSwap = new JSpinner();
-		torsoA = new SpritePart("torso A", cmbTorsoA, spinTorsoARed, spinTorsoAGreen, spinTorsoABlue, spinTorsoAAlpha, spinTorsoAHueSwap);
-		configSpritePartUI(torsoA);
-		
+		cmbTorsoA.setBounds(70, 0, 200, 20);
+		panelTorsoA.add(cmbTorsoA);
+
 		cmbTorsoA.setBackground(Color.WHITE);
-		cmbTorsoA.setBounds(80, 166, 200, 20);
-		contentPane.add(cmbTorsoA);
+		JSpinner spinTorsoARed = new JSpinner();
+		spinTorsoARed.setBounds(280, 0, 60, 20);
+		panelTorsoA.add(spinTorsoARed);
+		JSpinner spinTorsoAGreen = new JSpinner();
+		spinTorsoAGreen.setBounds(350, 0, 60, 20);
+		panelTorsoA.add(spinTorsoAGreen);
+		JSpinner spinTorsoABlue = new JSpinner();
+		spinTorsoABlue.setBounds(420, 0, 60, 20);
+		panelTorsoA.add(spinTorsoABlue);
+		JSpinner spinTorsoAAlpha = new JSpinner();
+		spinTorsoAAlpha.setBounds(490, 0, 60, 20);
+		panelTorsoA.add(spinTorsoAAlpha);
+		JSpinner spinTorsoAHueSwap = new JSpinner();
+		spinTorsoAHueSwap.setBounds(560, 0, 60, 20);
+		panelTorsoA.add(spinTorsoAHueSwap);
 
-		spinTorsoARed.setBounds(290, 166, 60, 20);
-		contentPane.add(spinTorsoARed);
-
-		spinTorsoAGreen.setBounds(360, 166, 60, 20);
-		contentPane.add(spinTorsoAGreen);
-
-		spinTorsoABlue.setBounds(430, 166, 60, 20);
-		contentPane.add(spinTorsoABlue);
-
-		spinTorsoAAlpha.setBounds(500, 166, 60, 20);
-		contentPane.add(spinTorsoAAlpha);
-
-		spinTorsoAHueSwap.setBounds(570, 166, 60, 20);
-		contentPane.add(spinTorsoAHueSwap);
-		
 		JButton btnTorsoARandom = new JButton("Random");
+		btnTorsoARandom.setBounds(630, 0, 90, 20);
+		panelTorsoA.add(btnTorsoARandom);
 		btnTorsoARandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				randomPartColor(torsoA);
 			}
 		});
-		btnTorsoARandom.setBounds(640, 166, 90, 20);
-		contentPane.add(btnTorsoARandom);
+
+		torsoA = new SpritePart("torso A", cmbTorsoA, spinTorsoARed, spinTorsoAGreen, spinTorsoABlue, spinTorsoAAlpha, spinTorsoAHueSwap);
+		configSpritePartUI(torsoA);
+
+		JPanel panelTorsoB = new JPanel();
+		panelTorsoB.setLayout(null);
+		panelTorsoB.setBounds(10, 228, 720, 20);
+		contentPane.add(panelTorsoB);
 
 		JLabel lblTorsoB = new JLabel("Torso B");
-		lblTorsoB.setBounds(10, 197, 60, 20);
-		contentPane.add(lblTorsoB);
+		lblTorsoB.setBounds(0, 0, 60, 20);
+		panelTorsoB.add(lblTorsoB);
 
 		JComboBox<String> cmbTorsoB = new JComboBox(Leitura.nomesArquivos(folders.torso));
-		JSpinner spinTorsoBRed = new JSpinner();
-		JSpinner spinTorsoBGreen = new JSpinner();
-		JSpinner spinTorsoBBlue = new JSpinner();
-		JSpinner spinTorsoBAlpha = new JSpinner();
-		JSpinner spinTorsoBHueSwap = new JSpinner();
-		torsoB = new SpritePart("torso B", cmbTorsoB, spinTorsoBRed, spinTorsoBGreen, spinTorsoBBlue, spinTorsoBAlpha, spinTorsoBHueSwap);
-		configSpritePartUI(torsoB);
-		
+		cmbTorsoB.setBounds(70, 0, 200, 20);
+		panelTorsoB.add(cmbTorsoB);
+
 		cmbTorsoB.setBackground(Color.WHITE);
-		cmbTorsoB.setBounds(80, 197, 200, 20);
-		contentPane.add(cmbTorsoB);
-
-		spinTorsoBRed.setBounds(290, 197, 60, 20);
-		contentPane.add(spinTorsoBRed);
-
-		spinTorsoBGreen.setBounds(360, 197, 60, 20);
-		contentPane.add(spinTorsoBGreen);
-
-		spinTorsoBBlue.setBounds(430, 197, 60, 20);
-		contentPane.add(spinTorsoBBlue);
-
-		spinTorsoBAlpha.setBounds(500, 197, 60, 20);
-		contentPane.add(spinTorsoBAlpha);
-
-		spinTorsoBHueSwap.setBounds(570, 197, 60, 20);
-		contentPane.add(spinTorsoBHueSwap);
+		JSpinner spinTorsoBRed = new JSpinner();
+		spinTorsoBRed.setBounds(280, 0, 60, 20);
+		panelTorsoB.add(spinTorsoBRed);
+		JSpinner spinTorsoBGreen = new JSpinner();
+		spinTorsoBGreen.setBounds(350, 0, 60, 20);
+		panelTorsoB.add(spinTorsoBGreen);
+		JSpinner spinTorsoBBlue = new JSpinner();
+		spinTorsoBBlue.setBounds(420, 0, 60, 20);
+		panelTorsoB.add(spinTorsoBBlue);
+		JSpinner spinTorsoBAlpha = new JSpinner();
+		spinTorsoBAlpha.setBounds(490, 0, 60, 20);
+		panelTorsoB.add(spinTorsoBAlpha);
+		JSpinner spinTorsoBHueSwap = new JSpinner();
+		spinTorsoBHueSwap.setBounds(560, 0, 60, 20);
+		panelTorsoB.add(spinTorsoBHueSwap);
 
 		JButton btnTorsoBRandom = new JButton("Random");
+		btnTorsoBRandom.setBounds(630, 0, 90, 20);
+		panelTorsoB.add(btnTorsoBRandom);
 		btnTorsoBRandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				randomPartColor(torsoB);
 			}
 		});
-		btnTorsoBRandom.setBounds(640, 197, 90, 20);
-		contentPane.add(btnTorsoBRandom);
+
+		torsoB = new SpritePart("torso B", cmbTorsoB, spinTorsoBRed, spinTorsoBGreen, spinTorsoBBlue, spinTorsoBAlpha, spinTorsoBHueSwap);
+		configSpritePartUI(torsoB);
+
+		JPanel panelHands = new JPanel();
+		panelHands.setLayout(null);
+		panelHands.setBounds(10, 259, 720, 20);
+		contentPane.add(panelHands);
 
 		JLabel lblHands = new JLabel("Hands");
-		lblHands.setBounds(10, 228, 60, 20);
-		contentPane.add(lblHands);
+		lblHands.setBounds(0, 0, 60, 20);
+		panelHands.add(lblHands);
 
 		JComboBox<String> cmbHands = new JComboBox(Leitura.nomesArquivos(folders.hands));
-		JSpinner spinHandsRed = new JSpinner();
-		JSpinner spinHandsGreen = new JSpinner();
-		JSpinner spinHandsBlue = new JSpinner();
-		JSpinner spinHandsAlpha = new JSpinner();
-		JSpinner spinHandsHueSwap = new JSpinner();
-		hands = new SpritePart("hands", cmbHands, spinHandsRed, spinHandsGreen, spinHandsBlue, spinHandsAlpha, spinHandsHueSwap);
-		configSpritePartUI(hands);
-		
+		cmbHands.setBounds(70, 0, 200, 20);
+		panelHands.add(cmbHands);
+
 		cmbHands.setBackground(Color.WHITE);
-		cmbHands.setBounds(80, 228, 200, 20);
-		contentPane.add(cmbHands);
-
-		spinHandsRed.setBounds(290, 228, 60, 20);
-		contentPane.add(spinHandsRed);
-
-		spinHandsGreen.setBounds(360, 228, 60, 20);
-		contentPane.add(spinHandsGreen);
-
-		spinHandsBlue.setBounds(430, 228, 60, 20);
-		contentPane.add(spinHandsBlue);
-
-		spinHandsAlpha.setBounds(500, 228, 60, 20);
-		contentPane.add(spinHandsAlpha);
-
-		spinHandsHueSwap.setBounds(570, 228, 60, 20);
-		contentPane.add(spinHandsHueSwap);
+		JSpinner spinHandsRed = new JSpinner();
+		spinHandsRed.setBounds(280, 0, 60, 20);
+		panelHands.add(spinHandsRed);
+		JSpinner spinHandsGreen = new JSpinner();
+		spinHandsGreen.setBounds(350, 0, 60, 20);
+		panelHands.add(spinHandsGreen);
+		JSpinner spinHandsBlue = new JSpinner();
+		spinHandsBlue.setBounds(420, 0, 60, 20);
+		panelHands.add(spinHandsBlue);
+		JSpinner spinHandsAlpha = new JSpinner();
+		spinHandsAlpha.setBounds(490, 0, 60, 20);
+		panelHands.add(spinHandsAlpha);
+		JSpinner spinHandsHueSwap = new JSpinner();
+		spinHandsHueSwap.setBounds(560, 0, 60, 20);
+		panelHands.add(spinHandsHueSwap);
 
 		JButton btnHandsRandom = new JButton("Random");
+		btnHandsRandom.setBounds(630, 0, 90, 20);
+		panelHands.add(btnHandsRandom);
 		btnHandsRandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				randomPartColor(hands);
 			}
 		});
-		btnHandsRandom.setBounds(640, 228, 90, 20);
-		contentPane.add(btnHandsRandom);
+
+		hands = new SpritePart("hands", cmbHands, spinHandsRed, spinHandsGreen, spinHandsBlue, spinHandsAlpha, spinHandsHueSwap);
+		configSpritePartUI(hands);
+
+		JPanel panelLegsA = new JPanel();
+		panelLegsA.setLayout(null);
+		panelLegsA.setBounds(10, 290, 720, 20);
+		contentPane.add(panelLegsA);
 
 		JLabel lblLegsA = new JLabel("Legs A");
-		lblLegsA.setBounds(10, 259, 60, 20);
-		contentPane.add(lblLegsA);
+		lblLegsA.setBounds(0, 0, 60, 20);
+		panelLegsA.add(lblLegsA);
 
 		JComboBox<String> cmbLegsA = new JComboBox(Leitura.nomesArquivos(folders.legs));
-		JSpinner spinLegsARed = new JSpinner();
-		JSpinner spinLegsAGreen = new JSpinner();
-		JSpinner spinLegsABlue = new JSpinner();
-		JSpinner spinLegsAAlpha = new JSpinner();
-		JSpinner spinLegsAHueSwap = new JSpinner();
-		legsA = new SpritePart("legs A", cmbLegsA, spinLegsARed, spinLegsAGreen, spinLegsABlue, spinLegsAAlpha, spinLegsAHueSwap);
-		configSpritePartUI(legsA);
-		
+		cmbLegsA.setBounds(70, 0, 200, 20);
+		panelLegsA.add(cmbLegsA);
+
 		cmbLegsA.setBackground(Color.WHITE);
-		cmbLegsA.setBounds(80, 259, 200, 20);
-		contentPane.add(cmbLegsA);
-
-		spinLegsARed.setBounds(290, 259, 60, 20);
-		contentPane.add(spinLegsARed);
-
-		spinLegsAGreen.setBounds(360, 259, 60, 20);
-		contentPane.add(spinLegsAGreen);
-
-		spinLegsABlue.setBounds(430, 259, 60, 20);
-		contentPane.add(spinLegsABlue);
-
-		spinLegsAAlpha.setBounds(500, 259, 60, 20);
-		contentPane.add(spinLegsAAlpha);
-
-		spinLegsAHueSwap.setBounds(570, 259, 60, 20);
-		contentPane.add(spinLegsAHueSwap);
+		JSpinner spinLegsARed = new JSpinner();
+		spinLegsARed.setBounds(280, 0, 60, 20);
+		panelLegsA.add(spinLegsARed);
+		JSpinner spinLegsAGreen = new JSpinner();
+		spinLegsAGreen.setBounds(350, 0, 60, 20);
+		panelLegsA.add(spinLegsAGreen);
+		JSpinner spinLegsABlue = new JSpinner();
+		spinLegsABlue.setBounds(420, 0, 60, 20);
+		panelLegsA.add(spinLegsABlue);
+		JSpinner spinLegsAAlpha = new JSpinner();
+		spinLegsAAlpha.setBounds(490, 0, 60, 20);
+		panelLegsA.add(spinLegsAAlpha);
+		JSpinner spinLegsAHueSwap = new JSpinner();
+		spinLegsAHueSwap.setBounds(560, 0, 60, 20);
+		panelLegsA.add(spinLegsAHueSwap);
 
 		JButton btnLegsARandom = new JButton("Random");
+		btnLegsARandom.setBounds(630, 0, 90, 20);
+		panelLegsA.add(btnLegsARandom);
 		btnLegsARandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				randomPartColor(legsA);
 			}
 		});
-		btnLegsARandom.setBounds(640, 259, 90, 20);
-		contentPane.add(btnLegsARandom);
+
+		legsA = new SpritePart("legs A", cmbLegsA, spinLegsARed, spinLegsAGreen, spinLegsABlue, spinLegsAAlpha, spinLegsAHueSwap);
+		configSpritePartUI(legsA);
+
+		JPanel panelLegsB = new JPanel();
+		panelLegsB.setLayout(null);
+		panelLegsB.setBounds(10, 321, 720, 20);
+		contentPane.add(panelLegsB);
 
 		JLabel lblLegsB = new JLabel("Legs B");
-		lblLegsB.setBounds(10, 290, 60, 20);
-		contentPane.add(lblLegsB);
+		lblLegsB.setBounds(0, 0, 60, 20);
+		panelLegsB.add(lblLegsB);
 
 		JComboBox<String> cmbLegsB = new JComboBox(Leitura.nomesArquivos(folders.legs));
-		JSpinner spinLegsBRed = new JSpinner();
-		JSpinner spinLegsBGreen = new JSpinner();
-		JSpinner spinLegsBBlue = new JSpinner();
-		JSpinner spinLegsBAlpha = new JSpinner();
-		JSpinner spinLegsBHueSwap = new JSpinner();
-		legsB = new SpritePart("legs B", cmbLegsB, spinLegsBRed, spinLegsBGreen, spinLegsBBlue, spinLegsBAlpha, spinLegsBHueSwap);
-		configSpritePartUI(legsB);
+		cmbLegsB.setBounds(70, 0, 200, 20);
+		panelLegsB.add(cmbLegsB);
 
 		cmbLegsB.setBackground(Color.WHITE);
-		cmbLegsB.setBounds(80, 290, 200, 20);
-		contentPane.add(cmbLegsB);
-
-		spinLegsBRed.setBounds(290, 290, 60, 20);
-		contentPane.add(spinLegsBRed);
-
-		spinLegsBGreen.setBounds(360, 290, 60, 20);
-		contentPane.add(spinLegsBGreen);
-
-		spinLegsBBlue.setBounds(430, 290, 60, 20);
-		contentPane.add(spinLegsBBlue);
-
-		spinLegsBAlpha.setBounds(500, 290, 60, 20);
-		contentPane.add(spinLegsBAlpha);
-
-		spinLegsBHueSwap.setBounds(570, 290, 60, 20);
-		contentPane.add(spinLegsBHueSwap);
+		JSpinner spinLegsBRed = new JSpinner();
+		spinLegsBRed.setBounds(280, 0, 60, 20);
+		panelLegsB.add(spinLegsBRed);
+		JSpinner spinLegsBGreen = new JSpinner();
+		spinLegsBGreen.setBounds(350, 0, 60, 20);
+		panelLegsB.add(spinLegsBGreen);
+		JSpinner spinLegsBBlue = new JSpinner();
+		spinLegsBBlue.setBounds(420, 0, 60, 20);
+		panelLegsB.add(spinLegsBBlue);
+		JSpinner spinLegsBAlpha = new JSpinner();
+		spinLegsBAlpha.setBounds(490, 0, 60, 20);
+		panelLegsB.add(spinLegsBAlpha);
+		JSpinner spinLegsBHueSwap = new JSpinner();
+		spinLegsBHueSwap.setBounds(560, 0, 60, 20);
+		panelLegsB.add(spinLegsBHueSwap);
 
 		JButton btnLegsBRandom = new JButton("Random");
+		btnLegsBRandom.setBounds(630, 0, 90, 20);
+		panelLegsB.add(btnLegsBRandom);
 		btnLegsBRandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				randomPartColor(legsB);
 			}
 		});
-		btnLegsBRandom.setBounds(640, 290, 90, 20);
-		contentPane.add(btnLegsBRandom);
+
+		legsB = new SpritePart("legs B", cmbLegsB, spinLegsBRed, spinLegsBGreen, spinLegsBBlue, spinLegsBAlpha, spinLegsBHueSwap);
+		configSpritePartUI(legsB);
+
+		JPanel panelBack = new JPanel();
+		panelBack.setLayout(null);
+		panelBack.setBounds(10, 352, 720, 20);
+		contentPane.add(panelBack);
 
 		JLabel lblBack = new JLabel("Back");
-		lblBack.setBounds(10, 321, 60, 20);
-		contentPane.add(lblBack);
+		lblBack.setBounds(0, 0, 60, 20);
+		panelBack.add(lblBack);
 
 		JComboBox<String> cmbBack = new JComboBox(Leitura.nomesArquivos(folders.back));
-		JSpinner spinBackRed = new JSpinner();
-		JSpinner spinBackGreen = new JSpinner();
-		JSpinner spinBackBlue = new JSpinner();
-		JSpinner spinBackAlpha = new JSpinner();
-		JSpinner spinBackHueSwap = new JSpinner();
-		back = new SpritePart("back", cmbBack, spinBackRed, spinBackGreen, spinBackBlue, spinBackAlpha, spinBackHueSwap);
-		configSpritePartUI(back);
-		
+		cmbBack.setBounds(70, 0, 200, 20);
+		panelBack.add(cmbBack);
+
 		cmbBack.setBackground(Color.WHITE);
-		cmbBack.setBounds(80, 321, 200, 20);
-		contentPane.add(cmbBack);
-
-		spinBackRed.setBounds(290, 321, 60, 20);
-		contentPane.add(spinBackRed);
-
-		spinBackGreen.setBounds(360, 321, 60, 20);
-		contentPane.add(spinBackGreen);
-
-		spinBackBlue.setBounds(430, 321, 60, 20);
-		contentPane.add(spinBackBlue);
-
-		spinBackAlpha.setBounds(500, 321, 60, 20);
-		contentPane.add(spinBackAlpha);
-
-		spinBackHueSwap.setBounds(570, 321, 60, 20);
-		contentPane.add(spinBackHueSwap);
+		JSpinner spinBackRed = new JSpinner();
+		spinBackRed.setBounds(280, 0, 60, 20);
+		panelBack.add(spinBackRed);
+		JSpinner spinBackGreen = new JSpinner();
+		spinBackGreen.setBounds(350, 0, 60, 20);
+		panelBack.add(spinBackGreen);
+		JSpinner spinBackBlue = new JSpinner();
+		spinBackBlue.setBounds(420, 0, 60, 20);
+		panelBack.add(spinBackBlue);
+		JSpinner spinBackAlpha = new JSpinner();
+		spinBackAlpha.setBounds(490, 0, 60, 20);
+		panelBack.add(spinBackAlpha);
+		JSpinner spinBackHueSwap = new JSpinner();
+		spinBackHueSwap.setBounds(560, 0, 60, 20);
+		panelBack.add(spinBackHueSwap);
 
 		JButton btnBackRandom = new JButton("Random");
+		btnBackRandom.setBounds(630, 0, 90, 20);
+		panelBack.add(btnBackRandom);
 		btnBackRandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				randomPartColor(back);
 			}
 		});
-		btnBackRandom.setBounds(640, 321, 90, 20);
-		contentPane.add(btnBackRandom);
+
+		back = new SpritePart("back", cmbBack, spinBackRed, spinBackGreen, spinBackBlue, spinBackAlpha, spinBackHueSwap);
+		configSpritePartUI(back);
+
+		JPanel panelShoes = new JPanel();
+		panelShoes.setLayout(null);
+		panelShoes.setBounds(10, 383, 720, 20);
+		contentPane.add(panelShoes);
 
 		JLabel lblShoes = new JLabel("Shoes");
-		lblShoes.setBounds(10, 352, 60, 20);
-		contentPane.add(lblShoes);
+		lblShoes.setBounds(0, 0, 60, 20);
+		panelShoes.add(lblShoes);
 
 		JComboBox<String> cmbShoes = new JComboBox(Leitura.nomesArquivos(folders.shoes));
-		JSpinner spinShoesRed = new JSpinner();
-		JSpinner spinShoesGreen = new JSpinner();
-		JSpinner spinShoesBlue = new JSpinner();
-		JSpinner spinShoesAlpha = new JSpinner();
-		JSpinner spinShoesHueSwap = new JSpinner();
-		shoes = new SpritePart("shoes", cmbShoes, spinShoesRed, spinShoesGreen, spinShoesBlue, spinShoesAlpha, spinShoesHueSwap);
-		configSpritePartUI(shoes);
-		
+		cmbShoes.setBounds(70, 0, 200, 20);
+		panelShoes.add(cmbShoes);
+
 		cmbShoes.setBackground(Color.WHITE);
-		cmbShoes.setBounds(80, 352, 200, 20);
-		contentPane.add(cmbShoes);
-
-		spinShoesRed.setBounds(290, 352, 60, 20);
-		contentPane.add(spinShoesRed);
-
-		spinShoesGreen.setBounds(360, 352, 60, 20);
-		contentPane.add(spinShoesGreen);
-
-		spinShoesBlue.setBounds(430, 352, 60, 20);
-		contentPane.add(spinShoesBlue);
-
-		spinShoesAlpha.setBounds(500, 352, 60, 20);
-		contentPane.add(spinShoesAlpha);
-
-		spinShoesHueSwap.setBounds(570, 352, 60, 20);
-		contentPane.add(spinShoesHueSwap);
+		JSpinner spinShoesRed = new JSpinner();
+		spinShoesRed.setBounds(280, 0, 60, 20);
+		panelShoes.add(spinShoesRed);
+		JSpinner spinShoesGreen = new JSpinner();
+		spinShoesGreen.setBounds(350, 0, 60, 20);
+		panelShoes.add(spinShoesGreen);
+		JSpinner spinShoesBlue = new JSpinner();
+		spinShoesBlue.setBounds(420, 0, 60, 20);
+		panelShoes.add(spinShoesBlue);
+		JSpinner spinShoesAlpha = new JSpinner();
+		spinShoesAlpha.setBounds(490, 0, 60, 20);
+		panelShoes.add(spinShoesAlpha);
+		JSpinner spinShoesHueSwap = new JSpinner();
+		spinShoesHueSwap.setBounds(560, 0, 60, 20);
+		panelShoes.add(spinShoesHueSwap);
 
 		JButton btnShoesRandom = new JButton("Random");
+		btnShoesRandom.setBounds(630, 0, 90, 20);
+		panelShoes.add(btnShoesRandom);
 		btnShoesRandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				randomPartColor(shoes);
 			}
 		});
-		btnShoesRandom.setBounds(640, 352, 90, 20);
-		contentPane.add(btnShoesRandom);
+
+		shoes = new SpritePart("shoes", cmbShoes, spinShoesRed, spinShoesGreen, spinShoesBlue, spinShoesAlpha, spinShoesHueSwap);
+		configSpritePartUI(shoes);
 
 		JButton btnAtualizarPastas = new JButton("Update folders");
+		btnAtualizarPastas.setBounds(450, 414, 130, 20);
 		btnAtualizarPastas.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				updateFolders();
@@ -615,35 +634,34 @@ public class Generator extends JFrame {
 		});
 
 		JButton btnRandom = new JButton("Random Parts");
+		btnRandom.setBounds(590, 414, 140, 20);
 		btnRandom.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				spriteRandom();
 			}
 		});
-		btnRandom.setBounds(590, 383, 140, 20);
 		contentPane.add(btnRandom);
-		btnAtualizarPastas.setBounds(450, 383, 130, 20);
 		contentPane.add(btnAtualizarPastas);
 
 		JLabel lblName = new JLabel("Name");
-		lblName.setBounds(10, 383, 60, 20);
+		lblName.setBounds(10, 414, 60, 20);
 		contentPane.add(lblName);
 
 		txtNameSprite = new JTextField();
-		txtNameSprite.setBounds(80, 383, 200, 20);
+		txtNameSprite.setBounds(80, 414, 200, 20);
 		contentPane.add(txtNameSprite);
 		txtNameSprite.setColumns(10);
 
 		JButton btnSave = new JButton("Save");
+		btnSave.setBounds(290, 414, 150, 20);
 		btnSave.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				saveSprite();
 			}
 		});
-		btnSave.setBounds(290, 383, 150, 20);
 		contentPane.add(btnSave);
 	}
-	
+
 	/**
 	 * Configures the UI components of a sprite part.
 	 * @param part The part which UI components will be configured.
@@ -703,77 +721,77 @@ public class Generator extends JFrame {
 		body.updateColor(rgba);
 		sprite = overlapImageWithFile(sprite, folders.body, body);
 		System.out.println("Sobrepor corpo: " + (System.nanoTime()-tempo));
-		
+
 		tempo = System.nanoTime();
 		eyes.updateColor(rgba);
 		sprite = overlapImageWithFile(sprite, folders.eyes, eyes);
 		System.out.println("Sobrepor eyes: " + (System.nanoTime()-tempo));
-		
+
 		tempo = System.nanoTime();
 		legsB.updateColor(rgba);
 		sprite = overlapImageWithFile(sprite, folders.legs, legsB);
 		System.out.println("Sobrepor legsB: " + (System.nanoTime()-tempo));
-		
+
 		tempo = System.nanoTime();
 		torsoB.updateColor(rgba);
 		sprite = overlapImageWithFile(sprite, folders.torso, torsoB);
 		System.out.println("Sobrepor torsoB: " + (System.nanoTime()-tempo));
-		
+
 		tempo = System.nanoTime();
 		hands.updateColor(rgba);
 		sprite = overlapImageWithFile(sprite, folders.hands, hands);
 		System.out.println("Sobrepor hands: " + (System.nanoTime()-tempo));
-		
+
 		tempo = System.nanoTime();
 		shoes.updateColor(rgba);
 		sprite = overlapImageWithFile(sprite, folders.shoes, shoes);
 		System.out.println("Sobrepor shoes: " + (System.nanoTime()-tempo));
-		
+
 		tempo = System.nanoTime();
 		legsA.updateColor(rgba);
 		sprite = overlapImageWithFile(sprite, folders.legs, legsA);
 		System.out.println("Sobrepor legsA: " + (System.nanoTime()-tempo));
-		
+
 		tempo = System.nanoTime();
 		torsoA.updateColor(rgba);
 		sprite = overlapImageWithFile(sprite, folders.torso, torsoA);
 		System.out.println("Sobrepor torsoA: " + (System.nanoTime()-tempo));
-		
+
 		tempo = System.nanoTime();
 		face.updateColor(rgba);
 		sprite = overlapImageWithFile(sprite, folders.faces, face);
 		System.out.println("Sobrepor face: " + (System.nanoTime()-tempo));
-		
+
 		tempo = System.nanoTime();
 		try {
 			sprite = Imagem.sobreporImagem(Imagem.capaFrente(Leitura.selecionarImagem(folders.back, back)), sprite);
 		} catch (TamanhoErradoException e) {}
 		System.out.println("Sobrepor back: " + (System.nanoTime()-tempo));
-		
+
 		tempo = System.nanoTime();
 		hair.updateColor(rgba);
 		sprite = overlapImageWithFile(sprite, folders.hair, hair);
 		System.out.println("Sobrepor hair: " + (System.nanoTime()-tempo));
-		
+
 		tempo = System.nanoTime();
 		helm.updateColor(rgba);
 		sprite = overlapImageWithFile(sprite, folders.helm, helm);
 		System.out.println("Sobrepor helm: " + (System.nanoTime()-tempo));
-		
+
 		buffer = Imagem.matrizParaBuffer(sprite);
 		this.sprite.label.setIcon(
-			new ImageIcon(
-				buffer.getScaledInstance(
-					Dimensoes.ZOOM * Dimensoes.LARGURA,
-					Dimensoes.ZOOM * Dimensoes.ALTURA,
-					Image.SCALE_AREA_AVERAGING
-				)
-			)
-		);
+				new ImageIcon(
+						buffer.getScaledInstance(
+								Dimensoes.ZOOM * Dimensoes.LARGURA,
+								Dimensoes.ZOOM * Dimensoes.ALTURA,
+								Image.SCALE_AREA_AVERAGING
+								)
+						)
+				);
 	}
 
 	/**
-	 * Reads a image and overlaps another one with it
+	 * Reads a image and overlaps another one with it.
 	 * @param base The image to be overlapped.
 	 * @param array The image array.
 	 * @param part The sprite part of the overlapping image.
