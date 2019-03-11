@@ -1,6 +1,5 @@
 package funcoes;
 
-import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 
 import classes.CorARGB;

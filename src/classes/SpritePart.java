@@ -24,12 +24,7 @@ public class SpritePart {
 		this.blue = blue;
 		this.alfa = alfa;
 		this.hueSwap = hueSwap;
-		this.color = new CorARGB(
-			red != null ? (int)red.getValue() : 255,
-			green != null ? (int)green.getValue() : 255,
-			blue != null ? (int)blue.getValue() : 255,
-			alfa != null ? (int)alfa.getValue() : 255
-		);
+		this.color = new CorARGB((int)red.getValue(), (int)green.getValue(), (int)blue.getValue(), (int)alfa.getValue());
 	}
 	
 	public JComboBox<String> getCmb() {

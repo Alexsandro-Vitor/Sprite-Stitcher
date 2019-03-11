@@ -43,7 +43,7 @@ import javax.swing.event.ChangeEvent;
 public class Generator extends JFrame {
 
 	private Sprite sprite;
-	private String pastaArquivos;
+	private String imagesFolder;
 	private Folders folders;
 	private BufferedImage buffer;
 	private static Random random = new Random();
@@ -68,10 +68,10 @@ public class Generator extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Generator(Sprite sprite, String pastaArquivos) {
+	public Generator(Sprite sprite, String imagesFolder) {
 		this.sprite = sprite;
-		this.pastaArquivos = pastaArquivos;
-		this.folders = new Folders(pastaArquivos);
+		this.imagesFolder = imagesFolder;
+		this.folders = new Folders(imagesFolder);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 50, 746, 474);
 		setResizable(false);
@@ -153,10 +153,40 @@ public class Generator extends JFrame {
 		JComboBox<String> cmbBody = new JComboBox(Leitura.nomesArquivos(folders.body));
 		cmbBody.setBounds(70, 0, 200, 20);
 		panelBody.add(cmbBody);
-		body = new SpritePart("body", cmbBody, null, null, null, null, null);
-
 		cmbBody.setBackground(Color.WHITE);
-		cmbBody.addItemListener(itemListener);
+
+		JSpinner spinBodyRed = new JSpinner();
+		spinBodyRed.setBounds(280, 0, 60, 20);
+		panelBody.add(spinBodyRed);
+
+		JSpinner spinBodyGreen = new JSpinner();
+		spinBodyGreen.setBounds(350, 0, 60, 20);
+		panelBody.add(spinBodyGreen);
+
+		JSpinner spinBodyBlue = new JSpinner();
+		spinBodyBlue.setBounds(420, 0, 60, 20);
+		panelBody.add(spinBodyBlue);
+
+		JSpinner spinBodyAlpha = new JSpinner();
+		spinBodyAlpha.setBounds(490, 0, 60, 20);
+		panelBody.add(spinBodyAlpha);
+
+		JSpinner spinBodyHueSwap = new JSpinner();
+		spinBodyHueSwap.setBounds(560, 0, 60, 20);
+		panelBody.add(spinBodyHueSwap);
+
+		JButton btnBodyRandom = new JButton("Random");
+		btnBodyRandom.setBounds(630, 0, 90, 20);
+		panelBody.add(btnBodyRandom);
+		btnBodyRandom.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				randomPartColor(body);
+			}
+		});
+
+		body = new SpritePart("body", cmbBody, spinBodyRed, spinBodyGreen, spinBodyBlue, spinBodyAlpha, spinBodyHueSwap);
+		configSpritePartUI(body);
 
 		JPanel panelHelm = new JPanel();
 		panelHelm.setBounds(10, 73, 720, 20);
@@ -170,20 +200,24 @@ public class Generator extends JFrame {
 		JComboBox<String> cmbHelm = new JComboBox(Leitura.nomesArquivos(folders.helm));
 		cmbHelm.setBounds(70, 0, 200, 20);
 		panelHelm.add(cmbHelm);
-
 		cmbHelm.setBackground(Color.WHITE);
+
 		JSpinner spinHelmRed = new JSpinner();
 		spinHelmRed.setBounds(280, 0, 60, 20);
 		panelHelm.add(spinHelmRed);
+
 		JSpinner spinHelmGreen = new JSpinner();
 		spinHelmGreen.setBounds(350, 0, 60, 20);
 		panelHelm.add(spinHelmGreen);
+
 		JSpinner spinHelmBlue = new JSpinner();
 		spinHelmBlue.setBounds(420, 0, 60, 20);
 		panelHelm.add(spinHelmBlue);
+
 		JSpinner spinHelmAlpha = new JSpinner();
 		spinHelmAlpha.setBounds(490, 0, 60, 20);
 		panelHelm.add(spinHelmAlpha);
+
 		JSpinner spinHelmHueSwap = new JSpinner();
 		spinHelmHueSwap.setBounds(560, 0, 60, 20);
 		panelHelm.add(spinHelmHueSwap);
@@ -213,17 +247,24 @@ public class Generator extends JFrame {
 		JComboBox<String> cmbHair = new JComboBox(Leitura.nomesArquivos(folders.hair));
 		cmbHair.setBounds(70, 0, 200, 20);
 		panelHair.add(cmbHair);
-
 		cmbHair.setBackground(Color.WHITE);
+
 		JSpinner spinHairRed = new JSpinner();
 		spinHairRed.setBounds(280, 0, 60, 20);
 		panelHair.add(spinHairRed);
+
 		JSpinner spinHairGreen = new JSpinner();
 		spinHairGreen.setBounds(350, 0, 60, 20);
 		panelHair.add(spinHairGreen);
+
 		JSpinner spinHairBlue = new JSpinner();
 		spinHairBlue.setBounds(420, 0, 60, 20);
 		panelHair.add(spinHairBlue);
+
+		JSpinner spinHairAlpha = new JSpinner();
+		spinHairAlpha.setBounds(490, 0, 60, 20);
+		panelHair.add(spinHairAlpha);
+
 		JSpinner spinHairHueSwap = new JSpinner();
 		spinHairHueSwap.setBounds(560, 0, 60, 20);
 		panelHair.add(spinHairHueSwap);
@@ -238,7 +279,7 @@ public class Generator extends JFrame {
 			}
 		});
 
-		hair = new SpritePart("hair", cmbHair, spinHairRed, spinHairGreen, spinHairBlue, null, spinHairHueSwap);
+		hair = new SpritePart("hair", cmbHair, spinHairRed, spinHairGreen, spinHairBlue, spinHairAlpha, spinHairHueSwap);
 		configSpritePartUI(hair);
 
 		JPanel panelEyes = new JPanel();
@@ -253,17 +294,24 @@ public class Generator extends JFrame {
 		JComboBox<String> cmbEyes = new JComboBox(Leitura.nomesArquivos(folders.eyes));
 		cmbEyes.setBounds(70, 0, 200, 20);
 		panelEyes.add(cmbEyes);
-
 		cmbEyes.setBackground(Color.WHITE);
+
 		JSpinner spinEyesRed = new JSpinner();
 		spinEyesRed.setBounds(280, 0, 60, 20);
 		panelEyes.add(spinEyesRed);
+
 		JSpinner spinEyesGreen = new JSpinner();
 		spinEyesGreen.setBounds(350, 0, 60, 20);
 		panelEyes.add(spinEyesGreen);
+
 		JSpinner spinEyesBlue = new JSpinner();
 		spinEyesBlue.setBounds(420, 0, 60, 20);
 		panelEyes.add(spinEyesBlue);
+
+		JSpinner spinEyesAlpha = new JSpinner();
+		spinEyesAlpha.setBounds(490, 0, 60, 20);
+		panelEyes.add(spinEyesAlpha);
+
 		JSpinner spinEyesHueSwap = new JSpinner();
 		spinEyesHueSwap.setBounds(560, 0, 60, 20);
 		panelEyes.add(spinEyesHueSwap);
@@ -278,7 +326,7 @@ public class Generator extends JFrame {
 			}
 		});
 
-		eyes = new SpritePart("eyes", cmbEyes, spinEyesRed, spinEyesGreen, spinEyesBlue, null, spinEyesHueSwap);
+		eyes = new SpritePart("eyes", cmbEyes, spinEyesRed, spinEyesGreen, spinEyesBlue, spinEyesAlpha, spinEyesHueSwap);
 		configSpritePartUI(eyes);
 
 		JPanel panelFace = new JPanel();
@@ -293,20 +341,24 @@ public class Generator extends JFrame {
 		JComboBox<String> cmbFace = new JComboBox(Leitura.nomesArquivos(folders.faces));
 		cmbFace.setBounds(70, 0, 200, 20);
 		panelFace.add(cmbFace);
-
 		cmbFace.setBackground(Color.WHITE);
+
 		JSpinner spinFaceRed = new JSpinner();
 		spinFaceRed.setBounds(280, 0, 60, 20);
 		panelFace.add(spinFaceRed);
+
 		JSpinner spinFaceGreen = new JSpinner();
 		spinFaceGreen.setBounds(350, 0, 60, 20);
 		panelFace.add(spinFaceGreen);
+
 		JSpinner spinFaceBlue = new JSpinner();
 		spinFaceBlue.setBounds(420, 0, 60, 20);
 		panelFace.add(spinFaceBlue);
+
 		JSpinner spinFaceAlpha = new JSpinner();
 		spinFaceAlpha.setBounds(490, 0, 60, 20);
 		panelFace.add(spinFaceAlpha);
+
 		JSpinner spinFaceHueSwap = new JSpinner();
 		spinFaceHueSwap.setBounds(560, 0, 60, 20);
 		panelFace.add(spinFaceHueSwap);
@@ -336,20 +388,24 @@ public class Generator extends JFrame {
 		JComboBox<String> cmbTorsoA = new JComboBox(Leitura.nomesArquivos(folders.torso));
 		cmbTorsoA.setBounds(70, 0, 200, 20);
 		panelTorsoA.add(cmbTorsoA);
-
 		cmbTorsoA.setBackground(Color.WHITE);
+
 		JSpinner spinTorsoARed = new JSpinner();
 		spinTorsoARed.setBounds(280, 0, 60, 20);
 		panelTorsoA.add(spinTorsoARed);
+
 		JSpinner spinTorsoAGreen = new JSpinner();
 		spinTorsoAGreen.setBounds(350, 0, 60, 20);
 		panelTorsoA.add(spinTorsoAGreen);
+
 		JSpinner spinTorsoABlue = new JSpinner();
 		spinTorsoABlue.setBounds(420, 0, 60, 20);
 		panelTorsoA.add(spinTorsoABlue);
+
 		JSpinner spinTorsoAAlpha = new JSpinner();
 		spinTorsoAAlpha.setBounds(490, 0, 60, 20);
 		panelTorsoA.add(spinTorsoAAlpha);
+
 		JSpinner spinTorsoAHueSwap = new JSpinner();
 		spinTorsoAHueSwap.setBounds(560, 0, 60, 20);
 		panelTorsoA.add(spinTorsoAHueSwap);
@@ -379,20 +435,24 @@ public class Generator extends JFrame {
 		JComboBox<String> cmbTorsoB = new JComboBox(Leitura.nomesArquivos(folders.torso));
 		cmbTorsoB.setBounds(70, 0, 200, 20);
 		panelTorsoB.add(cmbTorsoB);
-
 		cmbTorsoB.setBackground(Color.WHITE);
+
 		JSpinner spinTorsoBRed = new JSpinner();
 		spinTorsoBRed.setBounds(280, 0, 60, 20);
 		panelTorsoB.add(spinTorsoBRed);
+
 		JSpinner spinTorsoBGreen = new JSpinner();
 		spinTorsoBGreen.setBounds(350, 0, 60, 20);
 		panelTorsoB.add(spinTorsoBGreen);
+
 		JSpinner spinTorsoBBlue = new JSpinner();
 		spinTorsoBBlue.setBounds(420, 0, 60, 20);
 		panelTorsoB.add(spinTorsoBBlue);
+
 		JSpinner spinTorsoBAlpha = new JSpinner();
 		spinTorsoBAlpha.setBounds(490, 0, 60, 20);
 		panelTorsoB.add(spinTorsoBAlpha);
+
 		JSpinner spinTorsoBHueSwap = new JSpinner();
 		spinTorsoBHueSwap.setBounds(560, 0, 60, 20);
 		panelTorsoB.add(spinTorsoBHueSwap);
@@ -422,20 +482,24 @@ public class Generator extends JFrame {
 		JComboBox<String> cmbHands = new JComboBox(Leitura.nomesArquivos(folders.hands));
 		cmbHands.setBounds(70, 0, 200, 20);
 		panelHands.add(cmbHands);
-
 		cmbHands.setBackground(Color.WHITE);
+
 		JSpinner spinHandsRed = new JSpinner();
 		spinHandsRed.setBounds(280, 0, 60, 20);
 		panelHands.add(spinHandsRed);
+
 		JSpinner spinHandsGreen = new JSpinner();
 		spinHandsGreen.setBounds(350, 0, 60, 20);
 		panelHands.add(spinHandsGreen);
+
 		JSpinner spinHandsBlue = new JSpinner();
 		spinHandsBlue.setBounds(420, 0, 60, 20);
 		panelHands.add(spinHandsBlue);
+
 		JSpinner spinHandsAlpha = new JSpinner();
 		spinHandsAlpha.setBounds(490, 0, 60, 20);
 		panelHands.add(spinHandsAlpha);
+
 		JSpinner spinHandsHueSwap = new JSpinner();
 		spinHandsHueSwap.setBounds(560, 0, 60, 20);
 		panelHands.add(spinHandsHueSwap);
@@ -465,20 +529,24 @@ public class Generator extends JFrame {
 		JComboBox<String> cmbLegsA = new JComboBox(Leitura.nomesArquivos(folders.legs));
 		cmbLegsA.setBounds(70, 0, 200, 20);
 		panelLegsA.add(cmbLegsA);
-
 		cmbLegsA.setBackground(Color.WHITE);
+
 		JSpinner spinLegsARed = new JSpinner();
 		spinLegsARed.setBounds(280, 0, 60, 20);
 		panelLegsA.add(spinLegsARed);
+
 		JSpinner spinLegsAGreen = new JSpinner();
 		spinLegsAGreen.setBounds(350, 0, 60, 20);
 		panelLegsA.add(spinLegsAGreen);
+
 		JSpinner spinLegsABlue = new JSpinner();
 		spinLegsABlue.setBounds(420, 0, 60, 20);
 		panelLegsA.add(spinLegsABlue);
+
 		JSpinner spinLegsAAlpha = new JSpinner();
 		spinLegsAAlpha.setBounds(490, 0, 60, 20);
 		panelLegsA.add(spinLegsAAlpha);
+
 		JSpinner spinLegsAHueSwap = new JSpinner();
 		spinLegsAHueSwap.setBounds(560, 0, 60, 20);
 		panelLegsA.add(spinLegsAHueSwap);
@@ -508,20 +576,24 @@ public class Generator extends JFrame {
 		JComboBox<String> cmbLegsB = new JComboBox(Leitura.nomesArquivos(folders.legs));
 		cmbLegsB.setBounds(70, 0, 200, 20);
 		panelLegsB.add(cmbLegsB);
-
 		cmbLegsB.setBackground(Color.WHITE);
+
 		JSpinner spinLegsBRed = new JSpinner();
 		spinLegsBRed.setBounds(280, 0, 60, 20);
 		panelLegsB.add(spinLegsBRed);
+
 		JSpinner spinLegsBGreen = new JSpinner();
 		spinLegsBGreen.setBounds(350, 0, 60, 20);
 		panelLegsB.add(spinLegsBGreen);
+
 		JSpinner spinLegsBBlue = new JSpinner();
 		spinLegsBBlue.setBounds(420, 0, 60, 20);
 		panelLegsB.add(spinLegsBBlue);
+
 		JSpinner spinLegsBAlpha = new JSpinner();
 		spinLegsBAlpha.setBounds(490, 0, 60, 20);
 		panelLegsB.add(spinLegsBAlpha);
+
 		JSpinner spinLegsBHueSwap = new JSpinner();
 		spinLegsBHueSwap.setBounds(560, 0, 60, 20);
 		panelLegsB.add(spinLegsBHueSwap);
@@ -551,20 +623,24 @@ public class Generator extends JFrame {
 		JComboBox<String> cmbBack = new JComboBox(Leitura.nomesArquivos(folders.back));
 		cmbBack.setBounds(70, 0, 200, 20);
 		panelBack.add(cmbBack);
-
 		cmbBack.setBackground(Color.WHITE);
+
 		JSpinner spinBackRed = new JSpinner();
 		spinBackRed.setBounds(280, 0, 60, 20);
 		panelBack.add(spinBackRed);
+
 		JSpinner spinBackGreen = new JSpinner();
 		spinBackGreen.setBounds(350, 0, 60, 20);
 		panelBack.add(spinBackGreen);
+
 		JSpinner spinBackBlue = new JSpinner();
 		spinBackBlue.setBounds(420, 0, 60, 20);
 		panelBack.add(spinBackBlue);
+
 		JSpinner spinBackAlpha = new JSpinner();
 		spinBackAlpha.setBounds(490, 0, 60, 20);
 		panelBack.add(spinBackAlpha);
+
 		JSpinner spinBackHueSwap = new JSpinner();
 		spinBackHueSwap.setBounds(560, 0, 60, 20);
 		panelBack.add(spinBackHueSwap);
@@ -594,20 +670,24 @@ public class Generator extends JFrame {
 		JComboBox<String> cmbShoes = new JComboBox(Leitura.nomesArquivos(folders.shoes));
 		cmbShoes.setBounds(70, 0, 200, 20);
 		panelShoes.add(cmbShoes);
-
 		cmbShoes.setBackground(Color.WHITE);
+
 		JSpinner spinShoesRed = new JSpinner();
 		spinShoesRed.setBounds(280, 0, 60, 20);
 		panelShoes.add(spinShoesRed);
+
 		JSpinner spinShoesGreen = new JSpinner();
 		spinShoesGreen.setBounds(350, 0, 60, 20);
 		panelShoes.add(spinShoesGreen);
+
 		JSpinner spinShoesBlue = new JSpinner();
 		spinShoesBlue.setBounds(420, 0, 60, 20);
 		panelShoes.add(spinShoesBlue);
+
 		JSpinner spinShoesAlpha = new JSpinner();
 		spinShoesAlpha.setBounds(490, 0, 60, 20);
 		panelShoes.add(spinShoesAlpha);
+
 		JSpinner spinShoesHueSwap = new JSpinner();
 		spinShoesHueSwap.setBounds(560, 0, 60, 20);
 		panelShoes.add(spinShoesHueSwap);
@@ -668,20 +748,23 @@ public class Generator extends JFrame {
 	 */
 	void configSpritePartUI(SpritePart part) {
 		part.getCmb().addItemListener(itemListener);
+
 		part.red.setToolTipText("Red color of " + part.name);
 		part.red.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		part.red.addChangeListener(changeListener);
+
 		part.green.setToolTipText("Green color of " + part.name);
 		part.green.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		part.green.addChangeListener(changeListener);
+
 		part.blue.setToolTipText("Blue color of " + part.name);
 		part.blue.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		part.blue.addChangeListener(changeListener);
-		if (part.alfa != null) {
-			part.alfa.setToolTipText("Alpha of " + part.name);
-			part.alfa.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-			part.alfa.addChangeListener(changeListener);
-		}
+
+		part.alfa.setToolTipText("Alpha of " + part.name);
+		part.alfa.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		part.alfa.addChangeListener(changeListener);
+
 		part.hueSwap.setToolTipText("Hue Swap of " + part.name);
 		part.hueSwap.setModel(new SpinnerNumberModel(0, 0, 360, 1));
 		part.hueSwap.addChangeListener(changeListener);
@@ -811,7 +894,7 @@ public class Generator extends JFrame {
 	 * Updates all combo boxes with the folders' current content.
 	 */
 	private void updateFolders() {
-		folders = new Folders(pastaArquivos);
+		folders = new Folders(imagesFolder);
 		updateCmb(body, folders.body);
 		updateCmb(helm, folders.helm);
 		updateCmb(hair, folders.hair);
