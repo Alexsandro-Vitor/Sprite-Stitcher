@@ -38,8 +38,13 @@ import excecoes.TamanhoErradoException;
 import funcoes.*;
 
 import javax.swing.event.ChangeEvent;
+import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
+/**
+ * Class which manages the UI for selecting the parts and colors.
+ * @author Alexsandro Vítor Serafim de Carvalho
+ */
 public class Generator extends JFrame {
 
 	private Sprite sprite;
@@ -73,7 +78,7 @@ public class Generator extends JFrame {
 		this.imagesFolder = imagesFolder;
 		this.folders = new Folders(imagesFolder);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 50, 746, 474);
+		setBounds(100, 50, 806, 474);
 		setResizable(false);
 		setTitle("Sprite Generator");
 		contentPane = new JPanel();
@@ -124,6 +129,7 @@ public class Generator extends JFrame {
 					lblBlue.setText("Bright");
 				}
 				shouldUpdate = false;
+				body.setRGBA(rgba);
 				helm.setRGBA(rgba);
 				hair.setRGBA(rgba);
 				eyes.setRGBA(rgba);
@@ -142,7 +148,7 @@ public class Generator extends JFrame {
 		contentPane.add(btnHSB);
 
 		JPanel panelBody = new JPanel();
-		panelBody.setBounds(10, 42, 720, 20);
+		panelBody.setBounds(10, 42, 780, 20);
 		contentPane.add(panelBody);
 		panelBody.setLayout(null);
 
@@ -184,12 +190,16 @@ public class Generator extends JFrame {
 				randomPartColor(body);
 			}
 		});
+		
+		JCheckBox chckbxBodyLock = new JCheckBox("Lock");
+		chckbxBodyLock.setBounds(726, 0, 54, 20);
+		panelBody.add(chckbxBodyLock);
 
-		body = new SpritePart("body", cmbBody, spinBodyRed, spinBodyGreen, spinBodyBlue, spinBodyAlpha, spinBodyHueSwap);
+		body = new SpritePart("body", cmbBody, spinBodyRed, spinBodyGreen, spinBodyBlue, spinBodyAlpha, spinBodyHueSwap, chckbxBodyLock);
 		configSpritePartUI(body);
 
 		JPanel panelHelm = new JPanel();
-		panelHelm.setBounds(10, 73, 720, 20);
+		panelHelm.setBounds(10, 73, 780, 20);
 		contentPane.add(panelHelm);
 		panelHelm.setLayout(null);
 
@@ -231,13 +241,17 @@ public class Generator extends JFrame {
 				randomPartColor(helm);
 			}
 		});
+		
+		JCheckBox chckbxHelmLock = new JCheckBox("Lock");
+		chckbxHelmLock.setBounds(726, 0, 54, 20);
+		panelHelm.add(chckbxHelmLock);
 
-		helm = new SpritePart("helm", cmbHelm, spinHelmRed, spinHelmGreen, spinHelmBlue, spinHelmAlpha, spinHelmHueSwap);
+		helm = new SpritePart("helm", cmbHelm, spinHelmRed, spinHelmGreen, spinHelmBlue, spinHelmAlpha, spinHelmHueSwap, chckbxHelmLock);
 		configSpritePartUI(helm);
 
 		JPanel panelHair = new JPanel();
 		panelHair.setLayout(null);
-		panelHair.setBounds(10, 104, 720, 20);
+		panelHair.setBounds(10, 104, 780, 20);
 		contentPane.add(panelHair);
 
 		JLabel lblHair = new JLabel("Hair");
@@ -278,13 +292,17 @@ public class Generator extends JFrame {
 				randomPartColor(hair);
 			}
 		});
+		
+		JCheckBox chckbxHairLock = new JCheckBox("Lock");
+		chckbxHairLock.setBounds(726, 0, 54, 20);
+		panelHair.add(chckbxHairLock);
 
-		hair = new SpritePart("hair", cmbHair, spinHairRed, spinHairGreen, spinHairBlue, spinHairAlpha, spinHairHueSwap);
+		hair = new SpritePart("hair", cmbHair, spinHairRed, spinHairGreen, spinHairBlue, spinHairAlpha, spinHairHueSwap, chckbxHairLock);
 		configSpritePartUI(hair);
 
 		JPanel panelEyes = new JPanel();
 		panelEyes.setLayout(null);
-		panelEyes.setBounds(10, 135, 720, 20);
+		panelEyes.setBounds(10, 135, 780, 20);
 		contentPane.add(panelEyes);
 
 		JLabel lblEyes = new JLabel("Eyes");
@@ -325,13 +343,17 @@ public class Generator extends JFrame {
 				randomPartColor(eyes);
 			}
 		});
+		
+		JCheckBox chckbxEyesLock = new JCheckBox("Lock");
+		chckbxEyesLock.setBounds(726, 0, 54, 20);
+		panelEyes.add(chckbxEyesLock);
 
-		eyes = new SpritePart("eyes", cmbEyes, spinEyesRed, spinEyesGreen, spinEyesBlue, spinEyesAlpha, spinEyesHueSwap);
+		eyes = new SpritePart("eyes", cmbEyes, spinEyesRed, spinEyesGreen, spinEyesBlue, spinEyesAlpha, spinEyesHueSwap, chckbxEyesLock);
 		configSpritePartUI(eyes);
 
 		JPanel panelFace = new JPanel();
 		panelFace.setLayout(null);
-		panelFace.setBounds(10, 166, 720, 20);
+		panelFace.setBounds(10, 166, 780, 20);
 		contentPane.add(panelFace);
 
 		JLabel lblFace = new JLabel("Face");
@@ -372,13 +394,17 @@ public class Generator extends JFrame {
 				randomPartColor(face);
 			}
 		});
+		
+		JCheckBox chckbxFaceLock = new JCheckBox("Lock");
+		chckbxFaceLock.setBounds(726, 0, 54, 20);
+		panelFace.add(chckbxFaceLock);
 
-		face = new SpritePart("face", cmbFace, spinFaceRed, spinFaceGreen, spinFaceBlue, spinFaceAlpha, spinFaceHueSwap);
+		face = new SpritePart("face", cmbFace, spinFaceRed, spinFaceGreen, spinFaceBlue, spinFaceAlpha, spinFaceHueSwap, chckbxFaceLock);
 		configSpritePartUI(face);
 
 		JPanel panelTorsoA = new JPanel();
 		panelTorsoA.setLayout(null);
-		panelTorsoA.setBounds(10, 197, 720, 20);
+		panelTorsoA.setBounds(10, 197, 780, 20);
 		contentPane.add(panelTorsoA);
 
 		JLabel lblTorsoA = new JLabel("Torso A");
@@ -419,13 +445,18 @@ public class Generator extends JFrame {
 				randomPartColor(torsoA);
 			}
 		});
+		
+		JCheckBox chckbxTorsoALock = new JCheckBox("Lock");
+		chckbxTorsoALock.setBounds(726, 0, 54, 20);
+		panelTorsoA.add(chckbxTorsoALock);
 
-		torsoA = new SpritePart("torso A", cmbTorsoA, spinTorsoARed, spinTorsoAGreen, spinTorsoABlue, spinTorsoAAlpha, spinTorsoAHueSwap);
+		torsoA = new SpritePart("torso A", cmbTorsoA, spinTorsoARed, spinTorsoAGreen,
+				spinTorsoABlue, spinTorsoAAlpha, spinTorsoAHueSwap, chckbxTorsoALock);
 		configSpritePartUI(torsoA);
 
 		JPanel panelTorsoB = new JPanel();
 		panelTorsoB.setLayout(null);
-		panelTorsoB.setBounds(10, 228, 720, 20);
+		panelTorsoB.setBounds(10, 228, 780, 20);
 		contentPane.add(panelTorsoB);
 
 		JLabel lblTorsoB = new JLabel("Torso B");
@@ -466,13 +497,18 @@ public class Generator extends JFrame {
 				randomPartColor(torsoB);
 			}
 		});
+		
+		JCheckBox chckbxTorsoBLock = new JCheckBox("Lock");
+		chckbxTorsoBLock.setBounds(726, 0, 54, 20);
+		panelTorsoB.add(chckbxTorsoBLock);
 
-		torsoB = new SpritePart("torso B", cmbTorsoB, spinTorsoBRed, spinTorsoBGreen, spinTorsoBBlue, spinTorsoBAlpha, spinTorsoBHueSwap);
+		torsoB = new SpritePart("torso B", cmbTorsoB, spinTorsoBRed, spinTorsoBGreen,
+				spinTorsoBBlue, spinTorsoBAlpha, spinTorsoBHueSwap, chckbxTorsoBLock);
 		configSpritePartUI(torsoB);
 
 		JPanel panelHands = new JPanel();
 		panelHands.setLayout(null);
-		panelHands.setBounds(10, 259, 720, 20);
+		panelHands.setBounds(10, 259, 780, 20);
 		contentPane.add(panelHands);
 
 		JLabel lblHands = new JLabel("Hands");
@@ -513,13 +549,18 @@ public class Generator extends JFrame {
 				randomPartColor(hands);
 			}
 		});
+		
+		JCheckBox chckbxHandsLock = new JCheckBox("Lock");
+		chckbxHandsLock.setBounds(726, 0, 54, 20);
+		panelHands.add(chckbxHandsLock);
 
-		hands = new SpritePart("hands", cmbHands, spinHandsRed, spinHandsGreen, spinHandsBlue, spinHandsAlpha, spinHandsHueSwap);
+		hands = new SpritePart("hands", cmbHands, spinHandsRed, spinHandsGreen,
+				spinHandsBlue, spinHandsAlpha, spinHandsHueSwap, chckbxHandsLock);
 		configSpritePartUI(hands);
 
 		JPanel panelLegsA = new JPanel();
 		panelLegsA.setLayout(null);
-		panelLegsA.setBounds(10, 290, 720, 20);
+		panelLegsA.setBounds(10, 290, 780, 20);
 		contentPane.add(panelLegsA);
 
 		JLabel lblLegsA = new JLabel("Legs A");
@@ -560,13 +601,18 @@ public class Generator extends JFrame {
 				randomPartColor(legsA);
 			}
 		});
+		
+		JCheckBox chckbxLegsALock = new JCheckBox("Lock");
+		chckbxLegsALock.setBounds(726, 0, 54, 20);
+		panelLegsA.add(chckbxLegsALock);
 
-		legsA = new SpritePart("legs A", cmbLegsA, spinLegsARed, spinLegsAGreen, spinLegsABlue, spinLegsAAlpha, spinLegsAHueSwap);
+		legsA = new SpritePart("legs A", cmbLegsA, spinLegsARed, spinLegsAGreen,
+				spinLegsABlue, spinLegsAAlpha, spinLegsAHueSwap, chckbxLegsALock);
 		configSpritePartUI(legsA);
 
 		JPanel panelLegsB = new JPanel();
 		panelLegsB.setLayout(null);
-		panelLegsB.setBounds(10, 321, 720, 20);
+		panelLegsB.setBounds(10, 321, 780, 20);
 		contentPane.add(panelLegsB);
 
 		JLabel lblLegsB = new JLabel("Legs B");
@@ -607,13 +653,18 @@ public class Generator extends JFrame {
 				randomPartColor(legsB);
 			}
 		});
+		
+		JCheckBox chckbxLegsBLock = new JCheckBox("Lock");
+		chckbxLegsBLock.setBounds(726, 0, 54, 20);
+		panelLegsB.add(chckbxLegsBLock);
 
-		legsB = new SpritePart("legs B", cmbLegsB, spinLegsBRed, spinLegsBGreen, spinLegsBBlue, spinLegsBAlpha, spinLegsBHueSwap);
+		legsB = new SpritePart("legs B", cmbLegsB, spinLegsBRed, spinLegsBGreen,
+				spinLegsBBlue, spinLegsBAlpha, spinLegsBHueSwap, chckbxLegsBLock);
 		configSpritePartUI(legsB);
 
 		JPanel panelBack = new JPanel();
 		panelBack.setLayout(null);
-		panelBack.setBounds(10, 352, 720, 20);
+		panelBack.setBounds(10, 352, 780, 20);
 		contentPane.add(panelBack);
 
 		JLabel lblBack = new JLabel("Back");
@@ -654,13 +705,17 @@ public class Generator extends JFrame {
 				randomPartColor(back);
 			}
 		});
+		
+		JCheckBox chckbxBackLock = new JCheckBox("Lock");
+		chckbxBackLock.setBounds(726, 0, 54, 20);
+		panelBack.add(chckbxBackLock);
 
-		back = new SpritePart("back", cmbBack, spinBackRed, spinBackGreen, spinBackBlue, spinBackAlpha, spinBackHueSwap);
+		back = new SpritePart("back", cmbBack, spinBackRed, spinBackGreen, spinBackBlue, spinBackAlpha, spinBackHueSwap, chckbxBackLock);
 		configSpritePartUI(back);
 
 		JPanel panelShoes = new JPanel();
 		panelShoes.setLayout(null);
-		panelShoes.setBounds(10, 383, 720, 20);
+		panelShoes.setBounds(10, 383, 780, 20);
 		contentPane.add(panelShoes);
 
 		JLabel lblShoes = new JLabel("Shoes");
@@ -701,8 +756,13 @@ public class Generator extends JFrame {
 				randomPartColor(shoes);
 			}
 		});
+		
+		JCheckBox chckbxShoesLock = new JCheckBox("Lock");
+		chckbxShoesLock.setBounds(726, 0, 54, 20);
+		panelShoes.add(chckbxShoesLock);
 
-		shoes = new SpritePart("shoes", cmbShoes, spinShoesRed, spinShoesGreen, spinShoesBlue, spinShoesAlpha, spinShoesHueSwap);
+		shoes = new SpritePart("shoes", cmbShoes, spinShoesRed, spinShoesGreen,
+				spinShoesBlue, spinShoesAlpha, spinShoesHueSwap, chckbxShoesLock);
 		configSpritePartUI(shoes);
 
 		JButton btnAtualizarPastas = new JButton("Update folders");
@@ -761,9 +821,9 @@ public class Generator extends JFrame {
 		part.blue.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		part.blue.addChangeListener(changeListener);
 
-		part.alfa.setToolTipText("Alpha of " + part.name);
-		part.alfa.setModel(new SpinnerNumberModel(255, 0, 255, 1));
-		part.alfa.addChangeListener(changeListener);
+		part.alpha.setToolTipText("Alpha of " + part.name);
+		part.alpha.setModel(new SpinnerNumberModel(255, 0, 255, 1));
+		part.alpha.addChangeListener(changeListener);
 
 		part.hueSwap.setToolTipText("Hue Swap of " + part.name);
 		part.hueSwap.setModel(new SpinnerNumberModel(0, 0, 360, 1));
@@ -924,28 +984,20 @@ public class Generator extends JFrame {
 	 */
 	private void spriteRandom() {
 		shouldUpdate = false;
-		randomItemSelection(body.getCmb());
-		randomItemSelection(helm.getCmb());
-		randomItemSelection(hair.getCmb());
-		randomItemSelection(eyes.getCmb());
-		randomItemSelection(face.getCmb());
-		randomItemSelection(torsoA.getCmb());
-		randomItemSelection(torsoB.getCmb());
-		randomItemSelection(hands.getCmb());
-		randomItemSelection(legsA.getCmb());
-		randomItemSelection(legsB.getCmb());
-		randomItemSelection(back.getCmb());
-		randomItemSelection(shoes.getCmb());
+		body.selectRandomPart(random);
+		helm.selectRandomPart(random);
+		hair.selectRandomPart(random);
+		eyes.selectRandomPart(random);
+		face.selectRandomPart(random);
+		torsoA.selectRandomPart(random);
+		torsoB.selectRandomPart(random);
+		hands.selectRandomPart(random);
+		legsA.selectRandomPart(random);
+		legsB.selectRandomPart(random);
+		back.selectRandomPart(random);
+		shoes.selectRandomPart(random);
 		updateSprite();
 		shouldUpdate = true;
-	}
-
-	/**
-	 * Selects a random item in a combo box.
-	 * @param cmb The combo box which item will be chosen.
-	 */
-	private void randomItemSelection(JComboBox<String> cmb) {
-		cmb.setSelectedIndex(random.nextInt(cmb.getItemCount()));
 	}
 
 	/**

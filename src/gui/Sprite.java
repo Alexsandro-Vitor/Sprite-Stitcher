@@ -12,6 +12,10 @@ import java.awt.Dimension;
 
 import javax.swing.SwingConstants;
 
+/**
+ * Class responsible for showing the current state of the sprite.
+ * @author Alexsandro Vítor Serafim de Carvalho
+ */
 public class Sprite extends JFrame {
 
 	private JPanel contentPane;
@@ -23,7 +27,7 @@ public class Sprite extends JFrame {
 	public Sprite() {
 		setTitle("Sprite");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(900, 50, 300, 200);
+		setBounds(950, 50, 300, 200);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
