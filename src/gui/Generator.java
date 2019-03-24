@@ -64,6 +64,7 @@ public class Generator extends JFrame {
 	private SpritePart legsB;
 	private SpritePart back;
 	private SpritePart shoes;
+	private SpritePart[] parts = new SpritePart[12];
 	private boolean shouldUpdate = true;
 	private boolean rgba = true;
 
@@ -129,18 +130,9 @@ public class Generator extends JFrame {
 					lblBlue.setText("Bright");
 				}
 				shouldUpdate = false;
-				body.setRGBA(rgba);
-				helm.setRGBA(rgba);
-				hair.setRGBA(rgba);
-				eyes.setRGBA(rgba);
-				face.setRGBA(rgba);
-				torsoA.setRGBA(rgba);
-				torsoB.setRGBA(rgba);
-				hands.setRGBA(rgba);
-				legsA.setRGBA(rgba);
-				legsB.setRGBA(rgba);
-				back.setRGBA(rgba);
-				shoes.setRGBA(rgba);
+				for (SpritePart part : parts) {
+					part.setRGBA(rgba);
+				}
 				updateSprite();
 				shouldUpdate = true;
 			}
@@ -195,9 +187,6 @@ public class Generator extends JFrame {
 		chckbxBodyLock.setBounds(726, 0, 54, 20);
 		panelBody.add(chckbxBodyLock);
 
-		body = new SpritePart("body", cmbBody, spinBodyRed, spinBodyGreen, spinBodyBlue, spinBodyAlpha, spinBodyHueSwap, chckbxBodyLock);
-		configSpritePartUI(body);
-
 		JPanel panelHelm = new JPanel();
 		panelHelm.setBounds(10, 73, 780, 20);
 		contentPane.add(panelHelm);
@@ -245,9 +234,6 @@ public class Generator extends JFrame {
 		JCheckBox chckbxHelmLock = new JCheckBox("Lock");
 		chckbxHelmLock.setBounds(726, 0, 54, 20);
 		panelHelm.add(chckbxHelmLock);
-
-		helm = new SpritePart("helm", cmbHelm, spinHelmRed, spinHelmGreen, spinHelmBlue, spinHelmAlpha, spinHelmHueSwap, chckbxHelmLock);
-		configSpritePartUI(helm);
 
 		JPanel panelHair = new JPanel();
 		panelHair.setLayout(null);
@@ -297,9 +283,6 @@ public class Generator extends JFrame {
 		chckbxHairLock.setBounds(726, 0, 54, 20);
 		panelHair.add(chckbxHairLock);
 
-		hair = new SpritePart("hair", cmbHair, spinHairRed, spinHairGreen, spinHairBlue, spinHairAlpha, spinHairHueSwap, chckbxHairLock);
-		configSpritePartUI(hair);
-
 		JPanel panelEyes = new JPanel();
 		panelEyes.setLayout(null);
 		panelEyes.setBounds(10, 135, 780, 20);
@@ -347,9 +330,6 @@ public class Generator extends JFrame {
 		JCheckBox chckbxEyesLock = new JCheckBox("Lock");
 		chckbxEyesLock.setBounds(726, 0, 54, 20);
 		panelEyes.add(chckbxEyesLock);
-
-		eyes = new SpritePart("eyes", cmbEyes, spinEyesRed, spinEyesGreen, spinEyesBlue, spinEyesAlpha, spinEyesHueSwap, chckbxEyesLock);
-		configSpritePartUI(eyes);
 
 		JPanel panelFace = new JPanel();
 		panelFace.setLayout(null);
@@ -399,9 +379,6 @@ public class Generator extends JFrame {
 		chckbxFaceLock.setBounds(726, 0, 54, 20);
 		panelFace.add(chckbxFaceLock);
 
-		face = new SpritePart("face", cmbFace, spinFaceRed, spinFaceGreen, spinFaceBlue, spinFaceAlpha, spinFaceHueSwap, chckbxFaceLock);
-		configSpritePartUI(face);
-
 		JPanel panelTorsoA = new JPanel();
 		panelTorsoA.setLayout(null);
 		panelTorsoA.setBounds(10, 197, 780, 20);
@@ -449,10 +426,6 @@ public class Generator extends JFrame {
 		JCheckBox chckbxTorsoALock = new JCheckBox("Lock");
 		chckbxTorsoALock.setBounds(726, 0, 54, 20);
 		panelTorsoA.add(chckbxTorsoALock);
-
-		torsoA = new SpritePart("torso A", cmbTorsoA, spinTorsoARed, spinTorsoAGreen,
-				spinTorsoABlue, spinTorsoAAlpha, spinTorsoAHueSwap, chckbxTorsoALock);
-		configSpritePartUI(torsoA);
 
 		JPanel panelTorsoB = new JPanel();
 		panelTorsoB.setLayout(null);
@@ -502,10 +475,6 @@ public class Generator extends JFrame {
 		chckbxTorsoBLock.setBounds(726, 0, 54, 20);
 		panelTorsoB.add(chckbxTorsoBLock);
 
-		torsoB = new SpritePart("torso B", cmbTorsoB, spinTorsoBRed, spinTorsoBGreen,
-				spinTorsoBBlue, spinTorsoBAlpha, spinTorsoBHueSwap, chckbxTorsoBLock);
-		configSpritePartUI(torsoB);
-
 		JPanel panelHands = new JPanel();
 		panelHands.setLayout(null);
 		panelHands.setBounds(10, 259, 780, 20);
@@ -553,10 +522,6 @@ public class Generator extends JFrame {
 		JCheckBox chckbxHandsLock = new JCheckBox("Lock");
 		chckbxHandsLock.setBounds(726, 0, 54, 20);
 		panelHands.add(chckbxHandsLock);
-
-		hands = new SpritePart("hands", cmbHands, spinHandsRed, spinHandsGreen,
-				spinHandsBlue, spinHandsAlpha, spinHandsHueSwap, chckbxHandsLock);
-		configSpritePartUI(hands);
 
 		JPanel panelLegsA = new JPanel();
 		panelLegsA.setLayout(null);
@@ -606,10 +571,6 @@ public class Generator extends JFrame {
 		chckbxLegsALock.setBounds(726, 0, 54, 20);
 		panelLegsA.add(chckbxLegsALock);
 
-		legsA = new SpritePart("legs A", cmbLegsA, spinLegsARed, spinLegsAGreen,
-				spinLegsABlue, spinLegsAAlpha, spinLegsAHueSwap, chckbxLegsALock);
-		configSpritePartUI(legsA);
-
 		JPanel panelLegsB = new JPanel();
 		panelLegsB.setLayout(null);
 		panelLegsB.setBounds(10, 321, 780, 20);
@@ -657,10 +618,6 @@ public class Generator extends JFrame {
 		JCheckBox chckbxLegsBLock = new JCheckBox("Lock");
 		chckbxLegsBLock.setBounds(726, 0, 54, 20);
 		panelLegsB.add(chckbxLegsBLock);
-
-		legsB = new SpritePart("legs B", cmbLegsB, spinLegsBRed, spinLegsBGreen,
-				spinLegsBBlue, spinLegsBAlpha, spinLegsBHueSwap, chckbxLegsBLock);
-		configSpritePartUI(legsB);
 
 		JPanel panelBack = new JPanel();
 		panelBack.setLayout(null);
@@ -710,9 +667,6 @@ public class Generator extends JFrame {
 		chckbxBackLock.setBounds(726, 0, 54, 20);
 		panelBack.add(chckbxBackLock);
 
-		back = new SpritePart("back", cmbBack, spinBackRed, spinBackGreen, spinBackBlue, spinBackAlpha, spinBackHueSwap, chckbxBackLock);
-		configSpritePartUI(back);
-
 		JPanel panelShoes = new JPanel();
 		panelShoes.setLayout(null);
 		panelShoes.setBounds(10, 383, 780, 20);
@@ -760,10 +714,34 @@ public class Generator extends JFrame {
 		JCheckBox chckbxShoesLock = new JCheckBox("Lock");
 		chckbxShoesLock.setBounds(726, 0, 54, 20);
 		panelShoes.add(chckbxShoesLock);
-
-		shoes = new SpritePart("shoes", cmbShoes, spinShoesRed, spinShoesGreen,
+		
+		this.parts[0] = body = new SpritePart("body", cmbBody, spinBodyRed, spinBodyGreen,
+				spinBodyBlue, spinBodyAlpha, spinBodyHueSwap, chckbxBodyLock);
+		this.parts[1] = helm = new SpritePart("helm", cmbHelm, spinHelmRed, spinHelmGreen,
+				spinHelmBlue, spinHelmAlpha, spinHelmHueSwap, chckbxHelmLock);
+		this.parts[2] = hair = new SpritePart("hair", cmbHair, spinHairRed, spinHairGreen,
+				spinHairBlue, spinHairAlpha, spinHairHueSwap, chckbxHairLock);
+		this.parts[3] = eyes = new SpritePart("eyes", cmbEyes, spinEyesRed, spinEyesGreen,
+				spinEyesBlue, spinEyesAlpha, spinEyesHueSwap, chckbxEyesLock);
+		this.parts[4] = face = new SpritePart("face", cmbFace, spinFaceRed, spinFaceGreen,
+				spinFaceBlue, spinFaceAlpha, spinFaceHueSwap, chckbxFaceLock);
+		this.parts[5] = torsoA = new SpritePart("torso A", cmbTorsoA, spinTorsoARed, spinTorsoAGreen,
+				spinTorsoABlue, spinTorsoAAlpha, spinTorsoAHueSwap, chckbxTorsoALock);
+		this.parts[6] = torsoB = new SpritePart("torso B", cmbTorsoB, spinTorsoBRed, spinTorsoBGreen,
+				spinTorsoBBlue, spinTorsoBAlpha, spinTorsoBHueSwap, chckbxTorsoBLock);
+		this.parts[7] = hands = new SpritePart("hands", cmbHands, spinHandsRed, spinHandsGreen,
+				spinHandsBlue, spinHandsAlpha, spinHandsHueSwap, chckbxHandsLock);
+		this.parts[8] = legsA = new SpritePart("legs A", cmbLegsA, spinLegsARed, spinLegsAGreen,
+				spinLegsABlue, spinLegsAAlpha, spinLegsAHueSwap, chckbxLegsALock);
+		this.parts[9] = legsB = new SpritePart("legs B", cmbLegsB, spinLegsBRed, spinLegsBGreen,
+				spinLegsBBlue, spinLegsBAlpha, spinLegsBHueSwap, chckbxLegsBLock);
+		this.parts[10] = back = new SpritePart("back", cmbBack, spinBackRed, spinBackGreen,
+				spinBackBlue, spinBackAlpha, spinBackHueSwap, chckbxBackLock);
+		this.parts[11] = shoes = new SpritePart("shoes", cmbShoes, spinShoesRed, spinShoesGreen,
 				spinShoesBlue, spinShoesAlpha, spinShoesHueSwap, chckbxShoesLock);
-		configSpritePartUI(shoes);
+		for (SpritePart part : this.parts) {
+			configSpritePartUI(part);
+		}
 
 		JButton btnAtualizarPastas = new JButton("Update folders");
 		btnAtualizarPastas.setBounds(450, 414, 130, 20);
@@ -983,21 +961,12 @@ public class Generator extends JFrame {
 	 * Selects random sprite parts to create a random sprite.
 	 */
 	private void spriteRandom() {
-		shouldUpdate = false;
-		body.selectRandomPart(random);
-		helm.selectRandomPart(random);
-		hair.selectRandomPart(random);
-		eyes.selectRandomPart(random);
-		face.selectRandomPart(random);
-		torsoA.selectRandomPart(random);
-		torsoB.selectRandomPart(random);
-		hands.selectRandomPart(random);
-		legsA.selectRandomPart(random);
-		legsB.selectRandomPart(random);
-		back.selectRandomPart(random);
-		shoes.selectRandomPart(random);
+		this.shouldUpdate = false;
+		for (SpritePart part : this.parts) {
+			part.selectRandomPart(random);
+		}
 		updateSprite();
-		shouldUpdate = true;
+		this.shouldUpdate = true;
 	}
 
 	/**
@@ -1005,13 +974,13 @@ public class Generator extends JFrame {
 	 * @param part The part which colors will be changed.
 	 */
 	private void randomPartColor(SpritePart part) {
-		shouldUpdate = false;
+		this.shouldUpdate = false;
 		part.red.setValue(random.nextInt((Integer) ((SpinnerNumberModel) part.red.getModel()).getMaximum() + 1));
 		part.green.setValue(random.nextInt((Integer) ((SpinnerNumberModel) part.green.getModel()).getMaximum() + 1));
 		part.blue.setValue(random.nextInt((Integer) ((SpinnerNumberModel) part.blue.getModel()).getMaximum() + 1));
 		part.hueSwap.setValue(random.nextInt(361));
 		updateSprite();
-		shouldUpdate = true;
+		this.shouldUpdate = true;
 	}
 
 	/**
