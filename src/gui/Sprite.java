@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import classes.Dimensoes;
+import classes.Dimensions;
 
 import javax.swing.JLabel;
 import java.awt.Color;
@@ -35,7 +35,7 @@ public class Sprite extends JFrame {
 		
 		label = new JLabel("");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(0, 0, Dimensoes.LARGURA * Dimensoes.ZOOM, Dimensoes.ALTURA * Dimensoes.ZOOM);
+		label.setBounds(0, 0, Dimensions.WIDTH * Dimensions.ZOOM, Dimensions.HEIGHT * Dimensions.ZOOM);
 		contentPane.add(label);
 	}
 

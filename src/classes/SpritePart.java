@@ -21,7 +21,7 @@ public class SpritePart {
 	public JSpinner alpha;
 	public JSpinner hueSwap;
 	public JCheckBox locked;
-	private CorARGB color;
+	private PartColor color;
 
 	/**
 	 * Constructor of SpritePart.
@@ -44,7 +44,7 @@ public class SpritePart {
 		this.alpha = alpha;
 		this.hueSwap = hueSwap;
 		this.locked = locked;
-		this.color = new CorARGB((int)red.getValue(), (int)green.getValue(), (int)blue.getValue(), (int)alpha.getValue());
+		this.color = new PartColor((int)red.getValue(), (int)green.getValue(), (int)blue.getValue(), (int)alpha.getValue());
 	}
 
 	public JComboBox<String> getCmb() {
@@ -83,7 +83,7 @@ public class SpritePart {
 		if (!this.locked.isSelected()) this.cmb.setSelectedIndex(random.nextInt(this.cmb.getItemCount()));
 	}
 
-	public CorARGB getColor() {
+	public PartColor getColor() {
 		return this.color;
 	}
 
@@ -98,11 +98,11 @@ public class SpritePart {
 	public void updateColor(boolean rgba) {
 		int temp;
 		if (rgba) {
-			this.color = new CorARGB((int)red.getValue(), (int)green.getValue(), (int)blue.getValue(), (int)alpha.getValue());
+			this.color = new PartColor((int)red.getValue(), (int)green.getValue(), (int)blue.getValue(), (int)alpha.getValue());
 		} else {
 			temp = (Color.HSBtoRGB((int)red.getValue() / 360f, (int)green.getValue() / 100f, (int)blue.getValue() / 100f) & 0x00FFFFFF)
 					+ ((int)alpha.getValue() << 24);
-			this.color = new CorARGB(temp);
+			this.color = new PartColor(temp);
 		}
 	}
 

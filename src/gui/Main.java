@@ -16,7 +16,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.event.ChangeListener;
 
-import classes.Dimensoes;
+import classes.Dimensions;
 
 import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
@@ -25,6 +25,10 @@ import java.awt.Color;
 import javax.swing.JRadioButton;
 
 @SuppressWarnings("serial")
+/**
+ * The initial screen of the application.
+ * @author Alexsandro Vítor Serafim de Carvalho
+ */
 public class Main extends JFrame {
 	private Main frame;
 	private JPanel contentPane;
@@ -135,7 +139,7 @@ public class Main extends JFrame {
 		rdbtn1x.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Dimensoes.ZOOM = 1;
+				Dimensions.ZOOM = 1;
 			}
 		});
 		rdbtn1x.setBounds(80, 104, 60, 20);
@@ -147,7 +151,7 @@ public class Main extends JFrame {
 		rdbtn2x.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Dimensoes.ZOOM = 2;
+				Dimensions.ZOOM = 2;
 			}
 		});
 		rdbtn2x.setBounds(142, 104, 60, 20);
@@ -158,7 +162,7 @@ public class Main extends JFrame {
 		rdbtn4x.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Dimensoes.ZOOM = 4;
+				Dimensions.ZOOM = 4;
 			}
 		});
 		rdbtn4x.setBounds(204, 104, 60, 20);
@@ -185,10 +189,13 @@ public class Main extends JFrame {
 		comboBox.setSelectedIndex(0);
 	}
 	
+	/**
+	 * Moves to Generator and Sprite frames.
+	 */
 	private void continueToGenerator() {
-		Dimensoes.LARGURA = (short)(int)spinWidth.getValue();
-		Dimensoes.ALTURA = (short)(int)spinHeight.getValue();
-		Dimensoes.ALTURA_CAPA = (short)((Dimensoes.ALTURA * 3) >> 2);
+		Dimensions.WIDTH = (short)(int)spinWidth.getValue();
+		Dimensions.HEIGHT = (short)(int)spinHeight.getValue();
+		Dimensions.BACK_HEIGHT = (short)((Dimensions.HEIGHT * 3) >> 2);
 		Sprite sprite = new Sprite();
 		sprite.setVisible(true);
 		Generator screen = new Generator(sprite, txtFolder.getText());

@@ -31,10 +31,10 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeListener;
 
-import classes.Dimensoes;
+import classes.Dimensions;
 import classes.SpritePart;
+import exceptions.WrongSizeException;
 import classes.Folders;
-import excecoes.TamanhoErradoException;
 import funcoes.*;
 
 import javax.swing.event.ChangeEvent;
@@ -833,9 +833,9 @@ public class Generator extends JFrame {
 		int[][] sprite;
 		back.updateColor(rgba);
 		try {
-			sprite = Imagem.capaAtras(Leitura.selecionarImagem(folders.back, back));
-		} catch (TamanhoErradoException e) {
-			sprite = Imagem.gerarTransparencia();
+			sprite = ImageFunctions.capeBack(Leitura.selecionarImagem(folders.back, back));
+		} catch (WrongSizeException e) {
+			sprite = ImageFunctions.getTransparency();
 		}
 		System.out.println("Tempos:");
 		long tempo = System.nanoTime();
@@ -885,8 +885,8 @@ public class Generator extends JFrame {
 
 		tempo = System.nanoTime();
 		try {
-			sprite = Imagem.sobreporImagem(Imagem.capaFrente(Leitura.selecionarImagem(folders.back, back)), sprite);
-		} catch (TamanhoErradoException e) {}
+			sprite = ImageFunctions.overlapImage(ImageFunctions.capeFront(Leitura.selecionarImagem(folders.back, back)), sprite);
+		} catch (WrongSizeException e) {}
 		System.out.println("Sobrepor back: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
@@ -899,12 +899,12 @@ public class Generator extends JFrame {
 		sprite = overlapImageWithFile(sprite, folders.helm, helm);
 		System.out.println("Sobrepor helm: " + (System.nanoTime()-tempo));
 
-		buffer = Imagem.matrizParaBuffer(sprite);
+		buffer = ImageFunctions.matrixToBuffer(sprite);
 		this.sprite.label.setIcon(
 				new ImageIcon(
 						buffer.getScaledInstance(
-								Dimensoes.ZOOM * Dimensoes.LARGURA,
-								Dimensoes.ZOOM * Dimensoes.ALTURA,
+								Dimensions.ZOOM * Dimensions.WIDTH,
+								Dimensions.ZOOM * Dimensions.HEIGHT,
 								Image.SCALE_AREA_AVERAGING
 								)
 						)
@@ -922,9 +922,10 @@ public class Generator extends JFrame {
 		if (part.getCmb().getSelectedIndex() == 0) return base;
 		try {
 			int[][] image = Leitura.selecionarImagem(array, part);
-			return Imagem.sobreporImagem(image, base);
-		} catch (TamanhoErradoException e) {
-			return e.tratar(base);
+			return ImageFunctions.overlapImage(image, base);
+		} catch (WrongSizeException e) {
+			e.treat();
+			return base;
 		}
 	}
 

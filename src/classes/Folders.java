@@ -2,6 +2,10 @@ package classes;
 
 import java.io.File;
 
+/**
+ * Class which manages the folders used by the application.
+ * @author Alexsandro Vítor Serafim de Carvalho
+ */
 public class Folders {
 	public String name;
 	public File[] body;
