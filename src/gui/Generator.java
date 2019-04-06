@@ -989,6 +989,6 @@ public class Generator extends JFrame {
 	 * @throws HeadlessException If GraphicsEnvironment.isHeadless returns true.
 	 */
 	private void saveSprite() throws HeadlessException {
-		JOptionPane.showMessageDialog(null, "Saved sprite as \"" + Escrita.saveSprite(folders, txtNameSprite.getText(), buffer) + "\"");
+		JOptionPane.showMessageDialog(null, "Saved sprite as \"" + Writing.saveSprite(folders, txtNameSprite.getText(), buffer) + "\"");
 	}
 }
