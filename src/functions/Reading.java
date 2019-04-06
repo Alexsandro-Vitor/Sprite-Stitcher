@@ -20,7 +20,7 @@ import exceptions.WrongSizeException;
 public class Reading {
 	
 	/**
-	 * 
+	 * Reads an image and modifies it.
 	 * @param folder The folder of all parts.
 	 * @param part The type of part that was chosen.
 	 * @return The image matrix of the chosen image, with the color modifications.
