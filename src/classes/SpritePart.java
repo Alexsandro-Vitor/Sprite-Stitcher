@@ -80,7 +80,8 @@ public class SpritePart {
 	 * @param random A random object for selecting the part.
 	 */
 	public void selectRandomPart(Random random) {
-		if (!this.locked.isSelected()) this.cmb.setSelectedIndex(random.nextInt(this.cmb.getItemCount()));
+		if (!this.locked.isSelected() && this.cmb.getItemCount() > 0)
+			this.cmb.setSelectedIndex(random.nextInt(this.cmb.getItemCount()));
 	}
 
 	public PartColor getColor() {

@@ -1,4 +1,4 @@
-package funcoes;
+package functions;
 
 import java.awt.image.BufferedImage;
 

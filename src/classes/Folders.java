@@ -1,6 +1,9 @@
 package classes;
 
-import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Class which manages the folders used by the application.
@@ -8,16 +11,17 @@ import java.io.File;
  */
 public class Folders {
 	public String name;
-	public File[] body;
-	public File[] helm;
-	public File[] hair;
-	public File[] eyes;
-	public File[] faces;
-	public File[] torso;
-	public File[] hands;
-	public File[] legs;
-	public File[] back;
-	public File[] shoes;
+	public Path body;
+	public Path helm;
+	public Path hair;
+	public Path eyes;
+	public Path faces;
+	public Path torso;
+	public Path hands;
+	public Path legs;
+	public Path back;
+	public Path shoes;
+	public Path sprites;
 
 	/**
 	 * Creates or opens the folders with the part images.
@@ -25,33 +29,32 @@ public class Folders {
 	 */
 	public Folders(String name) {
 		this.name = name;
-		body = open("body");
-		helm = open("helm");
-		hair = open("hair");
-		eyes = open("eyes");
-		faces = open("faces");
-		torso = open("torso");
-		hands = open("hands");
-		legs = open("legs");
-		back = open("back");
-		shoes = open("shoes");
+		try {
+			body = getPath("body");
+			helm = getPath("helm");
+			hair = getPath("hair");
+			eyes = getPath("eyes");
+			faces = getPath("faces");
+			torso = getPath("torso");
+			hands = getPath("hands");
+			legs = getPath("legs");
+			back = getPath("back");
+			shoes = getPath("shoes");
+			sprites = getPath("sprites");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
-	 * Gets all the names of the files in a folder.
-	 * @param folder The folder to be read.
-	 * @return An array with the names of all files in a folder.
+	 * Creates a folder with the name given.
+	 * @param folder The folder to be created.
+	 * @return The path of the created folder.
+	 * @throws IOException 
 	 */
-	private File[] open(String folder) {
-		create(folder);
-		return new File(name + '\\' + folder).listFiles();
-	}
-
-	/**
-	 * Creates a new folder if it doesn't exist.
-	 * @param folder The path of the new folder.
-	 */
-	public void create(String folder) {
-		if (new File(name + '\\' + folder).listFiles() == null) new File(name + '\\' + folder).mkdirs();	
+	private Path getPath(String folder) throws IOException {
+		Path folderPath = Paths.get(name, folder);
+		Files.createDirectories(folderPath);
+		return folderPath;
 	}
 }

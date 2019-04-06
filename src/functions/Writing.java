@@ -1,10 +1,9 @@
-package funcoes;
+package functions;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 
@@ -21,15 +20,11 @@ public class Writing {
 	 * @param filename The name chosen by the user.
 	 * @param buffer The buffer of the sprite.
 	 * @return The name of the generated sprite file.
+	 * @throws IOException 
 	 */
-	public static String saveSprite(Folders folder, String filename, BufferedImage buffer) {
-		folder.create("sprites");
-		String name = Writing.generateSpriteName(Paths.get(folder.name, "sprites"), filename);
-		try {
-			ImageIO.write(buffer, "PNG", Paths.get(folder.name, "sprites", name).toFile());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public static String saveSprite(Folders folder, String filename, BufferedImage buffer) throws IOException {
+		String name = Writing.generateSpriteName(folder.sprites, filename);
+		ImageIO.write(buffer, "PNG", folder.sprites.resolve(name).toFile());
 		return name;
 	}
 

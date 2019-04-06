@@ -10,7 +10,7 @@ import java.awt.event.ItemEvent;
 import java.awt.image.BufferedImage;
 
 import java.io.File;
-
+import java.io.IOException;
 import java.util.Random;
 
 import javax.swing.DefaultComboBoxModel;
@@ -34,8 +34,8 @@ import javax.swing.event.ChangeListener;
 import classes.Dimensions;
 import classes.SpritePart;
 import exceptions.WrongSizeException;
+import functions.*;
 import classes.Folders;
-import funcoes.*;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.JCheckBox;
@@ -148,7 +148,7 @@ public class Generator extends JFrame {
 		lblBody.setBounds(0, 0, 60, 20);
 		panelBody.add(lblBody);
 
-		JComboBox<String> cmbBody = new JComboBox(Leitura.nomesArquivos(folders.body));
+		JComboBox<String> cmbBody = new JComboBox(folders.body.toFile().list());
 		cmbBody.setBounds(70, 0, 200, 20);
 		panelBody.add(cmbBody);
 		cmbBody.setBackground(Color.WHITE);
@@ -196,7 +196,7 @@ public class Generator extends JFrame {
 		lblHelm.setBounds(0, 0, 60, 20);
 		panelHelm.add(lblHelm);
 
-		JComboBox<String> cmbHelm = new JComboBox(Leitura.nomesArquivos(folders.helm));
+		JComboBox<String> cmbHelm = new JComboBox(folders.helm.toFile().list());
 		cmbHelm.setBounds(70, 0, 200, 20);
 		panelHelm.add(cmbHelm);
 		cmbHelm.setBackground(Color.WHITE);
@@ -244,7 +244,7 @@ public class Generator extends JFrame {
 		lblHair.setBounds(0, 0, 60, 20);
 		panelHair.add(lblHair);
 
-		JComboBox<String> cmbHair = new JComboBox(Leitura.nomesArquivos(folders.hair));
+		JComboBox<String> cmbHair = new JComboBox(folders.hair.toFile().list());
 		cmbHair.setBounds(70, 0, 200, 20);
 		panelHair.add(cmbHair);
 		cmbHair.setBackground(Color.WHITE);
@@ -292,7 +292,7 @@ public class Generator extends JFrame {
 		lblEyes.setBounds(0, 0, 60, 20);
 		panelEyes.add(lblEyes);
 
-		JComboBox<String> cmbEyes = new JComboBox(Leitura.nomesArquivos(folders.eyes));
+		JComboBox<String> cmbEyes = new JComboBox(folders.eyes.toFile().list());
 		cmbEyes.setBounds(70, 0, 200, 20);
 		panelEyes.add(cmbEyes);
 		cmbEyes.setBackground(Color.WHITE);
@@ -340,7 +340,7 @@ public class Generator extends JFrame {
 		lblFace.setBounds(0, 0, 60, 20);
 		panelFace.add(lblFace);
 
-		JComboBox<String> cmbFace = new JComboBox(Leitura.nomesArquivos(folders.faces));
+		JComboBox<String> cmbFace = new JComboBox(folders.faces.toFile().list());
 		cmbFace.setBounds(70, 0, 200, 20);
 		panelFace.add(cmbFace);
 		cmbFace.setBackground(Color.WHITE);
@@ -388,7 +388,7 @@ public class Generator extends JFrame {
 		lblTorsoA.setBounds(0, 0, 60, 20);
 		panelTorsoA.add(lblTorsoA);
 
-		JComboBox<String> cmbTorsoA = new JComboBox(Leitura.nomesArquivos(folders.torso));
+		JComboBox<String> cmbTorsoA = new JComboBox(folders.torso.toFile().list());
 		cmbTorsoA.setBounds(70, 0, 200, 20);
 		panelTorsoA.add(cmbTorsoA);
 		cmbTorsoA.setBackground(Color.WHITE);
@@ -436,7 +436,7 @@ public class Generator extends JFrame {
 		lblTorsoB.setBounds(0, 0, 60, 20);
 		panelTorsoB.add(lblTorsoB);
 
-		JComboBox<String> cmbTorsoB = new JComboBox(Leitura.nomesArquivos(folders.torso));
+		JComboBox<String> cmbTorsoB = new JComboBox(folders.torso.toFile().list());
 		cmbTorsoB.setBounds(70, 0, 200, 20);
 		panelTorsoB.add(cmbTorsoB);
 		cmbTorsoB.setBackground(Color.WHITE);
@@ -484,7 +484,7 @@ public class Generator extends JFrame {
 		lblHands.setBounds(0, 0, 60, 20);
 		panelHands.add(lblHands);
 
-		JComboBox<String> cmbHands = new JComboBox(Leitura.nomesArquivos(folders.hands));
+		JComboBox<String> cmbHands = new JComboBox(folders.hands.toFile().list());
 		cmbHands.setBounds(70, 0, 200, 20);
 		panelHands.add(cmbHands);
 		cmbHands.setBackground(Color.WHITE);
@@ -532,7 +532,7 @@ public class Generator extends JFrame {
 		lblLegsA.setBounds(0, 0, 60, 20);
 		panelLegsA.add(lblLegsA);
 
-		JComboBox<String> cmbLegsA = new JComboBox(Leitura.nomesArquivos(folders.legs));
+		JComboBox<String> cmbLegsA = new JComboBox(folders.legs.toFile().list());
 		cmbLegsA.setBounds(70, 0, 200, 20);
 		panelLegsA.add(cmbLegsA);
 		cmbLegsA.setBackground(Color.WHITE);
@@ -580,7 +580,7 @@ public class Generator extends JFrame {
 		lblLegsB.setBounds(0, 0, 60, 20);
 		panelLegsB.add(lblLegsB);
 
-		JComboBox<String> cmbLegsB = new JComboBox(Leitura.nomesArquivos(folders.legs));
+		JComboBox<String> cmbLegsB = new JComboBox(folders.legs.toFile().list());
 		cmbLegsB.setBounds(70, 0, 200, 20);
 		panelLegsB.add(cmbLegsB);
 		cmbLegsB.setBackground(Color.WHITE);
@@ -628,7 +628,7 @@ public class Generator extends JFrame {
 		lblBack.setBounds(0, 0, 60, 20);
 		panelBack.add(lblBack);
 
-		JComboBox<String> cmbBack = new JComboBox(Leitura.nomesArquivos(folders.back));
+		JComboBox<String> cmbBack = new JComboBox(folders.back.toFile().list());
 		cmbBack.setBounds(70, 0, 200, 20);
 		panelBack.add(cmbBack);
 		cmbBack.setBackground(Color.WHITE);
@@ -676,7 +676,7 @@ public class Generator extends JFrame {
 		lblShoes.setBounds(0, 0, 60, 20);
 		panelShoes.add(lblShoes);
 
-		JComboBox<String> cmbShoes = new JComboBox(Leitura.nomesArquivos(folders.shoes));
+		JComboBox<String> cmbShoes = new JComboBox(folders.shoes.toFile().list());
 		cmbShoes.setBounds(70, 0, 200, 20);
 		panelShoes.add(cmbShoes);
 		cmbShoes.setBackground(Color.WHITE);
@@ -833,70 +833,70 @@ public class Generator extends JFrame {
 		int[][] sprite;
 		back.updateColor(rgba);
 		try {
-			sprite = ImageFunctions.capeBack(Leitura.selecionarImagem(folders.back, back));
+			sprite = ImageFunctions.capeBack(Reading.selectImage(folders, back));
 		} catch (WrongSizeException e) {
 			sprite = ImageFunctions.getTransparency();
 		}
 		System.out.println("Tempos:");
 		long tempo = System.nanoTime();
 		body.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, folders.body, body);
+		sprite = overlapImageWithFile(sprite, body);
 		System.out.println("Sobrepor corpo: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
 		eyes.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, folders.eyes, eyes);
+		sprite = overlapImageWithFile(sprite, eyes);
 		System.out.println("Sobrepor eyes: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
 		legsB.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, folders.legs, legsB);
+		sprite = overlapImageWithFile(sprite, legsB);
 		System.out.println("Sobrepor legsB: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
 		torsoB.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, folders.torso, torsoB);
+		sprite = overlapImageWithFile(sprite, torsoB);
 		System.out.println("Sobrepor torsoB: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
 		hands.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, folders.hands, hands);
+		sprite = overlapImageWithFile(sprite, hands);
 		System.out.println("Sobrepor hands: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
 		shoes.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, folders.shoes, shoes);
+		sprite = overlapImageWithFile(sprite, shoes);
 		System.out.println("Sobrepor shoes: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
 		legsA.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, folders.legs, legsA);
+		sprite = overlapImageWithFile(sprite, legsA);
 		System.out.println("Sobrepor legsA: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
 		torsoA.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, folders.torso, torsoA);
+		sprite = overlapImageWithFile(sprite, torsoA);
 		System.out.println("Sobrepor torsoA: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
 		face.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, folders.faces, face);
+		sprite = overlapImageWithFile(sprite, face);
 		System.out.println("Sobrepor face: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
 		try {
-			sprite = ImageFunctions.overlapImage(ImageFunctions.capeFront(Leitura.selecionarImagem(folders.back, back)), sprite);
+			sprite = ImageFunctions.overlapImage(ImageFunctions.capeFront(Reading.selectImage(folders, back)), sprite);
 		} catch (WrongSizeException e) {}
 		System.out.println("Sobrepor back: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
 		hair.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, folders.hair, hair);
+		sprite = overlapImageWithFile(sprite, hair);
 		System.out.println("Sobrepor hair: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
 		helm.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, folders.helm, helm);
+		sprite = overlapImageWithFile(sprite, helm);
 		System.out.println("Sobrepor helm: " + (System.nanoTime()-tempo));
 
 		buffer = ImageFunctions.matrixToBuffer(sprite);
@@ -918,10 +918,10 @@ public class Generator extends JFrame {
 	 * @param part The sprite part of the overlapping image.
 	 * @return The overlapped image.
 	 */
-	private int[][] overlapImageWithFile(int[][] base, File[] array, SpritePart part) {
+	private int[][] overlapImageWithFile(int[][] base, SpritePart part) {
 		if (part.getCmb().getSelectedIndex() == 0) return base;
 		try {
-			int[][] image = Leitura.selecionarImagem(array, part);
+			int[][] image = Reading.selectImage(folders, part);
 			return ImageFunctions.overlapImage(image, base);
 		} catch (WrongSizeException e) {
 			e.treat();
@@ -933,19 +933,18 @@ public class Generator extends JFrame {
 	 * Updates all combo boxes with the folders' current content.
 	 */
 	private void updateFolders() {
-		folders = new Folders(imagesFolder);
-		updateCmb(body, folders.body);
-		updateCmb(helm, folders.helm);
-		updateCmb(hair, folders.hair);
-		updateCmb(eyes, folders.eyes);
-		updateCmb(face, folders.faces);
-		updateCmb(torsoA, folders.torso);
-		updateCmb(torsoB, folders.torso);
-		updateCmb(hands, folders.hands);
-		updateCmb(legsA, folders.legs);
-		updateCmb(legsB, folders.legs);
-		updateCmb(back, folders.back);
-		updateCmb(shoes, folders.shoes);
+		updateCmb(body, folders.body.toFile().list());
+		updateCmb(helm, folders.helm.toFile().list());
+		updateCmb(hair, folders.hair.toFile().list());
+		updateCmb(eyes, folders.eyes.toFile().list());
+		updateCmb(face, folders.faces.toFile().list());
+		updateCmb(torsoA, folders.torso.toFile().list());
+		updateCmb(torsoB, folders.torso.toFile().list());
+		updateCmb(hands, folders.hands.toFile().list());
+		updateCmb(legsA, folders.legs.toFile().list());
+		updateCmb(legsB, folders.legs.toFile().list());
+		updateCmb(back, folders.back.toFile().list());
+		updateCmb(shoes, folders.shoes.toFile().list());
 		JOptionPane.showMessageDialog(null, "Updated the folders");
 	}
 
@@ -954,8 +953,8 @@ public class Generator extends JFrame {
 	 * @param part The part which combo box will be updated.
 	 * @param files The files currently in the part folder.
 	 */
-	void updateCmb(SpritePart part, File[] files) {
-		part.getCmb().setModel(new DefaultComboBoxModel<String>(Leitura.nomesArquivos(files)));
+	void updateCmb(SpritePart part, String[] files) {
+		part.getCmb().setModel(new DefaultComboBoxModel<String>(files));
 	}
 
 	/**
@@ -989,6 +988,10 @@ public class Generator extends JFrame {
 	 * @throws HeadlessException If GraphicsEnvironment.isHeadless returns true.
 	 */
 	private void saveSprite() throws HeadlessException {
-		JOptionPane.showMessageDialog(null, "Saved sprite as \"" + Writing.saveSprite(folders, txtNameSprite.getText(), buffer) + "\"");
+		try {
+			JOptionPane.showMessageDialog(null, "Saved sprite as \"" + Writing.saveSprite(folders, txtNameSprite.getText(), buffer) + "\"");
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
 	}
 }
