@@ -19,7 +19,6 @@ import exceptions.WrongSizeException;
  */
 public class Reading {
 	
-	//Pega a imagem selecionada pelo comboBox
 	/**
 	 * 
 	 * @param folder The folder of all parts.
@@ -53,7 +52,7 @@ public class Reading {
 	 * @throws WrongSizeException If the image size is not the one specified at Dimensions.
 	 */
 	public static int[][] readImage(File file) throws IOException, WrongSizeException {
-		BufferedImage buffer = ImageIO.read(file);	//Le o arquivo
+		BufferedImage buffer = ImageIO.read(file);
 		
 		if (buffer.getWidth() != Dimensions.WIDTH || buffer.getHeight() != Dimensions.HEIGHT)
 			throw new WrongSizeException(file.getName(), Dimensions.WIDTH, Dimensions.HEIGHT);
