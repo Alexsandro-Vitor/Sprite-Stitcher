@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -87,30 +88,30 @@ public class Generator extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblRed = new JLabel("Red");
-		lblRed.setBounds(290, 11, 60, 20);
-		lblRed.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblRed);
-
-		JLabel lblGreen = new JLabel("Green");
-		lblGreen.setBounds(360, 11, 60, 20);
-		lblGreen.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblGreen);
-
-		JLabel lblBlue = new JLabel("Blue");
-		lblBlue.setBounds(430, 11, 60, 20);
-		lblBlue.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblBlue);
-
 		JLabel lblAlpha = new JLabel("Alpha");
-		lblAlpha.setBounds(500, 11, 60, 20);
+		lblAlpha.setBounds(290, 11, 60, 20);
 		lblAlpha.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblAlpha);
 
-		JLabel lblHueSwap = new JLabel("Hue Swap");
-		lblHueSwap.setBounds(570, 11, 60, 20);
-		lblHueSwap.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblHueSwap);
+		JLabel lblA = new JLabel("Red");
+		lblA.setBounds(360, 11, 60, 20);
+		lblA.setHorizontalAlignment(SwingConstants.CENTER);
+		contentPane.add(lblA);
+
+		JLabel lblB = new JLabel("Green");
+		lblB.setBounds(430, 11, 60, 20);
+		lblB.setHorizontalAlignment(SwingConstants.CENTER);
+		contentPane.add(lblB);
+
+		JLabel lblC = new JLabel("Blue");
+		lblC.setBounds(500, 11, 60, 20);
+		lblC.setHorizontalAlignment(SwingConstants.CENTER);
+		contentPane.add(lblC);
+
+		JLabel lblD = new JLabel("Hue Swap");
+		lblD.setBounds(570, 11, 60, 20);
+		lblD.setHorizontalAlignment(SwingConstants.CENTER);
+		contentPane.add(lblD);
 
 		JButton btnHSB = new JButton("HSB");
 		btnHSB.setBounds(640, 11, 90, 20);
@@ -120,14 +121,14 @@ public class Generator extends JFrame {
 				rgba = !rgba;
 				if (rgba) {
 					btnHSB.setText("HSB");
-					lblRed.setText("Red");
-					lblGreen.setText("Green");
-					lblBlue.setText("Blue");
+					lblA.setText("Red");
+					lblB.setText("Green");
+					lblC.setText("Blue");
 				} else {
 					btnHSB.setText("RGB");
-					lblRed.setText("Hue");
-					lblGreen.setText("Saturation");
-					lblBlue.setText("Bright");
+					lblA.setText("Hue");
+					lblB.setText("Saturation");
+					lblC.setText("Bright");
 				}
 				shouldUpdate = false;
 				for (SpritePart part : parts) {
@@ -138,6 +139,11 @@ public class Generator extends JFrame {
 			}
 		});
 		contentPane.add(btnHSB);
+
+		JComboBox<String> cmbColorChange = new JComboBox();
+		cmbColorChange.setBounds(740, 11, 50, 20);
+		setColorChangeOptions(cmbColorChange);
+		contentPane.add(cmbColorChange);
 
 		JPanel panelBody = new JPanel();
 		panelBody.setBounds(10, 42, 780, 20);
@@ -153,21 +159,21 @@ public class Generator extends JFrame {
 		panelBody.add(cmbBody);
 		cmbBody.setBackground(Color.WHITE);
 
+		JSpinner spinBodyAlpha = new JSpinner();
+		spinBodyAlpha.setBounds(280, 0, 60, 20);
+		panelBody.add(spinBodyAlpha);
+
 		JSpinner spinBodyRed = new JSpinner();
-		spinBodyRed.setBounds(280, 0, 60, 20);
+		spinBodyRed.setBounds(350, 0, 60, 20);
 		panelBody.add(spinBodyRed);
 
 		JSpinner spinBodyGreen = new JSpinner();
-		spinBodyGreen.setBounds(350, 0, 60, 20);
+		spinBodyGreen.setBounds(420, 0, 60, 20);
 		panelBody.add(spinBodyGreen);
 
 		JSpinner spinBodyBlue = new JSpinner();
-		spinBodyBlue.setBounds(420, 0, 60, 20);
+		spinBodyBlue.setBounds(490, 0, 60, 20);
 		panelBody.add(spinBodyBlue);
-
-		JSpinner spinBodyAlpha = new JSpinner();
-		spinBodyAlpha.setBounds(490, 0, 60, 20);
-		panelBody.add(spinBodyAlpha);
 
 		JSpinner spinBodyHueSwap = new JSpinner();
 		spinBodyHueSwap.setBounds(560, 0, 60, 20);
@@ -182,7 +188,7 @@ public class Generator extends JFrame {
 				randomPartColor(body);
 			}
 		});
-		
+
 		JCheckBox chckbxBodyLock = new JCheckBox("Lock");
 		chckbxBodyLock.setBounds(726, 0, 54, 20);
 		panelBody.add(chckbxBodyLock);
@@ -201,21 +207,21 @@ public class Generator extends JFrame {
 		panelHelm.add(cmbHelm);
 		cmbHelm.setBackground(Color.WHITE);
 
+		JSpinner spinHelmAlpha = new JSpinner();
+		spinHelmAlpha.setBounds(280, 0, 60, 20);
+		panelHelm.add(spinHelmAlpha);
+
 		JSpinner spinHelmRed = new JSpinner();
-		spinHelmRed.setBounds(280, 0, 60, 20);
+		spinHelmRed.setBounds(350, 0, 60, 20);
 		panelHelm.add(spinHelmRed);
 
 		JSpinner spinHelmGreen = new JSpinner();
-		spinHelmGreen.setBounds(350, 0, 60, 20);
+		spinHelmGreen.setBounds(420, 0, 60, 20);
 		panelHelm.add(spinHelmGreen);
 
 		JSpinner spinHelmBlue = new JSpinner();
-		spinHelmBlue.setBounds(420, 0, 60, 20);
+		spinHelmBlue.setBounds(490, 0, 60, 20);
 		panelHelm.add(spinHelmBlue);
-
-		JSpinner spinHelmAlpha = new JSpinner();
-		spinHelmAlpha.setBounds(490, 0, 60, 20);
-		panelHelm.add(spinHelmAlpha);
 
 		JSpinner spinHelmHueSwap = new JSpinner();
 		spinHelmHueSwap.setBounds(560, 0, 60, 20);
@@ -230,7 +236,7 @@ public class Generator extends JFrame {
 				randomPartColor(helm);
 			}
 		});
-		
+
 		JCheckBox chckbxHelmLock = new JCheckBox("Lock");
 		chckbxHelmLock.setBounds(726, 0, 54, 20);
 		panelHelm.add(chckbxHelmLock);
@@ -249,21 +255,21 @@ public class Generator extends JFrame {
 		panelHair.add(cmbHair);
 		cmbHair.setBackground(Color.WHITE);
 
+		JSpinner spinHairAlpha = new JSpinner();
+		spinHairAlpha.setBounds(280, 0, 60, 20);
+		panelHair.add(spinHairAlpha);
+
 		JSpinner spinHairRed = new JSpinner();
-		spinHairRed.setBounds(280, 0, 60, 20);
+		spinHairRed.setBounds(350, 0, 60, 20);
 		panelHair.add(spinHairRed);
 
 		JSpinner spinHairGreen = new JSpinner();
-		spinHairGreen.setBounds(350, 0, 60, 20);
+		spinHairGreen.setBounds(420, 0, 60, 20);
 		panelHair.add(spinHairGreen);
 
 		JSpinner spinHairBlue = new JSpinner();
-		spinHairBlue.setBounds(420, 0, 60, 20);
+		spinHairBlue.setBounds(490, 0, 60, 20);
 		panelHair.add(spinHairBlue);
-
-		JSpinner spinHairAlpha = new JSpinner();
-		spinHairAlpha.setBounds(490, 0, 60, 20);
-		panelHair.add(spinHairAlpha);
 
 		JSpinner spinHairHueSwap = new JSpinner();
 		spinHairHueSwap.setBounds(560, 0, 60, 20);
@@ -278,7 +284,7 @@ public class Generator extends JFrame {
 				randomPartColor(hair);
 			}
 		});
-		
+
 		JCheckBox chckbxHairLock = new JCheckBox("Lock");
 		chckbxHairLock.setBounds(726, 0, 54, 20);
 		panelHair.add(chckbxHairLock);
@@ -297,21 +303,21 @@ public class Generator extends JFrame {
 		panelEyes.add(cmbEyes);
 		cmbEyes.setBackground(Color.WHITE);
 
+		JSpinner spinEyesAlpha = new JSpinner();
+		spinEyesAlpha.setBounds(280, 0, 60, 20);
+		panelEyes.add(spinEyesAlpha);
+
 		JSpinner spinEyesRed = new JSpinner();
-		spinEyesRed.setBounds(280, 0, 60, 20);
+		spinEyesRed.setBounds(350, 0, 60, 20);
 		panelEyes.add(spinEyesRed);
 
 		JSpinner spinEyesGreen = new JSpinner();
-		spinEyesGreen.setBounds(350, 0, 60, 20);
+		spinEyesGreen.setBounds(420, 0, 60, 20);
 		panelEyes.add(spinEyesGreen);
 
 		JSpinner spinEyesBlue = new JSpinner();
-		spinEyesBlue.setBounds(420, 0, 60, 20);
+		spinEyesBlue.setBounds(490, 0, 60, 20);
 		panelEyes.add(spinEyesBlue);
-
-		JSpinner spinEyesAlpha = new JSpinner();
-		spinEyesAlpha.setBounds(490, 0, 60, 20);
-		panelEyes.add(spinEyesAlpha);
 
 		JSpinner spinEyesHueSwap = new JSpinner();
 		spinEyesHueSwap.setBounds(560, 0, 60, 20);
@@ -326,7 +332,7 @@ public class Generator extends JFrame {
 				randomPartColor(eyes);
 			}
 		});
-		
+
 		JCheckBox chckbxEyesLock = new JCheckBox("Lock");
 		chckbxEyesLock.setBounds(726, 0, 54, 20);
 		panelEyes.add(chckbxEyesLock);
@@ -345,21 +351,21 @@ public class Generator extends JFrame {
 		panelFace.add(cmbFace);
 		cmbFace.setBackground(Color.WHITE);
 
+		JSpinner spinFaceAlpha = new JSpinner();
+		spinFaceAlpha.setBounds(280, 0, 60, 20);
+		panelFace.add(spinFaceAlpha);
+
 		JSpinner spinFaceRed = new JSpinner();
-		spinFaceRed.setBounds(280, 0, 60, 20);
+		spinFaceRed.setBounds(350, 0, 60, 20);
 		panelFace.add(spinFaceRed);
 
 		JSpinner spinFaceGreen = new JSpinner();
-		spinFaceGreen.setBounds(350, 0, 60, 20);
+		spinFaceGreen.setBounds(420, 0, 60, 20);
 		panelFace.add(spinFaceGreen);
 
 		JSpinner spinFaceBlue = new JSpinner();
-		spinFaceBlue.setBounds(420, 0, 60, 20);
+		spinFaceBlue.setBounds(490, 0, 60, 20);
 		panelFace.add(spinFaceBlue);
-
-		JSpinner spinFaceAlpha = new JSpinner();
-		spinFaceAlpha.setBounds(490, 0, 60, 20);
-		panelFace.add(spinFaceAlpha);
 
 		JSpinner spinFaceHueSwap = new JSpinner();
 		spinFaceHueSwap.setBounds(560, 0, 60, 20);
@@ -374,7 +380,7 @@ public class Generator extends JFrame {
 				randomPartColor(face);
 			}
 		});
-		
+
 		JCheckBox chckbxFaceLock = new JCheckBox("Lock");
 		chckbxFaceLock.setBounds(726, 0, 54, 20);
 		panelFace.add(chckbxFaceLock);
@@ -393,21 +399,21 @@ public class Generator extends JFrame {
 		panelTorsoA.add(cmbTorsoA);
 		cmbTorsoA.setBackground(Color.WHITE);
 
+		JSpinner spinTorsoAAlpha = new JSpinner();
+		spinTorsoAAlpha.setBounds(280, 0, 60, 20);
+		panelTorsoA.add(spinTorsoAAlpha);
+
 		JSpinner spinTorsoARed = new JSpinner();
-		spinTorsoARed.setBounds(280, 0, 60, 20);
+		spinTorsoARed.setBounds(350, 0, 60, 20);
 		panelTorsoA.add(spinTorsoARed);
 
 		JSpinner spinTorsoAGreen = new JSpinner();
-		spinTorsoAGreen.setBounds(350, 0, 60, 20);
+		spinTorsoAGreen.setBounds(420, 0, 60, 20);
 		panelTorsoA.add(spinTorsoAGreen);
 
 		JSpinner spinTorsoABlue = new JSpinner();
-		spinTorsoABlue.setBounds(420, 0, 60, 20);
+		spinTorsoABlue.setBounds(490, 0, 60, 20);
 		panelTorsoA.add(spinTorsoABlue);
-
-		JSpinner spinTorsoAAlpha = new JSpinner();
-		spinTorsoAAlpha.setBounds(490, 0, 60, 20);
-		panelTorsoA.add(spinTorsoAAlpha);
 
 		JSpinner spinTorsoAHueSwap = new JSpinner();
 		spinTorsoAHueSwap.setBounds(560, 0, 60, 20);
@@ -422,7 +428,7 @@ public class Generator extends JFrame {
 				randomPartColor(torsoA);
 			}
 		});
-		
+
 		JCheckBox chckbxTorsoALock = new JCheckBox("Lock");
 		chckbxTorsoALock.setBounds(726, 0, 54, 20);
 		panelTorsoA.add(chckbxTorsoALock);
@@ -441,21 +447,21 @@ public class Generator extends JFrame {
 		panelTorsoB.add(cmbTorsoB);
 		cmbTorsoB.setBackground(Color.WHITE);
 
+		JSpinner spinTorsoBAlpha = new JSpinner();
+		spinTorsoBAlpha.setBounds(280, 0, 60, 20);
+		panelTorsoB.add(spinTorsoBAlpha);
+
 		JSpinner spinTorsoBRed = new JSpinner();
-		spinTorsoBRed.setBounds(280, 0, 60, 20);
+		spinTorsoBRed.setBounds(350, 0, 60, 20);
 		panelTorsoB.add(spinTorsoBRed);
 
 		JSpinner spinTorsoBGreen = new JSpinner();
-		spinTorsoBGreen.setBounds(350, 0, 60, 20);
+		spinTorsoBGreen.setBounds(420, 0, 60, 20);
 		panelTorsoB.add(spinTorsoBGreen);
 
 		JSpinner spinTorsoBBlue = new JSpinner();
-		spinTorsoBBlue.setBounds(420, 0, 60, 20);
+		spinTorsoBBlue.setBounds(490, 0, 60, 20);
 		panelTorsoB.add(spinTorsoBBlue);
-
-		JSpinner spinTorsoBAlpha = new JSpinner();
-		spinTorsoBAlpha.setBounds(490, 0, 60, 20);
-		panelTorsoB.add(spinTorsoBAlpha);
 
 		JSpinner spinTorsoBHueSwap = new JSpinner();
 		spinTorsoBHueSwap.setBounds(560, 0, 60, 20);
@@ -470,7 +476,7 @@ public class Generator extends JFrame {
 				randomPartColor(torsoB);
 			}
 		});
-		
+
 		JCheckBox chckbxTorsoBLock = new JCheckBox("Lock");
 		chckbxTorsoBLock.setBounds(726, 0, 54, 20);
 		panelTorsoB.add(chckbxTorsoBLock);
@@ -489,21 +495,21 @@ public class Generator extends JFrame {
 		panelHands.add(cmbHands);
 		cmbHands.setBackground(Color.WHITE);
 
+		JSpinner spinHandsAlpha = new JSpinner();
+		spinHandsAlpha.setBounds(280, 0, 60, 20);
+		panelHands.add(spinHandsAlpha);
+
 		JSpinner spinHandsRed = new JSpinner();
-		spinHandsRed.setBounds(280, 0, 60, 20);
+		spinHandsRed.setBounds(350, 0, 60, 20);
 		panelHands.add(spinHandsRed);
 
 		JSpinner spinHandsGreen = new JSpinner();
-		spinHandsGreen.setBounds(350, 0, 60, 20);
+		spinHandsGreen.setBounds(420, 0, 60, 20);
 		panelHands.add(spinHandsGreen);
 
 		JSpinner spinHandsBlue = new JSpinner();
-		spinHandsBlue.setBounds(420, 0, 60, 20);
+		spinHandsBlue.setBounds(490, 0, 60, 20);
 		panelHands.add(spinHandsBlue);
-
-		JSpinner spinHandsAlpha = new JSpinner();
-		spinHandsAlpha.setBounds(490, 0, 60, 20);
-		panelHands.add(spinHandsAlpha);
 
 		JSpinner spinHandsHueSwap = new JSpinner();
 		spinHandsHueSwap.setBounds(560, 0, 60, 20);
@@ -518,7 +524,7 @@ public class Generator extends JFrame {
 				randomPartColor(hands);
 			}
 		});
-		
+
 		JCheckBox chckbxHandsLock = new JCheckBox("Lock");
 		chckbxHandsLock.setBounds(726, 0, 54, 20);
 		panelHands.add(chckbxHandsLock);
@@ -537,21 +543,21 @@ public class Generator extends JFrame {
 		panelLegsA.add(cmbLegsA);
 		cmbLegsA.setBackground(Color.WHITE);
 
+		JSpinner spinLegsAAlpha = new JSpinner();
+		spinLegsAAlpha.setBounds(280, 0, 60, 20);
+		panelLegsA.add(spinLegsAAlpha);
+
 		JSpinner spinLegsARed = new JSpinner();
-		spinLegsARed.setBounds(280, 0, 60, 20);
+		spinLegsARed.setBounds(350, 0, 60, 20);
 		panelLegsA.add(spinLegsARed);
 
 		JSpinner spinLegsAGreen = new JSpinner();
-		spinLegsAGreen.setBounds(350, 0, 60, 20);
+		spinLegsAGreen.setBounds(420, 0, 60, 20);
 		panelLegsA.add(spinLegsAGreen);
 
 		JSpinner spinLegsABlue = new JSpinner();
-		spinLegsABlue.setBounds(420, 0, 60, 20);
+		spinLegsABlue.setBounds(490, 0, 60, 20);
 		panelLegsA.add(spinLegsABlue);
-
-		JSpinner spinLegsAAlpha = new JSpinner();
-		spinLegsAAlpha.setBounds(490, 0, 60, 20);
-		panelLegsA.add(spinLegsAAlpha);
 
 		JSpinner spinLegsAHueSwap = new JSpinner();
 		spinLegsAHueSwap.setBounds(560, 0, 60, 20);
@@ -566,7 +572,7 @@ public class Generator extends JFrame {
 				randomPartColor(legsA);
 			}
 		});
-		
+
 		JCheckBox chckbxLegsALock = new JCheckBox("Lock");
 		chckbxLegsALock.setBounds(726, 0, 54, 20);
 		panelLegsA.add(chckbxLegsALock);
@@ -585,21 +591,21 @@ public class Generator extends JFrame {
 		panelLegsB.add(cmbLegsB);
 		cmbLegsB.setBackground(Color.WHITE);
 
+		JSpinner spinLegsBAlpha = new JSpinner();
+		spinLegsBAlpha.setBounds(280, 0, 60, 20);
+		panelLegsB.add(spinLegsBAlpha);
+
 		JSpinner spinLegsBRed = new JSpinner();
-		spinLegsBRed.setBounds(280, 0, 60, 20);
+		spinLegsBRed.setBounds(350, 0, 60, 20);
 		panelLegsB.add(spinLegsBRed);
 
 		JSpinner spinLegsBGreen = new JSpinner();
-		spinLegsBGreen.setBounds(350, 0, 60, 20);
+		spinLegsBGreen.setBounds(420, 0, 60, 20);
 		panelLegsB.add(spinLegsBGreen);
 
 		JSpinner spinLegsBBlue = new JSpinner();
-		spinLegsBBlue.setBounds(420, 0, 60, 20);
+		spinLegsBBlue.setBounds(490, 0, 60, 20);
 		panelLegsB.add(spinLegsBBlue);
-
-		JSpinner spinLegsBAlpha = new JSpinner();
-		spinLegsBAlpha.setBounds(490, 0, 60, 20);
-		panelLegsB.add(spinLegsBAlpha);
 
 		JSpinner spinLegsBHueSwap = new JSpinner();
 		spinLegsBHueSwap.setBounds(560, 0, 60, 20);
@@ -614,7 +620,7 @@ public class Generator extends JFrame {
 				randomPartColor(legsB);
 			}
 		});
-		
+
 		JCheckBox chckbxLegsBLock = new JCheckBox("Lock");
 		chckbxLegsBLock.setBounds(726, 0, 54, 20);
 		panelLegsB.add(chckbxLegsBLock);
@@ -633,21 +639,21 @@ public class Generator extends JFrame {
 		panelBack.add(cmbBack);
 		cmbBack.setBackground(Color.WHITE);
 
+		JSpinner spinBackAlpha = new JSpinner();
+		spinBackAlpha.setBounds(280, 0, 60, 20);
+		panelBack.add(spinBackAlpha);
+
 		JSpinner spinBackRed = new JSpinner();
-		spinBackRed.setBounds(280, 0, 60, 20);
+		spinBackRed.setBounds(350, 0, 60, 20);
 		panelBack.add(spinBackRed);
 
 		JSpinner spinBackGreen = new JSpinner();
-		spinBackGreen.setBounds(350, 0, 60, 20);
+		spinBackGreen.setBounds(420, 0, 60, 20);
 		panelBack.add(spinBackGreen);
 
 		JSpinner spinBackBlue = new JSpinner();
-		spinBackBlue.setBounds(420, 0, 60, 20);
+		spinBackBlue.setBounds(490, 0, 60, 20);
 		panelBack.add(spinBackBlue);
-
-		JSpinner spinBackAlpha = new JSpinner();
-		spinBackAlpha.setBounds(490, 0, 60, 20);
-		panelBack.add(spinBackAlpha);
 
 		JSpinner spinBackHueSwap = new JSpinner();
 		spinBackHueSwap.setBounds(560, 0, 60, 20);
@@ -662,7 +668,7 @@ public class Generator extends JFrame {
 				randomPartColor(back);
 			}
 		});
-		
+
 		JCheckBox chckbxBackLock = new JCheckBox("Lock");
 		chckbxBackLock.setBounds(726, 0, 54, 20);
 		panelBack.add(chckbxBackLock);
@@ -681,21 +687,21 @@ public class Generator extends JFrame {
 		panelShoes.add(cmbShoes);
 		cmbShoes.setBackground(Color.WHITE);
 
+		JSpinner spinShoesAlpha = new JSpinner();
+		spinShoesAlpha.setBounds(280, 0, 60, 20);
+		panelShoes.add(spinShoesAlpha);
+
 		JSpinner spinShoesRed = new JSpinner();
-		spinShoesRed.setBounds(280, 0, 60, 20);
+		spinShoesRed.setBounds(350, 0, 60, 20);
 		panelShoes.add(spinShoesRed);
 
 		JSpinner spinShoesGreen = new JSpinner();
-		spinShoesGreen.setBounds(350, 0, 60, 20);
+		spinShoesGreen.setBounds(420, 0, 60, 20);
 		panelShoes.add(spinShoesGreen);
 
 		JSpinner spinShoesBlue = new JSpinner();
-		spinShoesBlue.setBounds(420, 0, 60, 20);
+		spinShoesBlue.setBounds(490, 0, 60, 20);
 		panelShoes.add(spinShoesBlue);
-
-		JSpinner spinShoesAlpha = new JSpinner();
-		spinShoesAlpha.setBounds(490, 0, 60, 20);
-		panelShoes.add(spinShoesAlpha);
 
 		JSpinner spinShoesHueSwap = new JSpinner();
 		spinShoesHueSwap.setBounds(560, 0, 60, 20);
@@ -710,11 +716,11 @@ public class Generator extends JFrame {
 				randomPartColor(shoes);
 			}
 		});
-		
+
 		JCheckBox chckbxShoesLock = new JCheckBox("Lock");
 		chckbxShoesLock.setBounds(726, 0, 54, 20);
 		panelShoes.add(chckbxShoesLock);
-		
+
 		this.parts[0] = body = new SpritePart("body", cmbBody, spinBodyRed, spinBodyGreen,
 				spinBodyBlue, spinBodyAlpha, spinBodyHueSwap, chckbxBodyLock);
 		this.parts[1] = helm = new SpritePart("helm", cmbHelm, spinHelmRed, spinHelmGreen,
@@ -778,6 +784,39 @@ public class Generator extends JFrame {
 			}
 		});
 		contentPane.add(btnSave);
+	}
+
+	void setColorChangeOptions(JComboBox cmb) {
+		String[] options = {"RGB", "HSB", "Palette"};
+		cmb.setModel(new DefaultComboBoxModel<String>(options));
+		cmb.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					switch ((String)e.getItem()) {
+					case "RGB":
+						System.out.println("RGB");
+						/*lblA.setText("Red");
+						lblB.setText("Green");
+						lblC.setText("Blue");
+						lblD.setText("Hue Swap");*/
+						break;
+					case "HSB":
+						System.out.println("HSB");
+						/*lblA.setText("Hue");
+						lblB.setText("Saturation");
+						lblC.setText("Bright");
+						lblD.setText("Hue Swap");*/
+						break;
+					case "Palette":
+						System.out.println("Palette");
+						/*lblA.setText("Original");
+						lblB.setText("");
+						lblC.setText("New");
+						lblD.setText("Hue Swap");*/
+					}
+				}
+			}
+		});
 	}
 
 	/**
