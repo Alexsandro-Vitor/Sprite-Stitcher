@@ -148,7 +148,7 @@ public class Generator extends JFrame {
 		lblBody.setBounds(0, 0, 60, 20);
 		panelBody.add(lblBody);
 
-		JComboBox<String> cmbBody = new JComboBox(folders.body.toFile().list());
+		JComboBox<String> cmbBody = new JComboBox(folders.files(Folders.PartTypes.BODY));
 		cmbBody.setBounds(70, 0, 200, 20);
 		panelBody.add(cmbBody);
 		cmbBody.setBackground(Color.WHITE);
@@ -196,7 +196,7 @@ public class Generator extends JFrame {
 		lblHelm.setBounds(0, 0, 60, 20);
 		panelHelm.add(lblHelm);
 
-		JComboBox<String> cmbHelm = new JComboBox(folders.helm.toFile().list());
+		JComboBox<String> cmbHelm = new JComboBox(folders.files(Folders.PartTypes.HELM));
 		cmbHelm.setBounds(70, 0, 200, 20);
 		panelHelm.add(cmbHelm);
 		cmbHelm.setBackground(Color.WHITE);
@@ -244,7 +244,7 @@ public class Generator extends JFrame {
 		lblHair.setBounds(0, 0, 60, 20);
 		panelHair.add(lblHair);
 
-		JComboBox<String> cmbHair = new JComboBox(folders.hair.toFile().list());
+		JComboBox<String> cmbHair = new JComboBox(folders.files(Folders.PartTypes.HAIR));
 		cmbHair.setBounds(70, 0, 200, 20);
 		panelHair.add(cmbHair);
 		cmbHair.setBackground(Color.WHITE);
@@ -292,7 +292,7 @@ public class Generator extends JFrame {
 		lblEyes.setBounds(0, 0, 60, 20);
 		panelEyes.add(lblEyes);
 
-		JComboBox<String> cmbEyes = new JComboBox(folders.eyes.toFile().list());
+		JComboBox<String> cmbEyes = new JComboBox(folders.files(Folders.PartTypes.EYES));
 		cmbEyes.setBounds(70, 0, 200, 20);
 		panelEyes.add(cmbEyes);
 		cmbEyes.setBackground(Color.WHITE);
@@ -340,7 +340,7 @@ public class Generator extends JFrame {
 		lblFace.setBounds(0, 0, 60, 20);
 		panelFace.add(lblFace);
 
-		JComboBox<String> cmbFace = new JComboBox(folders.faces.toFile().list());
+		JComboBox<String> cmbFace = new JComboBox(folders.files(Folders.PartTypes.FACES));
 		cmbFace.setBounds(70, 0, 200, 20);
 		panelFace.add(cmbFace);
 		cmbFace.setBackground(Color.WHITE);
@@ -388,7 +388,7 @@ public class Generator extends JFrame {
 		lblTorsoA.setBounds(0, 0, 60, 20);
 		panelTorsoA.add(lblTorsoA);
 
-		JComboBox<String> cmbTorsoA = new JComboBox(folders.torso.toFile().list());
+		JComboBox<String> cmbTorsoA = new JComboBox(folders.files(Folders.PartTypes.TORSO));
 		cmbTorsoA.setBounds(70, 0, 200, 20);
 		panelTorsoA.add(cmbTorsoA);
 		cmbTorsoA.setBackground(Color.WHITE);
@@ -436,7 +436,7 @@ public class Generator extends JFrame {
 		lblTorsoB.setBounds(0, 0, 60, 20);
 		panelTorsoB.add(lblTorsoB);
 
-		JComboBox<String> cmbTorsoB = new JComboBox(folders.torso.toFile().list());
+		JComboBox<String> cmbTorsoB = new JComboBox(folders.files(Folders.PartTypes.TORSO));
 		cmbTorsoB.setBounds(70, 0, 200, 20);
 		panelTorsoB.add(cmbTorsoB);
 		cmbTorsoB.setBackground(Color.WHITE);
@@ -484,7 +484,7 @@ public class Generator extends JFrame {
 		lblHands.setBounds(0, 0, 60, 20);
 		panelHands.add(lblHands);
 
-		JComboBox<String> cmbHands = new JComboBox(folders.hands.toFile().list());
+		JComboBox<String> cmbHands = new JComboBox(folders.files(Folders.PartTypes.HANDS));
 		cmbHands.setBounds(70, 0, 200, 20);
 		panelHands.add(cmbHands);
 		cmbHands.setBackground(Color.WHITE);
@@ -532,7 +532,7 @@ public class Generator extends JFrame {
 		lblLegsA.setBounds(0, 0, 60, 20);
 		panelLegsA.add(lblLegsA);
 
-		JComboBox<String> cmbLegsA = new JComboBox(folders.legs.toFile().list());
+		JComboBox<String> cmbLegsA = new JComboBox(folders.files(Folders.PartTypes.LEGS));
 		cmbLegsA.setBounds(70, 0, 200, 20);
 		panelLegsA.add(cmbLegsA);
 		cmbLegsA.setBackground(Color.WHITE);
@@ -580,7 +580,7 @@ public class Generator extends JFrame {
 		lblLegsB.setBounds(0, 0, 60, 20);
 		panelLegsB.add(lblLegsB);
 
-		JComboBox<String> cmbLegsB = new JComboBox(folders.legs.toFile().list());
+		JComboBox<String> cmbLegsB = new JComboBox(folders.files(Folders.PartTypes.LEGS));
 		cmbLegsB.setBounds(70, 0, 200, 20);
 		panelLegsB.add(cmbLegsB);
 		cmbLegsB.setBackground(Color.WHITE);
@@ -628,7 +628,7 @@ public class Generator extends JFrame {
 		lblBack.setBounds(0, 0, 60, 20);
 		panelBack.add(lblBack);
 
-		JComboBox<String> cmbBack = new JComboBox(folders.back.toFile().list());
+		JComboBox<String> cmbBack = new JComboBox(folders.files(Folders.PartTypes.BACK));
 		cmbBack.setBounds(70, 0, 200, 20);
 		panelBack.add(cmbBack);
 		cmbBack.setBackground(Color.WHITE);
@@ -676,7 +676,7 @@ public class Generator extends JFrame {
 		lblShoes.setBounds(0, 0, 60, 20);
 		panelShoes.add(lblShoes);
 
-		JComboBox<String> cmbShoes = new JComboBox(folders.shoes.toFile().list());
+		JComboBox<String> cmbShoes = new JComboBox(folders.files(Folders.PartTypes.SHOES));
 		cmbShoes.setBounds(70, 0, 200, 20);
 		panelShoes.add(cmbShoes);
 		cmbShoes.setBackground(Color.WHITE);
@@ -933,18 +933,18 @@ public class Generator extends JFrame {
 	 * Updates all combo boxes with the folders' current content.
 	 */
 	private void updateFolders() {
-		updateCmb(body, folders.body.toFile().list());
-		updateCmb(helm, folders.helm.toFile().list());
-		updateCmb(hair, folders.hair.toFile().list());
-		updateCmb(eyes, folders.eyes.toFile().list());
-		updateCmb(face, folders.faces.toFile().list());
-		updateCmb(torsoA, folders.torso.toFile().list());
-		updateCmb(torsoB, folders.torso.toFile().list());
-		updateCmb(hands, folders.hands.toFile().list());
-		updateCmb(legsA, folders.legs.toFile().list());
-		updateCmb(legsB, folders.legs.toFile().list());
-		updateCmb(back, folders.back.toFile().list());
-		updateCmb(shoes, folders.shoes.toFile().list());
+		updateCmb(body, folders.files(Folders.PartTypes.BODY));
+		updateCmb(helm, folders.files(Folders.PartTypes.HELM));
+		updateCmb(hair, folders.files(Folders.PartTypes.HAIR));
+		updateCmb(eyes, folders.files(Folders.PartTypes.EYES));
+		updateCmb(face, folders.files(Folders.PartTypes.FACES));
+		updateCmb(torsoA, folders.files(Folders.PartTypes.TORSO));
+		updateCmb(torsoB, folders.files(Folders.PartTypes.TORSO));
+		updateCmb(hands, folders.files(Folders.PartTypes.HANDS));
+		updateCmb(legsA, folders.files(Folders.PartTypes.LEGS));
+		updateCmb(legsB, folders.files(Folders.PartTypes.LEGS));
+		updateCmb(back, folders.files(Folders.PartTypes.BACK));
+		updateCmb(shoes, folders.files(Folders.PartTypes.SHOES));
 		JOptionPane.showMessageDialog(null, "Updated the folders");
 	}
 

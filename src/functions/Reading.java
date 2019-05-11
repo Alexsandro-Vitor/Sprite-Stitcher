@@ -29,7 +29,7 @@ public class Reading {
 	public static int[][] selectImage(Folders folder, SpritePart part) throws WrongSizeException {
 		int[][] matrix;
 		try {
-			if (part.getCmb().getItemCount() > 0) {
+			if (part.getCmb().getSelectedIndex() > 0) {
 				String selected = part.getCmb().getSelectedItem().toString();
 				matrix = readImage(Paths.get(folder.name, part.name.split(" ")[0], selected).toFile());
 				colorImageHueSwap(matrix, part.getHueSwap());

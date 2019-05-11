@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import javax.imageio.ImageIO;
 
 import classes.Folders;
+import classes.Folders.PartTypes;
 
 /**
  * Manages the writing of the image files.
@@ -23,8 +24,8 @@ public class Writing {
 	 * @throws IOException 
 	 */
 	public static String saveSprite(Folders folder, String filename, BufferedImage buffer) throws IOException {
-		String name = Writing.generateSpriteName(folder.sprites, filename);
-		ImageIO.write(buffer, "PNG", folder.sprites.resolve(name).toFile());
+		String name = Writing.generateSpriteName(folder.subFolders.get(PartTypes.SPRITES), filename);
+		ImageIO.write(buffer, "PNG", folder.subFolders.get(PartTypes.SPRITES).resolve(name).toFile());
 		return name;
 	}
 

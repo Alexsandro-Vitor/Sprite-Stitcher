@@ -4,24 +4,23 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 
 /**
  * Class which manages the folders used by the application.
  * @author Alexsandro Vítor Serafim de Carvalho
  */
 public class Folders {
+	public enum PartTypes {
+		BODY("body"), HELM("helm"), HAIR("hair"), EYES("eyes"), FACES("faces"), TORSO("torso"),
+		HANDS("hands"), LEGS("legs"), BACK("back"), SHOES("shoes"), SPRITES("sprites");
+		public final String folder;
+		PartTypes(String name) {
+			this.folder = name;
+		}
+	}
 	public String name;
-	public Path body;
-	public Path helm;
-	public Path hair;
-	public Path eyes;
-	public Path faces;
-	public Path torso;
-	public Path hands;
-	public Path legs;
-	public Path back;
-	public Path shoes;
-	public Path sprites;
+	public HashMap<PartTypes, Path> subFolders;
 
 	/**
 	 * Creates or opens the folders with the part images.
@@ -30,17 +29,10 @@ public class Folders {
 	public Folders(String name) {
 		this.name = name;
 		try {
-			body = getPath("body");
-			helm = getPath("helm");
-			hair = getPath("hair");
-			eyes = getPath("eyes");
-			faces = getPath("faces");
-			torso = getPath("torso");
-			hands = getPath("hands");
-			legs = getPath("legs");
-			back = getPath("back");
-			shoes = getPath("shoes");
-			sprites = getPath("sprites");
+			this.subFolders = new HashMap<PartTypes, Path>();
+			for (PartTypes type : PartTypes.values()) {
+				this.subFolders.put(type, getPath(type.folder));
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -56,5 +48,17 @@ public class Folders {
 		Path folderPath = Paths.get(name, folder);
 		Files.createDirectories(folderPath);
 		return folderPath;
+	}
+	
+	/**
+	 * Lists the files in one of its subfolders, leaving null in the first index. 
+	 * @param part The sprite part type of the folder.
+	 * @return The list of files in the subfolder, preceded by a null value.
+	 */
+	public String[] files(PartTypes part) {
+		String[] files = this.subFolders.get(part).toFile().list();
+		String[] output = new String[files.length + 1];
+		System.arraycopy(files, 0, output, 1, files.length);
+		return output;
 	}
 }
