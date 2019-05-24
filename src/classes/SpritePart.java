@@ -15,11 +15,17 @@ import javax.swing.SpinnerNumberModel;
 public class SpritePart {
 	public String name;
 	private JComboBox<String> cmb;
-	public JSpinner red;
-	public JSpinner green;
-	public JSpinner blue;
+	public JSpinner spinA;
+	public JSpinner spinB;
+	public JSpinner spinC;
 	public JSpinner alpha;
 	public JSpinner hueSwap;
+	public SpinnerNumberModel red = new SpinnerNumberModel(255, 0, 255, 1);
+	public SpinnerNumberModel green = new SpinnerNumberModel(255, 0, 255, 1);
+	public SpinnerNumberModel blue = new SpinnerNumberModel(255, 0, 255, 1);
+	private SpinnerNumberModel hue = new SpinnerNumberModel(0, 0, 360, 1);
+	private SpinnerNumberModel sat = new SpinnerNumberModel(0, 0, 100, 1);
+	private SpinnerNumberModel bright = new SpinnerNumberModel(0, 0, 100, 1);
 	public JCheckBox locked;
 	private PartColor color;
 
@@ -27,9 +33,9 @@ public class SpritePart {
 	 * Constructor of SpritePart.
 	 * @param name Used for the tooltips.
 	 * @param cmb The combo box where the part will be chosen.
-	 * @param red The spinner for the red / hue attributes.
-	 * @param green The spinner for the green / saturation attributes.
-	 * @param blue The spinner for the blue / brightness attributes.
+	 * @param spinA The spinner for the spinA / hue attributes.
+	 * @param spinB The spinner for the spinB / saturation attributes.
+	 * @param spinC The spinner for the spinC / brightness attributes.
 	 * @param alpha The spinner for the alpha attribute.
 	 * @param hueSwap The spinner for the hue swap angle.
 	 * @param locked The check box to select if the Randomize Parts button should change this part.
@@ -38,9 +44,9 @@ public class SpritePart {
 			JSpinner blue, JSpinner alpha, JSpinner hueSwap, JCheckBox locked) {
 		this.name = name;
 		this.cmb = cmb;
-		this.red = red;
-		this.green = green;
-		this.blue = blue;
+		this.spinA = red;
+		this.spinB = green;
+		this.spinC = blue;
 		this.alpha = alpha;
 		this.hueSwap = hueSwap;
 		this.locked = locked;
@@ -99,9 +105,9 @@ public class SpritePart {
 	public void updateColor(boolean rgba) {
 		int temp;
 		if (rgba) {
-			this.color = new PartColor((int)red.getValue(), (int)green.getValue(), (int)blue.getValue(), (int)alpha.getValue());
+			this.color = new PartColor((int)spinA.getValue(), (int)spinB.getValue(), (int)spinC.getValue(), (int)alpha.getValue());
 		} else {
-			temp = (Color.HSBtoRGB((int)red.getValue() / 360f, (int)green.getValue() / 100f, (int)blue.getValue() / 100f) & 0x00FFFFFF)
+			temp = (Color.HSBtoRGB((int)spinA.getValue() / 360f, (int)spinB.getValue() / 100f, (int)spinC.getValue() / 100f) & 0x00FFFFFF)
 					+ ((int)alpha.getValue() << 24);
 			this.color = new PartColor(temp);
 		}
@@ -111,27 +117,27 @@ public class SpritePart {
 		if (rgba) {
 			//HSL to RGB conversion
 			int r = getRed(), g = getGreen(), b = getBlue();
-			red.setModel(new SpinnerNumberModel(0, 0, 255, 1));
-			red.setValue(r);
-			red.setToolTipText("Red color of " + this.name);
-			green.setModel(new SpinnerNumberModel(0, 0, 255, 1));
-			green.setValue(g);
-			green.setToolTipText("Green color of " + this.name);
-			blue.setModel(new SpinnerNumberModel(0, 0, 255, 1));
-			blue.setValue(b);
-			blue.setToolTipText("Blue color of " + this.name);
+			spinA.setModel(this.red);
+			spinA.setValue(r);
+			spinA.setToolTipText("Red color of " + this.name);
+			spinB.setModel(this.green);
+			spinB.setValue(g);
+			spinB.setToolTipText("Green color of " + this.name);
+			spinC.setModel(this.blue);
+			spinC.setValue(b);
+			spinC.setToolTipText("Blue color of " + this.name);
 		} else {
 			//RGB to HSL conversion
 			float[] hsb = getHSB();
-			red.setModel(new SpinnerNumberModel(0, 0, 360, 1));
-			red.setValue(Math.round(hsb[0] * 360));
-			red.setToolTipText("Hue of " + this.name);
-			green.setModel(new SpinnerNumberModel(0, 0, 100, 1));
-			green.setValue(Math.round(hsb[1] * 100));
-			green.setToolTipText("Saturation of " + this.name);
-			blue.setModel(new SpinnerNumberModel(0, 0, 100, 1));
-			blue.setValue(Math.round(hsb[2] * 100));
-			blue.setToolTipText("Brightness of " + this.name);
+			spinA.setModel(this.hue);
+			spinA.setValue(Math.round(hsb[0] * 360));
+			spinA.setToolTipText("Hue of " + this.name);
+			spinB.setModel(this.sat);
+			spinB.setValue(Math.round(hsb[1] * 100));
+			spinB.setToolTipText("Saturation of " + this.name);
+			spinC.setModel(this.bright);
+			spinC.setValue(Math.round(hsb[2] * 100));
+			spinC.setToolTipText("Brightness of " + this.name);
 		}
 	}
 }
