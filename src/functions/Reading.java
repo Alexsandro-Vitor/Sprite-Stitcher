@@ -10,8 +10,8 @@ import javax.imageio.ImageIO;
 import classes.PartColor;
 import classes.Dimensions;
 import classes.Folders;
-import classes.SpritePart;
 import exceptions.WrongSizeException;
+import gui.PartPanel;
 
 /**
  * Manages the reading of the image files.
@@ -26,14 +26,14 @@ public class Reading {
 	 * @return The image matrix of the chosen image, with the color modifications.
 	 * @throws WrongSizeException If the image size is not the one specified at Dimensions.
 	 */
-	public static int[][] selectImage(Folders folder, SpritePart part) throws WrongSizeException {
+	public static int[][] selectImage(Folders folder, PartPanel part) throws WrongSizeException {
 		int[][] matrix;
 		try {
-			if (part.getCmb().getSelectedIndex() > 0) {
-				String selected = part.getCmb().getSelectedItem().toString();
+			if (part.cmb.getSelectedIndex() > 0) {
+				String selected = part.cmb.getSelectedItem().toString();
 				matrix = readImage(Paths.get(folder.name, part.name.split(" ")[0], selected).toFile());
-				colorImageHueSwap(matrix, part.getHueSwap());
-				colorImageFilter(matrix, part.getColor());
+				colorImageHueSwap(matrix, (int)part.spinHueSwap.getValue());
+				colorImageFilter(matrix, part.color);
 			} else {
 				matrix = ImageFunctions.getTransparency();
 			}

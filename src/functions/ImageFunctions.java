@@ -27,12 +27,12 @@ public class ImageFunctions {
 	/**
 	 * Changes the hue of a color.
 	 * @param cor The color to be changed.
-	 * @param swap A value to be added to the hue.
+	 * @param swap A value to be added to the hue, in degrees.
 	 * @return The color with the new hue.
 	 */
 	public static int hueSwap(PartColor original, float swap) {
 		float[] hsb = PartColor.RGBtoHSB(original.getRed(), original.getGreen(), original.getBlue(), null);
-		return (original.getAlpha() << 24) + PartColor.HSBtoRGB(hsb[0] + swap, hsb[1], hsb[2]);
+		return (original.getAlpha() << 24) + PartColor.HSBtoRGB(hsb[0] + swap / 360f, hsb[1], hsb[2]);
 	}
 	
 	/**

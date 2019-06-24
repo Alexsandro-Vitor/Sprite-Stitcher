@@ -7,6 +7,7 @@ import java.awt.Color;
  * @author Alexsandro Vítor Serafim de Carvalho
  */
 public class PartColor extends Color {
+	public static final PartColor WHITE = new PartColor(255, 255, 255, 255);
 
 	public PartColor(int r, int g, int b, int a) {
 		super(r, g, b, a);

@@ -33,7 +33,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeListener;
 
 import classes.Dimensions;
-import classes.SpritePart;
 import exceptions.WrongSizeException;
 import functions.*;
 import classes.Folders;
@@ -59,7 +58,7 @@ public class Generator extends JFrame {
 	private JLabel lblD;
 	private JLabel lblOriginal;
 	private JLabel lblNew;
-	private SpritePart[] parts = new SpritePart[12];
+	private PartPanel[] panels = new PartPanel[12];
 	private PartPanel body;
 	private PartPanel helm;
 	private PartPanel hair;
@@ -73,7 +72,7 @@ public class Generator extends JFrame {
 	private PartPanel back;
 	private PartPanel shoes;
 	public boolean shouldUpdate = true;
-	private boolean rgba = true;
+	boolean rgba = true;
 
 	private JPanel contentPane;
 	private JTextField txtNameSprite;
@@ -181,18 +180,18 @@ public class Generator extends JFrame {
 		shoes.setBounds(10, 383, 780, 20);
 		contentPane.add(shoes);
 
-		this.parts[0] = body.part;
-		this.parts[1] = helm.part;
-		this.parts[2] = hair.part;
-		this.parts[3] = eyes.part;
-		this.parts[4] = face.part;
-		this.parts[5] = torsoA.part;
-		this.parts[6] = torsoB.part;
-		this.parts[7] = hands.part;
-		this.parts[8] = legsA.part;
-		this.parts[9] = legsB.part;
-		this.parts[10] = back.part;
-		this.parts[11] = shoes.part;
+		this.panels[0] = body;
+		this.panels[1] = helm;
+		this.panels[2] = hair;
+		this.panels[3] = eyes;
+		this.panels[4] = face;
+		this.panels[5] = torsoA;
+		this.panels[6] = torsoB;
+		this.panels[7] = hands;
+		this.panels[8] = legsA;
+		this.panels[9] = legsB;
+		this.panels[10] = back;
+		this.panels[11] = shoes;
 
 		JButton btnAtualizarPastas = new JButton("Update folders");
 		btnAtualizarPastas.setBounds(450, 414, 130, 20);
@@ -250,8 +249,9 @@ public class Generator extends JFrame {
 						
 						rgba = true;
 						shouldUpdate = false;
-						for (SpritePart part : parts) {
-							part.setRGBA(rgba);
+						for (PartPanel part : panels) {
+							part.setColorMode();
+							part.updateSpinners(rgba);
 						}
 						updateSprite();
 						shouldUpdate = true;
@@ -266,8 +266,9 @@ public class Generator extends JFrame {
 						
 						rgba = false;
 						shouldUpdate = false;
-						for (SpritePart part : parts) {
-							part.setRGBA(rgba);
+						for (PartPanel part : panels) {
+							part.setColorMode();
+							part.updateSpinners(rgba);
 						}
 						updateSprite();
 						shouldUpdate = true;
@@ -275,6 +276,12 @@ public class Generator extends JFrame {
 					case "Palette":
 						System.out.println("Palette");
 						swapLabelsColorToPalette();
+						shouldUpdate = false;
+						for (PartPanel part : panels) {
+							part.setPaletteMode();
+						}
+						updateSprite();
+						shouldUpdate = true;
 					}
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					lastColorMode = (String)e.getItem();
@@ -337,72 +344,72 @@ public class Generator extends JFrame {
 	 */
 	public void updateSprite() {
 		int[][] sprite;
-		back.part.updateColor(rgba);
+		back.updateColor(rgba);
 		try {
-			sprite = ImageFunctions.capeBack(Reading.selectImage(folders, back.part));
+			sprite = ImageFunctions.capeBack(Reading.selectImage(folders, back));
 		} catch (WrongSizeException e) {
 			sprite = ImageFunctions.getTransparency();
 		}
 		System.out.println("Tempos:");
 		long tempo = System.nanoTime();
-		body.part.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, body.part);
+		body.updateColor(rgba);
+		sprite = overlapImageWithFile(sprite, body);
 		System.out.println("Sobrepor corpo: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
-		eyes.part.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, eyes.part);
+		eyes.updateColor(rgba);
+		sprite = overlapImageWithFile(sprite, eyes);
 		System.out.println("Sobrepor eyes: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
-		legsB.part.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, legsB.part);
+		legsB.updateColor(rgba);
+		sprite = overlapImageWithFile(sprite, legsB);
 		System.out.println("Sobrepor legsB: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
-		torsoB.part.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, torsoB.part);
+		torsoB.updateColor(rgba);
+		sprite = overlapImageWithFile(sprite, torsoB);
 		System.out.println("Sobrepor torsoB: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
-		hands.part.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, hands.part);
+		hands.updateColor(rgba);
+		sprite = overlapImageWithFile(sprite, hands);
 		System.out.println("Sobrepor hands: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
-		shoes.part.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, shoes.part);
+		shoes.updateColor(rgba);
+		sprite = overlapImageWithFile(sprite, shoes);
 		System.out.println("Sobrepor shoes: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
-		legsA.part.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, legsA.part);
+		legsA.updateColor(rgba);
+		sprite = overlapImageWithFile(sprite, legsA);
 		System.out.println("Sobrepor legsA: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
-		torsoA.part.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, torsoA.part);
+		torsoA.updateColor(rgba);
+		sprite = overlapImageWithFile(sprite, torsoA);
 		System.out.println("Sobrepor torsoA: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
-		face.part.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, face.part);
+		face.updateColor(rgba);
+		sprite = overlapImageWithFile(sprite, face);
 		System.out.println("Sobrepor face: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
 		try {
-			sprite = ImageFunctions.overlapImage(ImageFunctions.capeFront(Reading.selectImage(folders, back.part)), sprite);
+			sprite = ImageFunctions.overlapImage(ImageFunctions.capeFront(Reading.selectImage(folders, back)), sprite);
 		} catch (WrongSizeException e) {}
 		System.out.println("Sobrepor back: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
-		hair.part.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, hair.part);
+		hair.updateColor(rgba);
+		sprite = overlapImageWithFile(sprite, hair);
 		System.out.println("Sobrepor hair: " + (System.nanoTime()-tempo));
 
 		tempo = System.nanoTime();
-		helm.part.updateColor(rgba);
-		sprite = overlapImageWithFile(sprite, helm.part);
+		helm.updateColor(rgba);
+		sprite = overlapImageWithFile(sprite, helm);
 		System.out.println("Sobrepor helm: " + (System.nanoTime()-tempo));
 
 		buffer = ImageFunctions.matrixToBuffer(sprite);
@@ -424,8 +431,8 @@ public class Generator extends JFrame {
 	 * @param part The sprite part of the overlapping image.
 	 * @return The overlapped image.
 	 */
-	private int[][] overlapImageWithFile(int[][] base, SpritePart part) {
-		if (part.getCmb().getSelectedIndex() == 0) return base;
+	private int[][] overlapImageWithFile(int[][] base, PartPanel part) {
+		if (part.cmb.getSelectedIndex() == 0) return base;
 		try {
 			int[][] image = Reading.selectImage(folders, part);
 			return ImageFunctions.overlapImage(image, base);
@@ -459,8 +466,8 @@ public class Generator extends JFrame {
 	 */
 	private void spriteRandom() {
 		this.shouldUpdate = false;
-		for (SpritePart part : this.parts) {
-			part.selectRandomPart(random);
+		for (PartPanel panel : this.panels) {
+			panel.selectRandomPart(random);
 		}
 		updateSprite();
 		this.shouldUpdate = true;

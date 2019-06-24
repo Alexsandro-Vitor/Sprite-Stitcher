@@ -6,11 +6,12 @@ import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-import classes.SpritePart;
+import classes.PartColor;
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -18,13 +19,25 @@ import javax.swing.JCheckBox;
 
 public class PartPanel extends JPanel {
 	private Generator generator;
-	public SpritePart part;
-	private JComboBox<String> cmb;
+	public JComboBox<String> cmb;
 	private JSpinner spinAlpha;
 	private JSpinner spinA;
 	private JSpinner spinB;
 	private JSpinner spinC;
-	private JSpinner spinHueSwap;
+	public JSpinner spinHueSwap;
+	private JComboBox<String> cmbOriginal;
+	private JComboBox<String> cmbNew;
+	
+	public SpinnerNumberModel red = new SpinnerNumberModel(255, 0, 255, 1);
+	public SpinnerNumberModel green = new SpinnerNumberModel(255, 0, 255, 1);
+	public SpinnerNumberModel blue = new SpinnerNumberModel(255, 0, 255, 1);
+	public SpinnerNumberModel hue = new SpinnerNumberModel(0, 0, 360, 1);
+	public SpinnerNumberModel sat = new SpinnerNumberModel(0, 0, 100, 1);
+	public SpinnerNumberModel bright = new SpinnerNumberModel(0, 0, 100, 1);
+	
+	public String name;
+	public PartColor color = PartColor.WHITE;
+	private JCheckBox chckbxLock;
 
 	/**
 	 * Create the panel.
@@ -62,21 +75,27 @@ public class PartPanel extends JPanel {
 		spinHueSwap.setBounds(560, 0, 60, 20);
 		add(spinHueSwap);
 		
+		cmbOriginal = new JComboBox();
+		cmbOriginal.setBounds(350, 0, 130, 20);
+		
+		cmbNew = new JComboBox();
+		cmbNew.setBounds(490, 0, 130, 20);
+		
 		JButton btnRandom = new JButton("Random");
 		btnRandom.setBounds(630, 0, 90, 20);
 		add(btnRandom);
 		btnRandom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				randomPartColor(part);
+				randomPartColor();
 			}
 		});
 		
-		JCheckBox chckbxLock = new JCheckBox("Lock");
+		chckbxLock = new JCheckBox("Lock");
 		chckbxLock.setBounds(726, 0, 54, 20);
 		add(chckbxLock);
 		
-		this.part = new SpritePart(tooltipName, cmb, spinA, spinB, spinC, spinAlpha, spinHueSwap, chckbxLock);
+		this.name = tooltipName;
 		this.configSpritePartUI();
 	}
 	
@@ -86,37 +105,52 @@ public class PartPanel extends JPanel {
 	void configSpritePartUI() {
 		this.cmb.addItemListener(this.generator.itemListener);
 
-		this.spinA.setToolTipText("Red color of " + this.part.name);
-		this.spinA.setModel(this.part.red);
-		this.spinA.addChangeListener(this.generator.changeListener);
-
-		this.spinB.setToolTipText("Green color of " + this.part.name);
-		this.spinB.setModel(this.part.green);
-		this.spinB.addChangeListener(this.generator.changeListener);
-
-		this.spinC.setToolTipText("Blue color of " + this.part.name);
-		this.spinC.setModel(this.part.blue);
-		this.spinC.addChangeListener(this.generator.changeListener);
-
-		this.spinAlpha.setToolTipText("Alpha of " + this.part.name);
+		this.spinAlpha.setToolTipText("Alpha of " + this.name);
 		this.spinAlpha.setModel(new SpinnerNumberModel(255, 0, 255, 1));
 		this.spinAlpha.addChangeListener(this.generator.changeListener);
 
-		this.spinHueSwap.setToolTipText("Hue Swap of " + this.part.name);
+		this.spinA.setToolTipText("Red color of " + this.name);
+		this.spinA.setModel(this.red);
+		this.spinA.addChangeListener(this.generator.changeListener);
+
+		this.spinB.setToolTipText("Green color of " + this.name);
+		this.spinB.setModel(this.green);
+		this.spinB.addChangeListener(this.generator.changeListener);
+
+		this.spinC.setToolTipText("Blue color of " + this.name);
+		this.spinC.setModel(this.blue);
+		this.spinC.addChangeListener(this.generator.changeListener);
+
+		this.spinHueSwap.setToolTipText("Hue Swap of " + this.name);
 		this.spinHueSwap.setModel(new SpinnerNumberModel(0, 0, 360, 1));
 		this.spinHueSwap.addChangeListener(this.generator.changeListener);
+		
+		this.cmbOriginal.setToolTipText("Original palette");
+		this.cmbOriginal.addItemListener(this.generator.itemListener);
+		
+		this.cmbNew.setToolTipText("New palette");
+		this.cmbNew.addItemListener(this.generator.itemListener);
+	}
+
+	/**
+	 * Selects a random part in the combo box, if this part is not locked.
+	 * @param random A random object for selecting the part.
+	 */
+	public void selectRandomPart(Random random) {
+		if (!this.chckbxLock.isSelected() && this.cmb.getItemCount() > 0)
+			this.cmb.setSelectedIndex(random.nextInt(this.cmb.getItemCount()));
 	}
 
 	/**
 	 * Sets a random color for the part.
 	 * @param part The part which colors will be changed.
 	 */
-	private void randomPartColor(SpritePart part) {
+	private void randomPartColor() {
 		this.generator.shouldUpdate = false;
-		part.spinA.setValue(this.generator.random.nextInt((Integer) ((SpinnerNumberModel) part.spinA.getModel()).getMaximum() + 1));
-		part.spinB.setValue(this.generator.random.nextInt((Integer) ((SpinnerNumberModel) part.spinB.getModel()).getMaximum() + 1));
-		part.spinC.setValue(this.generator.random.nextInt((Integer) ((SpinnerNumberModel) part.spinC.getModel()).getMaximum() + 1));
-		part.hueSwap.setValue(this.generator.random.nextInt(361));
+		this.spinA.setValue(this.generator.random.nextInt((Integer) ((SpinnerNumberModel) this.spinA.getModel()).getMaximum() + 1));
+		this.spinB.setValue(this.generator.random.nextInt((Integer) ((SpinnerNumberModel) this.spinB.getModel()).getMaximum() + 1));
+		this.spinC.setValue(this.generator.random.nextInt((Integer) ((SpinnerNumberModel) this.spinC.getModel()).getMaximum() + 1));
+		this.spinHueSwap.setValue(this.generator.random.nextInt(361));
 		this.generator.updateSprite();
 		this.generator.shouldUpdate = true;
 	}
@@ -127,5 +161,81 @@ public class PartPanel extends JPanel {
 	 */
 	void updateCmb(String[] files) {
 		this.cmb.setModel(new DefaultComboBoxModel<String>(files));
+	}
+
+	/**
+	 * Reads the current values of the combo boxes to update the current color.
+	 * @param rgba If the attributes are RGB (true) or HSB (false).
+	 */
+	public void updateColor(boolean rgba) {
+		int temp;
+		if (rgba) {
+			this.color = new PartColor((int)spinA.getValue(), (int)spinB.getValue(), (int)spinC.getValue(), (int)spinAlpha.getValue());
+		} else {
+			temp = (Color.HSBtoRGB((int)spinA.getValue() / 360f, (int)spinB.getValue() / 100f, (int)spinC.getValue() / 100f) & 0x00FFFFFF)
+					+ ((int)spinAlpha.getValue() << 24);
+			this.color = new PartColor(temp);
+		}
+	}
+
+	/**
+	 * Reads the current value of the color to update the spinners.
+	 * @param rgba If the attributes are RGB (true) or HSB (false).
+	 */
+	public void updateSpinners(boolean rgba) {
+		if (rgba) {
+			//HSL to RGB conversion
+			int r = color.getRed(), g = color.getGreen(), b = color.getBlue();
+			spinA.setModel(this.red);
+			spinA.setValue(r);
+			spinA.setToolTipText("Red color of " + this.name);
+			spinB.setModel(this.green);
+			spinB.setValue(g);
+			spinB.setToolTipText("Green color of " + this.name);
+			spinC.setModel(this.blue);
+			spinC.setValue(b);
+			spinC.setToolTipText("Blue color of " + this.name);
+		} else {
+			//RGB to HSL conversion
+			float[] hsb = Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), null);
+			spinA.setModel(this.hue);
+			spinA.setValue(Math.round(hsb[0] * 360));
+			spinA.setToolTipText("Hue of " + this.name);
+			spinB.setModel(this.sat);
+			spinB.setValue(Math.round(hsb[1] * 100));
+			spinB.setToolTipText("Saturation of " + this.name);
+			spinC.setModel(this.bright);
+			spinC.setValue(Math.round(hsb[2] * 100));
+			spinC.setToolTipText("Brightness of " + this.name);
+		}
+	}
+	
+	public void setPaletteMode() {
+		this.color = new PartColor(255, 255, 255, 255);
+		this.updateSpinners(this.generator.rgba);
+		
+		this.remove(spinA);
+		this.remove(spinB);
+		this.remove(spinC);
+		this.remove(spinHueSwap);
+
+		this.add(cmbOriginal);
+		this.add(cmbNew);
+		
+		this.revalidate();
+		this.repaint();
+	}
+	
+	void setColorMode() {
+		this.remove(cmbOriginal);
+		this.remove(cmbNew);
+		
+		this.add(spinA);
+		this.add(spinB);
+		this.add(spinC);
+		this.add(spinHueSwap);
+		
+		this.revalidate();
+		this.repaint();
 	}
 }
