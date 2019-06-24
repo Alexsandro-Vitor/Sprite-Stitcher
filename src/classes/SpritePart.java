@@ -50,7 +50,8 @@ public class SpritePart {
 		this.alpha = alpha;
 		this.hueSwap = hueSwap;
 		this.locked = locked;
-		this.color = new PartColor((int)red.getValue(), (int)green.getValue(), (int)blue.getValue(), (int)alpha.getValue());
+		this.color = new PartColor(255, 255, 255, 255);
+		System.out.println("" + (int)red.getValue() + ' ' + (int)green.getValue() + ' ' + (int)blue.getValue() + ' ' + (int)alpha.getValue());
 	}
 
 	public JComboBox<String> getCmb() {

@@ -57,6 +57,8 @@ public class Generator extends JFrame {
 	private JLabel lblB;
 	private JLabel lblC;
 	private JLabel lblD;
+	private JLabel lblOriginal;
+	private JLabel lblNew;
 	private SpritePart[] parts = new SpritePart[12];
 	private PartPanel body;
 	private PartPanel helm;
@@ -117,35 +119,16 @@ public class Generator extends JFrame {
 		lblD.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblD);
 
-		JButton btnHSB = new JButton("HSB");
-		btnHSB.setBounds(640, 11, 90, 20);
-		btnHSB.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				rgba = !rgba;
-				if (rgba) {
-					btnHSB.setText("HSB");
-					lblA.setText("Red");
-					lblB.setText("Green");
-					lblC.setText("Blue");
-				} else {
-					btnHSB.setText("RGB");
-					lblA.setText("Hue");
-					lblB.setText("Saturation");
-					lblC.setText("Bright");
-				}
-				shouldUpdate = false;
-				for (SpritePart part : parts) {
-					part.setRGBA(rgba);
-				}
-				updateSprite();
-				shouldUpdate = true;
-			}
-		});
-		contentPane.add(btnHSB);
+		lblOriginal = new JLabel("Original");
+		lblOriginal.setBounds(360, 11, 130, 20);
+		lblOriginal.setHorizontalAlignment(SwingConstants.CENTER);
+
+		lblNew = new JLabel("New");
+		lblNew.setBounds(500, 11, 130, 20);
+		lblNew.setHorizontalAlignment(SwingConstants.CENTER);
 
 		JComboBox<String> cmbColorChange = new JComboBox();
-		cmbColorChange.setBounds(740, 11, 50, 20);
+		cmbColorChange.setBounds(640, 11, 150, 20);
 		setColorChangeOptions(cmbColorChange);
 		contentPane.add(cmbColorChange);
 
@@ -249,7 +232,7 @@ public class Generator extends JFrame {
 	}
 
 	private String lastColorMode;
-	void setColorChangeOptions(JComboBox cmb) {
+	void setColorChangeOptions(JComboBox<String> cmb) {
 		String[] options = {"RGB", "HSB", "Palette"};
 		cmb.setModel(new DefaultComboBoxModel<String>(options));
 		cmb.addItemListener(new ItemListener() {
@@ -259,31 +242,76 @@ public class Generator extends JFrame {
 					switch ((String)e.getItem()) {
 					case "RGB":
 						System.out.println("RGB");
+						swapLabelsPaletteToColor();
 						lblA.setText("Red");
 						lblB.setText("Green");
 						lblC.setText("Blue");
 						lblD.setText("Hue Swap");
+						
+						rgba = true;
+						shouldUpdate = false;
+						for (SpritePart part : parts) {
+							part.setRGBA(rgba);
+						}
+						updateSprite();
+						shouldUpdate = true;
 						break;
 					case "HSB":
 						System.out.println("HSB");
+						swapLabelsPaletteToColor();
 						lblA.setText("Hue");
 						lblB.setText("Saturation");
 						lblC.setText("Bright");
 						lblD.setText("Hue Swap");
+						
+						rgba = false;
+						shouldUpdate = false;
+						for (SpritePart part : parts) {
+							part.setRGBA(rgba);
+						}
+						updateSprite();
+						shouldUpdate = true;
 						break;
 					case "Palette":
 						System.out.println("Palette");
-						lblA.setText("Original");
-						lblA.setBounds(lblA.getBounds().x, lblA.getBounds().y, lblA.getBounds().width * 2, lblA.getBounds().height);
-						lblB.setText("");
-						lblC.setText("New");
-						lblD.setText("");
+						swapLabelsColorToPalette();
 					}
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					lastColorMode = (String)e.getItem();
 				}
 			}
 		});
+	}
+	
+	/**
+	 * Swap the labels to use the palette selection ones.
+	 */
+	private void swapLabelsColorToPalette() {
+		contentPane.remove(lblA);
+		contentPane.remove(lblB);
+		contentPane.remove(lblC);
+		contentPane.remove(lblD);
+		contentPane.add(lblOriginal);
+		contentPane.add(lblNew);
+		
+		contentPane.revalidate();
+		contentPane.repaint();
+		
+	}
+	
+	/**
+	 * Swap the labels to use the color selection ones.
+	 */
+	private void swapLabelsPaletteToColor() {
+		contentPane.remove(lblOriginal);
+		contentPane.remove(lblNew);
+		contentPane.add(lblA);
+		contentPane.add(lblB);
+		contentPane.add(lblC);
+		contentPane.add(lblD);
+		
+		contentPane.revalidate();
+		contentPane.repaint();
 	}
 
 	/**
