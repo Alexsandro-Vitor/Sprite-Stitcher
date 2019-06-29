@@ -25,8 +25,8 @@ public class PartPanel extends JPanel {
 	private JSpinner spinB;
 	private JSpinner spinC;
 	public JSpinner spinHueSwap;
-	private JComboBox<String> cmbOriginal;
-	private JComboBox<String> cmbNew;
+	public JComboBox<String> cmbOriginal;
+	public JComboBox<String> cmbNew;
 	
 	public SpinnerNumberModel red = new SpinnerNumberModel(255, 0, 255, 1);
 	public SpinnerNumberModel green = new SpinnerNumberModel(255, 0, 255, 1);
@@ -53,7 +53,7 @@ public class PartPanel extends JPanel {
 		cmb = new JComboBox(cmbOptions);
 		cmb.setBounds(70, 0, 200, 20);
 		add(cmb);
-		cmb.setBackground(Color.WHITE);
+		cmb.setBackground(cmbOptions.length > 1 ? Color.WHITE : Color.LIGHT_GRAY);
 		
 		spinAlpha = new JSpinner();
 		spinAlpha.setBounds(280, 0, 60, 20);
@@ -158,9 +158,15 @@ public class PartPanel extends JPanel {
 	/**
 	 * Updates the combo box to show the current filenames in the part folder.
 	 * @param files The files currently in the part folder.
+	 * @param palettes The palettes in the Palettes folder.
 	 */
-	void updateCmb(String[] files) {
+	void updateCmb(String[] files, String[] palettes) {
 		this.cmb.setModel(new DefaultComboBoxModel<String>(files));
+		this.cmb.setBackground(files.length > 1 ? Color.WHITE : Color.LIGHT_GRAY);
+		this.cmbOriginal.setModel(new DefaultComboBoxModel<String>(palettes));
+		this.cmbOriginal.setBackground(palettes.length > 1 ? Color.WHITE : Color.LIGHT_GRAY);
+		this.cmbNew.setModel(new DefaultComboBoxModel<String>(palettes));
+		this.cmbNew.setBackground(palettes.length > 1 ? Color.WHITE : Color.LIGHT_GRAY);
 	}
 
 	/**
@@ -213,6 +219,7 @@ public class PartPanel extends JPanel {
 	public void setPaletteMode() {
 		this.color = new PartColor(255, 255, 255, 255);
 		this.updateSpinners(this.generator.rgba);
+		this.spinHueSwap.setValue(0);
 		
 		this.remove(spinA);
 		this.remove(spinB);
@@ -237,5 +244,13 @@ public class PartPanel extends JPanel {
 		
 		this.revalidate();
 		this.repaint();
+	}
+	
+	/**
+	 * Checks if palettes were selected for the palette change.
+	 * @return true if original and new palettes were chosen, false otherwise.
+	 */
+	public boolean isUsingPalettes() {
+		return (this.cmbOriginal.getSelectedIndex() > 0) && (this.cmbNew.getSelectedIndex() > 0);
 	}
 }

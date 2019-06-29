@@ -446,18 +446,19 @@ public class Generator extends JFrame {
 	 * Updates all combo boxes with the folders' current content.
 	 */
 	private void updateFolders() {
-		body.updateCmb(folders.files(Folders.PartTypes.BODY));
-		helm.updateCmb(folders.files(Folders.PartTypes.HELM));
-		hair.updateCmb(folders.files(Folders.PartTypes.HAIR));
-		eyes.updateCmb(folders.files(Folders.PartTypes.EYES));
-		face.updateCmb(folders.files(Folders.PartTypes.FACES));
-		torsoA.updateCmb(folders.files(Folders.PartTypes.TORSO));
-		torsoB.updateCmb(folders.files(Folders.PartTypes.TORSO));
-		hands.updateCmb(folders.files(Folders.PartTypes.HANDS));
-		legsA.updateCmb(folders.files(Folders.PartTypes.LEGS));
-		legsB.updateCmb(folders.files(Folders.PartTypes.LEGS));
-		back.updateCmb(folders.files(Folders.PartTypes.BACK));
-		shoes.updateCmb(folders.files(Folders.PartTypes.SHOES));
+		String[] palettes = folders.files(Folders.PartTypes.PALETTES);
+		body.updateCmb(folders.files(Folders.PartTypes.BODY), palettes);
+		helm.updateCmb(folders.files(Folders.PartTypes.HELM), palettes);
+		hair.updateCmb(folders.files(Folders.PartTypes.HAIR), palettes);
+		eyes.updateCmb(folders.files(Folders.PartTypes.EYES), palettes);
+		face.updateCmb(folders.files(Folders.PartTypes.FACES), palettes);
+		torsoA.updateCmb(folders.files(Folders.PartTypes.TORSO), palettes);
+		torsoB.updateCmb(folders.files(Folders.PartTypes.TORSO), palettes);
+		hands.updateCmb(folders.files(Folders.PartTypes.HANDS), palettes);
+		legsA.updateCmb(folders.files(Folders.PartTypes.LEGS), palettes);
+		legsB.updateCmb(folders.files(Folders.PartTypes.LEGS), palettes);
+		back.updateCmb(folders.files(Folders.PartTypes.BACK), palettes);
+		shoes.updateCmb(folders.files(Folders.PartTypes.SHOES), palettes);
 		JOptionPane.showMessageDialog(null, "Updated the folders");
 	}
 

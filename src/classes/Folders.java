@@ -61,4 +61,8 @@ public class Folders {
 		System.arraycopy(files, 0, output, 1, files.length);
 		return output;
 	}
+	
+	public String getPalettesPath() {
+		return Paths.get(name, "palettes").toString();
+	}
 }

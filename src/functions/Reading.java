@@ -1,9 +1,16 @@
 package functions;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -32,8 +39,16 @@ public class Reading {
 			if (part.cmb.getSelectedIndex() > 0) {
 				String selected = part.cmb.getSelectedItem().toString();
 				matrix = readImage(Paths.get(folder.name, part.name.split(" ")[0], selected).toFile());
-				colorImageHueSwap(matrix, (int)part.spinHueSwap.getValue());
-				colorImageFilter(matrix, part.color);
+				if (part.isUsingPalettes()) {
+					String originalPaletteName = part.cmbOriginal.getSelectedItem().toString();
+					String newPaletteName = part.cmbNew.getSelectedItem().toString();
+					int[] originalPalette = readPalette(Paths.get(folder.getPalettesPath(), originalPaletteName).toFile());
+					int[] newPalette = readPalette(Paths.get(folder.getPalettesPath(), newPaletteName).toFile());
+					colorImagePaletteSwap(matrix, originalPalette, newPalette);
+				} else {
+					colorImageHueSwap(matrix, (int)part.spinHueSwap.getValue());
+					colorImageFilter(matrix, part.color);
+				}
 			} else {
 				matrix = ImageFunctions.getTransparency();
 			}
@@ -57,6 +72,23 @@ public class Reading {
 		if (buffer.getWidth() != Dimensions.WIDTH || buffer.getHeight() != Dimensions.HEIGHT)
 			throw new WrongSizeException(file.getName(), Dimensions.WIDTH, Dimensions.HEIGHT);
 		return bufferToMatrix(buffer);
+	}
+
+	private static int[] readPalette(File file) throws IOException {
+		FileReader fileReader = new FileReader(file);
+		BufferedReader buffer = new BufferedReader(fileReader);
+		List<String> lines = new ArrayList<String>();
+		String line;
+		while ((line = buffer.readLine()) != null) {
+			lines.add(line);
+		}
+		buffer.close();
+		
+		int[] output = new int[lines.size()];
+		for (int i = 0; i < output.length; i++) {
+			output[i] = Integer.parseInt(lines.get(i).substring(1), 16);
+		}
+		return output;
 	}
 	
 	/**
@@ -99,6 +131,19 @@ public class Reading {
 				if ((matrix[column][row] & 0xFF000000) != 0) {
 					PartColor original = new PartColor(matrix[column][row]);
 					matrix[column][row] = ImageFunctions.hueSwap(original, swap);
+				}
+			}
+		}
+	}
+	
+	private static void colorImagePaletteSwap(int[][] matrix, int[] originalPalette, int[] newPalette) {
+		Map<Integer, Integer> swapper = ImageFunctions.generatePaletteSwapper(originalPalette, newPalette);
+		
+		for (int column = 0; column < Dimensions.WIDTH; column++) {
+			for (int row = 0; row < Dimensions.HEIGHT; row++) {
+				if ((matrix[column][row] & 0xFF000000) != 0) {
+					int originalColor = matrix[column][row] & 0xFFFFFF;
+					matrix[column][row] = 0xFF000000 + (swapper.get(originalColor) != null ? swapper.get(originalColor) : originalColor);
 				}
 			}
 		}

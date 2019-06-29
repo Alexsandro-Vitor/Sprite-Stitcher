@@ -1,6 +1,8 @@
 package functions;
 
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 
 import classes.PartColor;
 import classes.Dimensions;
@@ -11,6 +13,23 @@ import classes.Dimensions;
  */
 public class ImageFunctions {
 	private static int[][] TRANSPARENCY;
+	
+	/**
+	 * Gets a transparent image the size of the spritesheet.
+	 * @return The transparent image, as a matrix.
+	 */
+	public static int[][] getTransparency() {
+		if (TRANSPARENCY == null) TRANSPARENCY = new int[Dimensions.WIDTH][Dimensions.HEIGHT];
+		return TRANSPARENCY;
+	}
+	
+	public static Map<Integer, Integer> generatePaletteSwapper(int[] originalPalette, int[] newPalette) {
+		Map<Integer, Integer> swapper = new HashMap<>();
+		for (int i = 0; i < Math.min(originalPalette.length, newPalette.length); i++) {
+			swapper.put(originalPalette[i], newPalette[i]);
+		}
+		return swapper;
+	}
 	
 	/**
 	 * Filters a grayscale color with another one.
@@ -70,15 +89,6 @@ public class ImageFunctions {
 			}
 		}
 		return output;
-	}
-	
-	/**
-	 * Gets a transparent image the size of the spritesheet.
-	 * @return The transparent image, as a matrix.
-	 */
-	public static int[][] getTransparency() {
-		if (TRANSPARENCY == null) TRANSPARENCY = new int[Dimensions.WIDTH][Dimensions.HEIGHT];
-		return TRANSPARENCY;
 	}
 
 	/**
