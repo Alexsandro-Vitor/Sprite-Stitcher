@@ -23,6 +23,12 @@ public class ImageFunctions {
 		return TRANSPARENCY;
 	}
 	
+	/**
+	 * Generates an map from a list of colors to another list.
+	 * @param originalPalette The list of original colors, which will become keys.
+	 * @param newPalette The list of new colors, which will become values.
+	 * @return An Map from a palette to another.
+	 */
 	public static Map<Integer, Integer> generatePaletteSwapper(int[] originalPalette, int[] newPalette) {
 		Map<Integer, Integer> swapper = new HashMap<>();
 		for (int i = 0; i < Math.min(originalPalette.length, newPalette.length); i++) {

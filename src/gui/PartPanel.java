@@ -6,6 +6,7 @@ import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
+import classes.Folders;
 import classes.PartColor;
 
 import java.awt.Color;
@@ -75,11 +76,13 @@ public class PartPanel extends JPanel {
 		spinHueSwap.setBounds(560, 0, 60, 20);
 		add(spinHueSwap);
 		
-		cmbOriginal = new JComboBox();
+		cmbOriginal = new JComboBox(generator.folders.files(Folders.PartTypes.PALETTES));
 		cmbOriginal.setBounds(350, 0, 130, 20);
+		cmbOriginal.setBackground(cmbOptions.length > 1 ? Color.WHITE : Color.LIGHT_GRAY);
 		
-		cmbNew = new JComboBox();
+		cmbNew = new JComboBox(generator.folders.files(Folders.PartTypes.PALETTES));
 		cmbNew.setBounds(490, 0, 130, 20);
+		cmbNew.setBackground(cmbOptions.length > 1 ? Color.WHITE : Color.LIGHT_GRAY);
 		
 		JButton btnRandom = new JButton("Random");
 		btnRandom.setBounds(630, 0, 90, 20);

@@ -49,7 +49,7 @@ public class Generator extends JFrame {
 
 	private Sprite sprite;
 	private String imagesFolder;
-	private Folders folders;
+	public Folders folders;
 	private BufferedImage buffer;
 	public Random random = new Random();
 	private JLabel lblA;
@@ -127,6 +127,7 @@ public class Generator extends JFrame {
 		lblNew.setHorizontalAlignment(SwingConstants.CENTER);
 
 		JComboBox<String> cmbColorChange = new JComboBox();
+		cmbColorChange.setBackground(Color.WHITE);
 		cmbColorChange.setBounds(640, 11, 150, 20);
 		setColorChangeOptions(cmbColorChange);
 		contentPane.add(cmbColorChange);

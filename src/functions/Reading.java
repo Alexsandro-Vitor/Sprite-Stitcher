@@ -136,6 +136,12 @@ public class Reading {
 		}
 	}
 	
+	/**
+	 * Colors an image by changing all colors of a palette to colors of another one.
+	 * @param matrix The image matrix.
+	 * @param originalPalette The palette of the original colors.
+	 * @param newPalette The palette of the new colors.
+	 */
 	private static void colorImagePaletteSwap(int[][] matrix, int[] originalPalette, int[] newPalette) {
 		Map<Integer, Integer> swapper = ImageFunctions.generatePaletteSwapper(originalPalette, newPalette);
 		
