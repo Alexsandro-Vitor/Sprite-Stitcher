@@ -92,6 +92,16 @@ public class Generator extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JLabel lblColorMode = new JLabel("Color Change Mode");
+		lblColorMode.setBounds(10, 11, 110, 20);
+		contentPane.add(lblColorMode);
+
+		JComboBox<String> cmbColorChange = new JComboBox();
+		cmbColorChange.setBackground(Color.WHITE);
+		cmbColorChange.setBounds(130, 11, 150, 20);
+		setColorChangeOptions(cmbColorChange);
+		contentPane.add(cmbColorChange);
 
 		JLabel lblAlpha = new JLabel("Alpha");
 		lblAlpha.setBounds(290, 11, 60, 20);
@@ -125,12 +135,6 @@ public class Generator extends JFrame {
 		lblNew = new JLabel("New");
 		lblNew.setBounds(500, 11, 130, 20);
 		lblNew.setHorizontalAlignment(SwingConstants.CENTER);
-
-		JComboBox<String> cmbColorChange = new JComboBox();
-		cmbColorChange.setBackground(Color.WHITE);
-		cmbColorChange.setBounds(640, 11, 150, 20);
-		setColorChangeOptions(cmbColorChange);
-		contentPane.add(cmbColorChange);
 
 		body = new PartPanel(this, "Body", "body", folders.files(Folders.PartTypes.BODY));
 		body.setBounds(10, 42, 780, 20);

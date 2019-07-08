@@ -48,11 +48,11 @@ public class PartPanel extends JPanel {
 		setLayout(null);
 		
 		JLabel lblPartName = new JLabel(labelName);
-		lblPartName.setBounds(0, 0, 60, 20);
+		lblPartName.setBounds(0, 0, 45, 20);
 		add(lblPartName);
 		
 		cmb = new JComboBox(cmbOptions);
-		cmb.setBounds(70, 0, 200, 20);
+		cmb.setBounds(55, 0, 215, 20);
 		add(cmb);
 		cmb.setBackground(cmbOptions.length > 1 ? Color.WHITE : Color.LIGHT_GRAY);
 		
