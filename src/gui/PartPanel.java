@@ -26,6 +26,7 @@ public class PartPanel extends JPanel {
 	private JSpinner spinB;
 	private JSpinner spinC;
 	public JSpinner spinHueSwap;
+	private JButton btnRandom;
 	public JComboBox<String> cmbOriginal;
 	public JComboBox<String> cmbNew;
 	
@@ -77,14 +78,14 @@ public class PartPanel extends JPanel {
 		add(spinHueSwap);
 		
 		cmbOriginal = new JComboBox(generator.folders.files(Folders.PartTypes.PALETTES));
-		cmbOriginal.setBounds(350, 0, 130, 20);
+		cmbOriginal.setBounds(350, 0, 180, 20);
 		cmbOriginal.setBackground(cmbOptions.length > 1 ? Color.WHITE : Color.LIGHT_GRAY);
 		
 		cmbNew = new JComboBox(generator.folders.files(Folders.PartTypes.PALETTES));
-		cmbNew.setBounds(490, 0, 130, 20);
+		cmbNew.setBounds(540, 0, 180, 20);
 		cmbNew.setBackground(cmbOptions.length > 1 ? Color.WHITE : Color.LIGHT_GRAY);
 		
-		JButton btnRandom = new JButton("Random");
+		btnRandom = new JButton("Random");
 		btnRandom.setBounds(630, 0, 90, 20);
 		add(btnRandom);
 		btnRandom.addMouseListener(new MouseAdapter() {
@@ -96,6 +97,7 @@ public class PartPanel extends JPanel {
 		
 		chckbxLock = new JCheckBox("Lock");
 		chckbxLock.setBounds(726, 0, 54, 20);
+		this.chckbxLock.setToolTipText("Check if you don't want to randomize this part in when clicking \"Random Parts\"");
 		add(chckbxLock);
 		
 		this.name = tooltipName;
@@ -228,6 +230,7 @@ public class PartPanel extends JPanel {
 		this.remove(spinB);
 		this.remove(spinC);
 		this.remove(spinHueSwap);
+		this.remove(btnRandom);
 
 		this.add(cmbOriginal);
 		this.add(cmbNew);
@@ -244,6 +247,7 @@ public class PartPanel extends JPanel {
 		this.add(spinB);
 		this.add(spinC);
 		this.add(spinHueSwap);
+		this.add(btnRandom);
 		
 		this.revalidate();
 		this.repaint();

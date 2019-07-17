@@ -12,7 +12,7 @@ import java.util.HashMap;
  */
 public class Folders {
 	public enum PartTypes {
-		BODY("body"), HELM("helm"), HAIR("hair"), EYES("eyes"), FACES("faces"), TORSO("torso"),
+		BODY("body"), HELM("helm"), HAIR("hair"), EYES("eyes"), FACE("face"), TORSO("torso"),
 		HANDS("hands"), LEGS("legs"), BACK("back"), SHOES("shoes"), PALETTES("palettes"), SPRITES("sprites");
 		public final String folder;
 		PartTypes(String name) {

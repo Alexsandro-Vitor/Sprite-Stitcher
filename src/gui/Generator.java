@@ -129,11 +129,11 @@ public class Generator extends JFrame {
 		contentPane.add(lblD);
 
 		lblOriginal = new JLabel("Original");
-		lblOriginal.setBounds(360, 11, 130, 20);
+		lblOriginal.setBounds(360, 11, 180, 20);
 		lblOriginal.setHorizontalAlignment(SwingConstants.CENTER);
 
 		lblNew = new JLabel("New");
-		lblNew.setBounds(500, 11, 130, 20);
+		lblNew.setBounds(550, 11, 180, 20);
 		lblNew.setHorizontalAlignment(SwingConstants.CENTER);
 
 		body = new PartPanel(this, "Body", "body", folders.files(Folders.PartTypes.BODY));
@@ -152,7 +152,7 @@ public class Generator extends JFrame {
 		eyes.setBounds(10, 135, 780, 20);
 		contentPane.add(eyes);
 
-		face = new PartPanel(this, "Face", "face", folders.files(Folders.PartTypes.FACES));
+		face = new PartPanel(this, "Face", "face", folders.files(Folders.PartTypes.FACE));
 		face.setBounds(10, 166, 780, 20);
 		contentPane.add(face);
 
@@ -456,7 +456,7 @@ public class Generator extends JFrame {
 		helm.updateCmb(folders.files(Folders.PartTypes.HELM), palettes);
 		hair.updateCmb(folders.files(Folders.PartTypes.HAIR), palettes);
 		eyes.updateCmb(folders.files(Folders.PartTypes.EYES), palettes);
-		face.updateCmb(folders.files(Folders.PartTypes.FACES), palettes);
+		face.updateCmb(folders.files(Folders.PartTypes.FACE), palettes);
 		torsoA.updateCmb(folders.files(Folders.PartTypes.TORSO), palettes);
 		torsoB.updateCmb(folders.files(Folders.PartTypes.TORSO), palettes);
 		hands.updateCmb(folders.files(Folders.PartTypes.HANDS), palettes);
