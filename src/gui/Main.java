@@ -36,6 +36,9 @@ public class Main extends JFrame {
 	private JSpinner spinWidth;
 	private JSpinner spinHeight;
 	private JTextField txtFolder;
+	private JSpinner spinZoom;
+	private JSpinner spinBackY;
+	private JSpinner spinBackHeight;
 
 	/**
 	 * Launch the application.
@@ -61,7 +64,7 @@ public class Main extends JFrame {
 		frame = this;
 		setTitle("Sprite Generator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 390, 164);
+		setBounds(100, 100, 464, 164);
 		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -69,7 +72,7 @@ public class Main extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblModel = new JLabel("Model");
-		lblModel.setBounds(10, 11, 60, 20);
+		lblModel.setBounds(10, 11, 70, 20);
 		contentPane.add(lblModel);
 		
 		comboBox = new JComboBox(new String[] {"Other", "Antifarea (48 x 72)", "Cabbit (72 x 128)"});
@@ -79,11 +82,11 @@ public class Main extends JFrame {
 				updateDimensions();
 			}
 		});
-		comboBox.setBounds(80, 11, 294, 20);
+		comboBox.setBounds(90, 11, 360, 20);
 		contentPane.add(comboBox);
 		
 		JLabel lblWidth = new JLabel("Width");
-		lblWidth.setBounds(10, 42, 60, 20);
+		lblWidth.setBounds(10, 42, 70, 20);
 		contentPane.add(lblWidth);
 		
 		spinWidth = new JSpinner();
@@ -93,11 +96,11 @@ public class Main extends JFrame {
 			}
 		});
 		spinWidth.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		spinWidth.setBounds(80, 42, 80, 20);
+		spinWidth.setBounds(90, 42, 60, 20);
 		contentPane.add(spinWidth);
 		
 		JLabel lblHeight = new JLabel("Height");
-		lblHeight.setBounds(224, 42, 60, 20);
+		lblHeight.setBounds(160, 42, 70, 20);
 		contentPane.add(lblHeight);
 		
 		spinHeight = new JSpinner();
@@ -107,16 +110,43 @@ public class Main extends JFrame {
 			}
 		});
 		spinHeight.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-		spinHeight.setBounds(294, 42, 80, 20);
+		spinHeight.setBounds(240, 42, 60, 20);
 		contentPane.add(spinHeight);
 		
+		JLabel lblZoom = new JLabel("Zoom");
+		lblZoom.setBounds(310, 42, 70, 20);
+		contentPane.add(lblZoom);
+		
+		spinZoom = new JSpinner();
+		spinZoom.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+		spinZoom.setBounds(390, 42, 60, 20);
+		contentPane.add(spinZoom);
+		
+		JLabel lblBackY = new JLabel("Back Y");
+		lblBackY.setBounds(10, 73, 70, 20);
+		contentPane.add(lblBackY);
+		
+		spinBackY = new JSpinner();
+		spinBackY.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		spinBackY.setBounds(90, 73, 60, 20);
+		contentPane.add(spinBackY);
+		
+		JLabel lblBackHeight = new JLabel("Back Height");
+		lblBackHeight.setBounds(160, 73, 70, 20);
+		contentPane.add(lblBackHeight);
+		
+		spinBackHeight = new JSpinner();
+		spinBackHeight.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		spinBackHeight.setBounds(240, 73, 60, 20);
+		contentPane.add(spinBackHeight);
+		
 		JLabel lblFolder = new JLabel("Images folder");
-		lblFolder.setBounds(10, 73, 90, 20);
+		lblFolder.setBounds(10, 104, 80, 20);
 		contentPane.add(lblFolder);
 		
 		txtFolder = new JTextField();
 		txtFolder.setText("images");
-		txtFolder.setBounds(110, 73, 264, 20);
+		txtFolder.setBounds(100, 104, 200, 20);
 		contentPane.add(txtFolder);
 		txtFolder.setColumns(10);
 		
@@ -126,48 +156,8 @@ public class Main extends JFrame {
 				continueToGenerator();
 			}
 		});
-		btnContinue.setBounds(270, 104, 104, 20);
+		btnContinue.setBounds(310, 104, 140, 20);
 		contentPane.add(btnContinue);
-		
-		JLabel lblZoom = new JLabel("Zoom");
-		lblZoom.setBounds(10, 104, 46, 20);
-		contentPane.add(lblZoom);
-		
-		ButtonGroup zoomGroup = new ButtonGroup();
-		
-		JRadioButton rdbtn1x = new JRadioButton("1x");
-		rdbtn1x.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				Dimensions.ZOOM = 1;
-			}
-		});
-		rdbtn1x.setBounds(80, 104, 60, 20);
-		contentPane.add(rdbtn1x);
-		zoomGroup.add(rdbtn1x);
-		
-		JRadioButton rdbtn2x = new JRadioButton("2x");
-		rdbtn2x.setSelected(true);
-		rdbtn2x.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				Dimensions.ZOOM = 2;
-			}
-		});
-		rdbtn2x.setBounds(142, 104, 60, 20);
-		contentPane.add(rdbtn2x);
-		zoomGroup.add(rdbtn2x);
-		
-		JRadioButton rdbtn4x = new JRadioButton("4x");
-		rdbtn4x.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				Dimensions.ZOOM = 4;
-			}
-		});
-		rdbtn4x.setBounds(204, 104, 60, 20);
-		contentPane.add(rdbtn4x);
-		zoomGroup.add(rdbtn4x);
 	}
 	
 	/**
@@ -193,9 +183,11 @@ public class Main extends JFrame {
 	 * Moves to Generator and Sprite frames.
 	 */
 	private void continueToGenerator() {
-		Dimensions.WIDTH = (short)(int)spinWidth.getValue();
-		Dimensions.HEIGHT = (short)(int)spinHeight.getValue();
-		Dimensions.BACK_HEIGHT = (short)((Dimensions.HEIGHT * 3) >> 2);
+		Dimensions.WIDTH = (int)spinWidth.getValue();
+		Dimensions.HEIGHT = (int)spinHeight.getValue();
+		Dimensions.ZOOM = (int)spinZoom.getValue();
+		Dimensions.BACK_Y = ((Dimensions.HEIGHT * 3) >> 2);
+		Dimensions.BACK_HEIGHT = (int)spinHeight.getValue();
 		Sprite sprite = new Sprite();
 		sprite.setVisible(true);
 		Generator screen = new Generator(sprite, txtFolder.getText());

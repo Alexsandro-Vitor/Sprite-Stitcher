@@ -7,6 +7,7 @@ package classes;
 public class Dimensions {
 	public static int WIDTH;
 	public static int HEIGHT;
+	public static int BACK_Y;
 	public static int BACK_HEIGHT;
 	public static int ZOOM = 2;
 }

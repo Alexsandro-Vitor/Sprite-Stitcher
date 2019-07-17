@@ -103,8 +103,9 @@ public class ImageFunctions {
 	 * @return The filtered image.
 	 */
 	public static int[][] capeBack(int[][] input) {
+		int height = Math.min(Dimensions.BACK_HEIGHT, Dimensions.HEIGHT);
 		for (int i = 0; i < Dimensions.WIDTH; i++) {
-			for (int j = Dimensions.BACK_HEIGHT; j < Dimensions.HEIGHT; j++) {
+			for (int j = Dimensions.BACK_Y; j < height; j++) {
 				input[i][j] = 0;
 			}
 		}
@@ -118,7 +119,7 @@ public class ImageFunctions {
 	 */
 	public static int[][] capeFront(int[][] input) {
 		for (int i = 0; i < Dimensions.WIDTH; i++) {
-			for (int j = 0; j < Dimensions.BACK_HEIGHT; j++) {
+			for (int j = 0; j < Dimensions.BACK_Y; j++) {
 				input[i][j] = 0;
 			}
 		}
