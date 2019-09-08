@@ -1,4 +1,5 @@
-/gui/
 /classes/
-/org/
+/exceptions/
 /functions/
+/gui/
+/org/

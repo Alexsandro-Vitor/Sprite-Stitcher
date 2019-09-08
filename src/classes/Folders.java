@@ -1,5 +1,6 @@
 package classes;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,15 +20,20 @@ public class Folders {
 			this.folder = name;
 		}
 	}
-	public String name;
+	
+	/**
+	 * The name of the folder containing all template folders and their assets.
+	 */
+	public final String ASSETS_FOLDER_NAME = "Assets";
+	private String templateName;
 	public HashMap<PartTypes, Path> subFolders;
 
 	/**
 	 * Creates or opens the folders with the part images.
-	 * @param name The name of the folder containing the other ones.
+	 * @param templateName The name of the template folder, which contains the other ones.
 	 */
 	public Folders(String name) {
-		this.name = name;
+		this.templateName = name;
 		try {
 			this.subFolders = new HashMap<PartTypes, Path>();
 			for (PartTypes type : PartTypes.values()) {
@@ -45,9 +51,17 @@ public class Folders {
 	 * @throws IOException 
 	 */
 	private Path getPath(String folder) throws IOException {
-		Path folderPath = Paths.get(name, folder);
+		Path folderPath = Paths.get(ASSETS_FOLDER_NAME, this.templateName, folder);
 		Files.createDirectories(folderPath);
 		return folderPath;
+	}
+	
+	/**
+	 * Gets the path of the template folder.
+	 * @return The path of the template folder.
+	 */
+	public String getTemplateFolderPath() {
+		return ASSETS_FOLDER_NAME + File.separator + this.templateName;
 	}
 	
 	/**
@@ -63,6 +77,6 @@ public class Folders {
 	}
 	
 	public String getPalettesPath() {
-		return Paths.get(name, "palettes").toString();
+		return Paths.get(this.templateName, "palettes").toString();
 	}
 }

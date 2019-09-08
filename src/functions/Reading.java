@@ -38,7 +38,7 @@ public class Reading {
 		try {
 			if (part.cmb.getSelectedIndex() > 0) {
 				String selected = part.cmb.getSelectedItem().toString();
-				matrix = readImage(Paths.get(folder.name, part.name.split(" ")[0], selected).toFile());
+				matrix = readImage(Paths.get(folder.getTemplateFolderPath(), part.name.split(" ")[0], selected).toFile());
 				if (part.isUsingPalettes()) {
 					String originalPaletteName = part.cmbOriginal.getSelectedItem().toString();
 					String newPaletteName = part.cmbNew.getSelectedItem().toString();
