@@ -17,10 +17,13 @@ import javax.swing.JButton;
 import javax.swing.event.ChangeListener;
 
 import classes.Dimensions;
+import functions.Reading;
 
 import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.JRadioButton;
 
@@ -39,6 +42,9 @@ public class Main extends JFrame {
 	private JSpinner spinZoom;
 	private JSpinner spinBackY;
 	private JSpinner spinBackHeight;
+	
+	private ArrayList<Dimensions> dimensions;
+	private ArrayList<String> dimensionChoices;
 
 	/**
 	 * Launch the application.
@@ -62,6 +68,8 @@ public class Main extends JFrame {
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public Main() {
 		frame = this;
+		this.getTemplatesDimensions();
+		
 		setTitle("Sprite Generator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 464, 164);
@@ -75,7 +83,7 @@ public class Main extends JFrame {
 		lblModel.setBounds(10, 11, 70, 20);
 		contentPane.add(lblModel);
 		
-		comboBox = new JComboBox(new String[] {"Other", "Antifarea (48 x 72)", "Cabbit (72 x 128)"});
+		comboBox = new JComboBox(this.dimensionChoices.toArray());
 		comboBox.setBackground(Color.WHITE);
 		comboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -160,18 +168,31 @@ public class Main extends JFrame {
 		contentPane.add(btnContinue);
 	}
 	
+	private void getTemplatesDimensions() {
+		this.dimensionChoices = new ArrayList<String>();
+		this.dimensionChoices.add("Other");
+		try {
+			this.dimensions = Reading.readTemplatesData();
+			for (Dimensions template : this.dimensions) {
+				this.dimensionChoices.add(template.getChoiceText());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Updates the dimensions to match the selected one at the comboBox.
 	 */
 	private void updateDimensions() {
-		if (comboBox.getSelectedItem() == "Antifarea (48 x 72)") {
-			spinWidth.setValue(48);
-			spinHeight.setValue(72);
-			txtFolder.setText("Antifarea");
-		} else if (comboBox.getSelectedItem() == "Cabbit (72 x 128)") {
-			spinWidth.setValue(72);
-			spinHeight.setValue(128);
-			txtFolder.setText("Cabbit");
+		for (Dimensions template : this.dimensions) {
+			if (comboBox.getSelectedItem().equals(template.getChoiceText())) {
+				spinWidth.setValue(template.width);
+				spinHeight.setValue(template.height);
+				spinBackY.setValue(template.backY);
+				spinBackHeight.setValue(template.backHeight);
+				txtFolder.setText(template.name);
+			}
 		}
 	}
 	
@@ -186,8 +207,8 @@ public class Main extends JFrame {
 		Dimensions.WIDTH = (int)spinWidth.getValue();
 		Dimensions.HEIGHT = (int)spinHeight.getValue();
 		Dimensions.ZOOM = (int)spinZoom.getValue();
-		Dimensions.BACK_Y = ((Dimensions.HEIGHT * 3) >> 2);
-		Dimensions.BACK_HEIGHT = (int)spinHeight.getValue();
+		Dimensions.BACK_Y = (int)spinBackY.getValue();
+		Dimensions.BACK_HEIGHT = (int)spinBackHeight.getValue();
 		Sprite sprite = new Sprite();
 		sprite.setVisible(true);
 		Generator screen = new Generator(sprite, txtFolder.getText());

@@ -25,6 +25,37 @@ import gui.PartPanel;
  * @author Alexsandro Vítor Serafim de Carvalho
  */
 public class Reading {
+	public static ArrayList<Dimensions> readTemplatesData() throws IOException {
+		File templateDataFile = Folders.getTemplatesDataPath().toFile();
+		ArrayList<String> lines = readFileLines(templateDataFile);
+		
+		ArrayList<Dimensions> templates = new ArrayList<Dimensions>();
+		for (String line : lines) {
+			String[] splitLine = line.split("\t");
+			try {
+				String templateName = splitLine[0];
+				int width = Integer.parseInt(splitLine[1]);
+				int height = Integer.parseInt(splitLine[2]);
+				int backY = Integer.parseInt(splitLine[3]);
+				int backHeight = Integer.parseInt(splitLine[4]);
+				String rowOrder = splitLine[5];
+				templates.add(new Dimensions(templateName, width, height, backY, backHeight, rowOrder));
+			} catch (NumberFormatException e) {}
+		}
+		return templates;
+	}
+	
+	private static ArrayList<String> readFileLines(File file) throws IOException {
+		FileReader fileReader = new FileReader(file);
+		BufferedReader buffer = new BufferedReader(fileReader);
+		ArrayList<String> lines = new ArrayList<String>();
+		String line;
+		while ((line = buffer.readLine()) != null) {
+			lines.add(line);
+		}
+		buffer.close();
+		return lines;
+	}
 	
 	/**
 	 * Reads an image and modifies it.
@@ -75,14 +106,7 @@ public class Reading {
 	}
 
 	private static int[] readPalette(File file) throws IOException {
-		FileReader fileReader = new FileReader(file);
-		BufferedReader buffer = new BufferedReader(fileReader);
-		List<String> lines = new ArrayList<String>();
-		String line;
-		while ((line = buffer.readLine()) != null) {
-			lines.add(line);
-		}
-		buffer.close();
+		List<String> lines = readFileLines(file);
 		
 		int[] output = new int[lines.size()];
 		for (int i = 0; i < output.length; i++) {

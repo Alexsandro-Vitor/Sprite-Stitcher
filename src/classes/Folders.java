@@ -24,7 +24,7 @@ public class Folders {
 	/**
 	 * The name of the folder containing all template folders and their assets.
 	 */
-	public final String ASSETS_FOLDER_NAME = "Assets";
+	public static final String ASSETS_FOLDER_NAME = "Assets";
 	private String templateName;
 	public HashMap<PartTypes, Path> subFolders;
 
@@ -77,6 +77,10 @@ public class Folders {
 	}
 	
 	public String getPalettesPath() {
-		return Paths.get(this.templateName, "palettes").toString();
+		return Paths.get(ASSETS_FOLDER_NAME, this.templateName, "palettes").toString();
+	}
+	
+	public static Path getTemplatesDataPath() {
+		return Paths.get(ASSETS_FOLDER_NAME, "Templates.txt");
 	}
 }
