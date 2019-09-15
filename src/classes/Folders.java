@@ -81,6 +81,6 @@ public class Folders {
 	}
 	
 	public static Path getTemplatesDataPath() {
-		return Paths.get(ASSETS_FOLDER_NAME, "Templates.txt");
+		return Paths.get(ASSETS_FOLDER_NAME, "Templates.tsv");
 	}
 }
