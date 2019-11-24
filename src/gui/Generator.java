@@ -50,7 +50,7 @@ public class Generator extends JFrame {
 	private Sprite sprite;
 	private String imagesFolder;
 	public Folders folders;
-	private BufferedImage buffer;
+	private BufferedImage buffer = ImageFunctions.matrixToBuffer(ImageFunctions.getTransparency());
 	public Random random = new Random();
 	private JLabel lblA;
 	private JLabel lblB;
