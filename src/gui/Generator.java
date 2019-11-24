@@ -9,11 +9,9 @@ import java.awt.event.ItemEvent;
 
 import java.awt.image.BufferedImage;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -27,8 +25,6 @@ import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeListener;
 
@@ -38,7 +34,6 @@ import functions.*;
 import classes.Folders;
 
 import javax.swing.event.ChangeEvent;
-import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
 /**
@@ -48,7 +43,6 @@ import javax.swing.JCheckBox;
 public class Generator extends JFrame {
 
 	private Sprite sprite;
-	private String imagesFolder;
 	public Folders folders;
 	private BufferedImage buffer = ImageFunctions.matrixToBuffer(ImageFunctions.getTransparency());
 	public Random random = new Random();
@@ -82,7 +76,6 @@ public class Generator extends JFrame {
 	 */
 	public Generator(Sprite sprite, String imagesFolder) {
 		this.sprite = sprite;
-		this.imagesFolder = imagesFolder;
 		this.folders = new Folders(imagesFolder);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 50, 806, 474);
@@ -97,7 +90,7 @@ public class Generator extends JFrame {
 		lblColorMode.setBounds(10, 11, 110, 20);
 		contentPane.add(lblColorMode);
 
-		JComboBox<String> cmbColorChange = new JComboBox();
+		JComboBox<String> cmbColorChange = new JComboBox<String>();
 		cmbColorChange.setBackground(Color.WHITE);
 		cmbColorChange.setBounds(130, 11, 150, 20);
 		setColorChangeOptions(cmbColorChange);
@@ -485,9 +478,23 @@ public class Generator extends JFrame {
 	 */
 	private void saveSprite() throws HeadlessException {
 		try {
-			JOptionPane.showMessageDialog(null, "Saved sprite as \"" + Writing.saveSprite(folders, txtNameSprite.getText(), buffer) + "\"");
+			String fileName = Writing.saveSprite(folders, txtNameSprite.getText(), buffer);
+			Writing.saveLicense(folders, fileName, this.assemblePartLicenses());
+			JOptionPane.showMessageDialog(null, "Saved sprite as \"" + fileName + "\"");
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
+	}
+	
+	private String assemblePartLicenses() throws IOException {
+		String assembledLicense = "";
+		for (PartPanel panel : this.panels) {
+			String selectedItem = (String)panel.cmb.getSelectedItem();
+			if (selectedItem != null) {
+				String license = Reading.getLicenses(this.folders, panel);
+				assembledLicense += selectedItem + ":\n" + license + "\n\n";
+			}
+		}
+		return assembledLicense;
 	}
 }

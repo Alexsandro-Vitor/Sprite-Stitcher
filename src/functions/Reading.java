@@ -3,12 +3,12 @@ package functions;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -177,5 +177,21 @@ public class Reading {
 				}
 			}
 		}
+	}
+	
+	public static String getLicenses(Folders folder, PartPanel part) throws IOException {
+		Object selectedObj = part.cmb.getSelectedItem();
+		if (selectedObj == null) return null;
+		
+		String templateRoot = folder.getTemplateFolderPath();
+		String partName = part.name.split(" ")[0];
+		String selectedStr = ((String)selectedObj).split("\\.")[0] + ".license";
+		
+		Path licensePath = Paths.get(templateRoot, partName, selectedStr);
+		
+		if (Files.exists(licensePath)) {
+			List<String> licenseContent = Files.readAllLines(licensePath);
+			return String.join("\n", licenseContent);
+		} else return "this file has no license";
 	}
 }

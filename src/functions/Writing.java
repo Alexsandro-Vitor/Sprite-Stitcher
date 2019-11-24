@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import javax.imageio.ImageIO;
-
 import classes.Folders;
 import classes.Folders.PartTypes;
 
@@ -25,7 +23,7 @@ public class Writing {
 	 */
 	public static String saveSprite(Folders folder, String filename, BufferedImage buffer) throws IOException {
 		String name = Writing.generateSpriteName(folder.subFolders.get(PartTypes.SPRITES), filename);
-		ImageIO.write(buffer, "PNG", folder.subFolders.get(PartTypes.SPRITES).resolve(name).toFile());
+		//ImageIO.write(buffer, "PNG", folder.subFolders.get(PartTypes.SPRITES).resolve(name).toFile());
 		return name;
 	}
 
@@ -35,7 +33,7 @@ public class Writing {
 	 * @param chosenName The name chosen by the user.
 	 * @return The name of the file with its termination and a number if there are other files with the same name.
 	 */
-	public static String generateSpriteName(Path folder, String chosenName) {
+	private static String generateSpriteName(Path folder, String chosenName) {
 		String name = chosenName + ".png";
 		if (Files.exists(folder.resolve(name))) {
 			for (int i = 2; ; i++) {
@@ -47,5 +45,11 @@ public class Writing {
 		} else {
 			return name;
 		}
+	}
+	
+	public static void saveLicense(Folders folder, String spriteFileName, String licenseText) throws IOException {
+		String licenseFileName = spriteFileName.split("\\.")[0] + ".license";
+		Path licensePath = folder.subFolders.get(PartTypes.SPRITES).resolve(licenseFileName);
+		Files.write(licensePath, licenseText.getBytes());
 	}
 }
