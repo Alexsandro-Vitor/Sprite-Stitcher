@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -71,8 +72,9 @@ public class Folders {
 	 */
 	public String[] files(PartTypes part) {
 		String[] files = this.subFolders.get(part).toFile().list();
-		String[] output = new String[files.length + 1];
-		System.arraycopy(files, 0, output, 1, files.length);
+		Object[] filteredFiles = Arrays.stream(files).filter(name -> !name.endsWith(".license")).toArray();
+		String[] output = new String[filteredFiles.length + 1];
+		System.arraycopy(filteredFiles, 0, output, 1, filteredFiles.length);
 		return output;
 	}
 	
