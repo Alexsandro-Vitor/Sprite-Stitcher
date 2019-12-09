@@ -44,19 +44,21 @@ public class Reading {
 		}
 		return templates;
 	}
-	
+
 	private static ArrayList<String> readFileLines(File file) throws IOException {
-		FileReader fileReader = new FileReader(file);
-		BufferedReader buffer = new BufferedReader(fileReader);
 		ArrayList<String> lines = new ArrayList<String>();
-		String line;
-		while ((line = buffer.readLine()) != null) {
-			lines.add(line);
+		if (file.exists()) {
+			FileReader fileReader = new FileReader(file);
+			BufferedReader buffer = new BufferedReader(fileReader);
+			String line;
+			while ((line = buffer.readLine()) != null) {
+				lines.add(line);
+			}
+			buffer.close();
 		}
-		buffer.close();
 		return lines;
 	}
-	
+
 	/**
 	 * Reads an image and modifies it.
 	 * @param folder The folder of all parts.
