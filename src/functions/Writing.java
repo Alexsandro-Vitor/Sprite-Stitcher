@@ -23,7 +23,7 @@ public class Writing {
 	 */
 	public static String saveSprite(Folders folder, String filename, BufferedImage buffer) throws IOException {
 		String name = Writing.generateSpriteName(folder.subFolders.get(PartTypes.SPRITES), filename);
-		//ImageIO.write(buffer, "PNG", folder.subFolders.get(PartTypes.SPRITES).resolve(name).toFile());
+		ImageIO.write(buffer, "PNG", folder.subFolders.get(PartTypes.SPRITES).resolve(name).toFile());
 		return name;
 	}
 

@@ -129,10 +129,12 @@ public class Generator extends JFrame {
 		contentPane.add(lblD);
 
 		lblOriginal = new JLabel("Original");
+		lblOriginal.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblOriginal.setBounds(360, 11, 180, 20);
 		lblOriginal.setHorizontalAlignment(SwingConstants.CENTER);
 
 		lblNew = new JLabel("New");
+		lblNew.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblNew.setBounds(550, 11, 180, 20);
 		lblNew.setHorizontalAlignment(SwingConstants.CENTER);
 
