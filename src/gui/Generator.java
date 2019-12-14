@@ -222,12 +222,12 @@ public class Generator extends JFrame {
 
 		JLabel lblName = new JLabel("Name");
 		lblName.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblName.setBounds(10, 414, 60, 20);
+		lblName.setBounds(10, 414, 45, 20);
 		contentPane.add(lblName);
 
 		txtNameSprite = new JTextField();
 		txtNameSprite.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		txtNameSprite.setBounds(80, 414, 200, 20);
+		txtNameSprite.setBounds(65, 414, 215, 20);
 		contentPane.add(txtNameSprite);
 		txtNameSprite.setColumns(10);
 

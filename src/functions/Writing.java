@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import javax.imageio.ImageIO;
+
 import classes.Folders;
 import classes.Folders.PartTypes;
 
