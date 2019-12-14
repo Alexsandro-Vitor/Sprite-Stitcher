@@ -17,6 +17,7 @@ import java.util.Random;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import java.awt.Font;
 
 public class PartPanel extends JPanel {
 	private Generator generator;
@@ -49,43 +50,53 @@ public class PartPanel extends JPanel {
 		setLayout(null);
 		
 		JLabel lblPartName = new JLabel(labelName);
+		lblPartName.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblPartName.setBounds(0, 0, 45, 20);
 		add(lblPartName);
 		
 		cmb = new JComboBox(cmbOptions);
+		cmb.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		cmb.setBounds(55, 0, 215, 20);
 		add(cmb);
 		cmb.setBackground(cmbOptions.length > 1 ? Color.WHITE : Color.LIGHT_GRAY);
 		
 		spinAlpha = new JSpinner();
+		spinAlpha.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spinAlpha.setBounds(280, 0, 60, 20);
 		add(spinAlpha);
 		
 		spinA = new JSpinner();
+		spinA.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spinA.setBounds(350, 0, 60, 20);
 		add(spinA);
 		
 		spinB = new JSpinner();
+		spinB.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spinB.setBounds(420, 0, 60, 20);
 		add(spinB);
 		
 		spinC = new JSpinner();
+		spinC.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spinC.setBounds(490, 0, 60, 20);
 		add(spinC);
 		
 		spinHueSwap = new JSpinner();
+		spinHueSwap.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		spinHueSwap.setBounds(560, 0, 60, 20);
 		add(spinHueSwap);
 		
 		cmbOriginal = new JComboBox(generator.folders.files(Folders.PartTypes.PALETTES));
+		cmbOriginal.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		cmbOriginal.setBounds(350, 0, 180, 20);
 		cmbOriginal.setBackground(cmbOptions.length > 1 ? Color.WHITE : Color.LIGHT_GRAY);
 		
 		cmbNew = new JComboBox(generator.folders.files(Folders.PartTypes.PALETTES));
+		cmbNew.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		cmbNew.setBounds(540, 0, 180, 20);
 		cmbNew.setBackground(cmbOptions.length > 1 ? Color.WHITE : Color.LIGHT_GRAY);
 		
 		btnRandom = new JButton("Random");
+		btnRandom.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnRandom.setBounds(630, 0, 90, 20);
 		add(btnRandom);
 		btnRandom.addMouseListener(new MouseAdapter() {
@@ -96,6 +107,7 @@ public class PartPanel extends JPanel {
 		});
 		
 		chckbxLock = new JCheckBox("Lock");
+		chckbxLock.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		chckbxLock.setBounds(726, 0, 54, 20);
 		this.chckbxLock.setToolTipText("Check if you don't want to randomize this part in when clicking \"Random Parts\"");
 		add(chckbxLock);

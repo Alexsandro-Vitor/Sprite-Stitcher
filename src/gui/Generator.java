@@ -34,6 +34,7 @@ import functions.*;
 import classes.Folders;
 
 import javax.swing.event.ChangeEvent;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 /**
@@ -86,36 +87,43 @@ public class Generator extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblColorMode = new JLabel("Color Change Mode");
+		lblColorMode.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblColorMode.setBounds(10, 11, 110, 20);
 		contentPane.add(lblColorMode);
 
 		JComboBox<String> cmbColorChange = new JComboBox<String>();
+		cmbColorChange.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		cmbColorChange.setBackground(Color.WHITE);
 		cmbColorChange.setBounds(130, 11, 150, 20);
 		setColorChangeOptions(cmbColorChange);
 		contentPane.add(cmbColorChange);
 
 		JLabel lblAlpha = new JLabel("Alpha");
+		lblAlpha.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblAlpha.setBounds(290, 11, 60, 20);
 		lblAlpha.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblAlpha);
 
 		lblA = new JLabel("Red");
+		lblA.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblA.setBounds(360, 11, 60, 20);
 		lblA.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblA);
 
 		lblB = new JLabel("Green");
+		lblB.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblB.setBounds(430, 11, 60, 20);
 		lblB.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblB);
 
 		lblC = new JLabel("Blue");
+		lblC.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblC.setBounds(500, 11, 60, 20);
 		lblC.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblC);
 
 		lblD = new JLabel("Hue Swap");
+		lblD.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblD.setBounds(570, 11, 60, 20);
 		lblD.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblD);
@@ -191,6 +199,7 @@ public class Generator extends JFrame {
 		this.panels[11] = shoes;
 
 		JButton btnAtualizarPastas = new JButton("Update folders");
+		btnAtualizarPastas.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnAtualizarPastas.setBounds(450, 414, 130, 20);
 		btnAtualizarPastas.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
@@ -199,6 +208,7 @@ public class Generator extends JFrame {
 		});
 
 		JButton btnRandom = new JButton("Random Parts");
+		btnRandom.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnRandom.setBounds(590, 414, 140, 20);
 		btnRandom.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
@@ -209,15 +219,18 @@ public class Generator extends JFrame {
 		contentPane.add(btnAtualizarPastas);
 
 		JLabel lblName = new JLabel("Name");
+		lblName.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblName.setBounds(10, 414, 60, 20);
 		contentPane.add(lblName);
 
 		txtNameSprite = new JTextField();
+		txtNameSprite.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		txtNameSprite.setBounds(80, 414, 200, 20);
 		contentPane.add(txtNameSprite);
 		txtNameSprite.setColumns(10);
 
 		JButton btnSave = new JButton("Save");
+		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnSave.setBounds(290, 414, 150, 20);
 		btnSave.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
