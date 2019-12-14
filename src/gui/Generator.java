@@ -78,8 +78,7 @@ public class Generator extends JFrame {
 		this.sprite = sprite;
 		this.folders = new Folders(imagesFolder);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 50, 806, 474);
-		setResizable(false);
+		setBounds(100, 50, 816, 485);
 		setTitle("Sprite Generator");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

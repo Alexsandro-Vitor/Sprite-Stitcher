@@ -72,8 +72,7 @@ public class Main extends JFrame {
 		
 		setTitle("Sprite Generator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 464, 164);
-		setResizable(false);
+		setBounds(100, 100, 474, 175);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
