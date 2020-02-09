@@ -79,7 +79,7 @@ public class Generator extends JFrame {
 		this.sprite = sprite;
 		this.folders = new Folders(imagesFolder);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 50, 816, 485);
+		setBounds(100, 50, 916, 485);
 		setTitle("Sprite Generator");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -100,91 +100,91 @@ public class Generator extends JFrame {
 
 		JLabel lblAlpha = new JLabel("Alpha");
 		lblAlpha.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblAlpha.setBounds(290, 11, 60, 20);
+		lblAlpha.setBounds(290, 11, 80, 20);
 		lblAlpha.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblAlpha);
 
 		lblA = new JLabel("Red");
 		lblA.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblA.setBounds(360, 11, 60, 20);
+		lblA.setBounds(380, 11, 80, 20);
 		lblA.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblA);
 
 		lblB = new JLabel("Green");
 		lblB.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblB.setBounds(430, 11, 60, 20);
+		lblB.setBounds(470, 11, 80, 20);
 		lblB.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblB);
 
 		lblC = new JLabel("Blue");
 		lblC.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblC.setBounds(500, 11, 60, 20);
+		lblC.setBounds(560, 11, 80, 20);
 		lblC.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblC);
 
 		lblD = new JLabel("Hue Swap");
 		lblD.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblD.setBounds(570, 11, 60, 20);
+		lblD.setBounds(650, 11, 80, 20);
 		lblD.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblD);
 
 		lblOriginal = new JLabel("Original");
 		lblOriginal.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblOriginal.setBounds(360, 11, 180, 20);
+		lblOriginal.setBounds(380, 11, 180, 20);
 		lblOriginal.setHorizontalAlignment(SwingConstants.CENTER);
 
 		lblNew = new JLabel("New");
 		lblNew.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNew.setBounds(550, 11, 180, 20);
+		lblNew.setBounds(560, 11, 180, 20);
 		lblNew.setHorizontalAlignment(SwingConstants.CENTER);
 
 		body = new PartPanel(this, "Body", "body", folders.files(Folders.PartTypes.BODY));
-		body.setBounds(10, 42, 780, 20);
+		body.setBounds(10, 42, 880, 20);
 		contentPane.add(body);
 		
 		helm = new PartPanel(this, "Helm", "helm", folders.files(Folders.PartTypes.HELM));
-		helm.setBounds(10, 73, 780, 20);
+		helm.setBounds(10, 73, 880, 20);
 		contentPane.add(helm);
 
 		hair = new PartPanel(this, "Hair", "hair", folders.files(Folders.PartTypes.HAIR));
-		hair.setBounds(10, 104, 780, 20);
+		hair.setBounds(10, 104, 880, 20);
 		contentPane.add(hair);
 
 		eyes = new PartPanel(this, "Eyes", "eyes", folders.files(Folders.PartTypes.EYES));
-		eyes.setBounds(10, 135, 780, 20);
+		eyes.setBounds(10, 135, 880, 20);
 		contentPane.add(eyes);
 
 		face = new PartPanel(this, "Face", "face", folders.files(Folders.PartTypes.FACE));
-		face.setBounds(10, 166, 780, 20);
+		face.setBounds(10, 166, 880, 20);
 		contentPane.add(face);
 
 		torsoA = new PartPanel(this, "Torso A", "torso A", folders.files(Folders.PartTypes.TORSO));
-		torsoA.setBounds(10, 197, 780, 20);
+		torsoA.setBounds(10, 197, 880, 20);
 		contentPane.add(torsoA);
 
 		torsoB = new PartPanel(this, "Torso B", "torso B", folders.files(Folders.PartTypes.TORSO));
 		torsoB.setLayout(null);
-		torsoB.setBounds(10, 228, 780, 20);
+		torsoB.setBounds(10, 228, 880, 20);
 		contentPane.add(torsoB);
 
 		hands = new PartPanel(this, "Hands", "hands", folders.files(Folders.PartTypes.HANDS));
-		hands.setBounds(10, 259, 780, 20);
+		hands.setBounds(10, 259, 880, 20);
 		contentPane.add(hands);
 
 		legsA = new PartPanel(this, "Legs A", "legs A", folders.files(Folders.PartTypes.LEGS));
-		legsA.setBounds(10, 290, 780, 20);
+		legsA.setBounds(10, 290, 880, 20);
 		contentPane.add(legsA);
 
 		legsB = new PartPanel(this, "Legs B", "legs B", folders.files(Folders.PartTypes.LEGS));
-		legsB.setBounds(10, 321, 780, 20);
+		legsB.setBounds(10, 321, 880, 20);
 		contentPane.add(legsB);
 
 		back = new PartPanel(this, "Back", "back", folders.files(Folders.PartTypes.BACK));
-		back.setBounds(10, 352, 780, 20);
+		back.setBounds(10, 352, 880, 20);
 		contentPane.add(back);
 
 		shoes = new PartPanel(this, "Shoes", "shoes", folders.files(Folders.PartTypes.SHOES));
-		shoes.setBounds(10, 383, 780, 20);
+		shoes.setBounds(10, 383, 880, 20);
 		contentPane.add(shoes);
 
 		this.panels[0] = body;

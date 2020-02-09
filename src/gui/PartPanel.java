@@ -28,6 +28,7 @@ public class PartPanel extends JPanel {
 	private JSpinner spinC;
 	public JSpinner spinHueSwap;
 	private JButton btnRandom;
+	private JButton btnDetectPalette;
 	public JComboBox<String> cmbOriginal;
 	public JComboBox<String> cmbNew;
 	
@@ -62,42 +63,42 @@ public class PartPanel extends JPanel {
 		
 		spinAlpha = new JSpinner();
 		spinAlpha.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		spinAlpha.setBounds(280, 0, 60, 20);
+		spinAlpha.setBounds(280, 0, 80, 20);
 		add(spinAlpha);
 		
 		spinA = new JSpinner();
 		spinA.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		spinA.setBounds(350, 0, 60, 20);
+		spinA.setBounds(370, 0, 80, 20);
 		add(spinA);
 		
 		spinB = new JSpinner();
 		spinB.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		spinB.setBounds(420, 0, 60, 20);
+		spinB.setBounds(460, 0, 80, 20);
 		add(spinB);
 		
 		spinC = new JSpinner();
 		spinC.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		spinC.setBounds(490, 0, 60, 20);
+		spinC.setBounds(550, 0, 80, 20);
 		add(spinC);
 		
 		spinHueSwap = new JSpinner();
 		spinHueSwap.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		spinHueSwap.setBounds(560, 0, 60, 20);
+		spinHueSwap.setBounds(640, 0, 80, 20);
 		add(spinHueSwap);
 		
 		cmbOriginal = new JComboBox(generator.folders.files(Folders.PartTypes.PALETTES));
 		cmbOriginal.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		cmbOriginal.setBounds(350, 0, 180, 20);
+		cmbOriginal.setBounds(370, 0, 170, 20);
 		cmbOriginal.setBackground(cmbOptions.length > 1 ? Color.WHITE : Color.LIGHT_GRAY);
 		
 		cmbNew = new JComboBox(generator.folders.files(Folders.PartTypes.PALETTES));
 		cmbNew.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		cmbNew.setBounds(540, 0, 180, 20);
+		cmbNew.setBounds(550, 0, 170, 20);
 		cmbNew.setBackground(cmbOptions.length > 1 ? Color.WHITE : Color.LIGHT_GRAY);
 		
 		btnRandom = new JButton("Random");
 		btnRandom.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnRandom.setBounds(630, 0, 90, 20);
+		btnRandom.setBounds(730, 0, 90, 20);
 		add(btnRandom);
 		btnRandom.addMouseListener(new MouseAdapter() {
 			@Override
@@ -106,9 +107,19 @@ public class PartPanel extends JPanel {
 			}
 		});
 		
+		btnDetectPalette = new JButton("Detect");
+		btnDetectPalette.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnDetectPalette.setBounds(730, 0, 90, 20);
+		btnDetectPalette.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				detectPalette();
+			}
+		});
+		
 		chckbxLock = new JCheckBox("Lock");
 		chckbxLock.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		chckbxLock.setBounds(726, 0, 54, 20);
+		chckbxLock.setBounds(826, 0, 54, 20);
 		this.chckbxLock.setToolTipText("Check if you don't want to randomize this part in when clicking \"Random Parts\"");
 		add(chckbxLock);
 		
@@ -170,6 +181,10 @@ public class PartPanel extends JPanel {
 		this.spinHueSwap.setValue(this.generator.random.nextInt(361));
 		this.generator.updateSprite();
 		this.generator.shouldUpdate = true;
+	}
+	
+	private void detectPalette() {
+		
 	}
 
 	/**
@@ -246,6 +261,7 @@ public class PartPanel extends JPanel {
 
 		this.add(cmbOriginal);
 		this.add(cmbNew);
+		this.add(btnDetectPalette);
 		
 		this.revalidate();
 		this.repaint();
@@ -254,6 +270,7 @@ public class PartPanel extends JPanel {
 	void setColorMode() {
 		this.remove(cmbOriginal);
 		this.remove(cmbNew);
+		this.remove(btnDetectPalette);
 		
 		this.add(spinA);
 		this.add(spinB);
