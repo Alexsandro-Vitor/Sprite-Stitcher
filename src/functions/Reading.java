@@ -9,8 +9,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 
@@ -91,6 +93,30 @@ public class Reading {
 		}
 		return matrix;
 	}
+	
+	public static Set<Integer> detectPalette(Folders folder, PartPanel part) {
+		try {
+			if (part.cmb.getSelectedIndex() > 0) {
+				String selected = part.cmb.getSelectedItem().toString();
+				int[][] matrix = readImage(Paths.get(folder.getTemplateFolderPath(), part.name.split(" ")[0], selected).toFile());
+				return getImagePalette(matrix);	
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (WrongSizeException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	private static Set<Integer> getImagePalette(int[][] matrix) {
+		Set<Integer> palette = new HashSet<Integer>();
+		for (int[] line : matrix)
+			for (int color : line)
+				if ((color >>> 24) > 0)
+					palette.add(color & 0x00ffffff);
+		return palette;
+	}
 
 	/**
 	 * Reads an image file.
@@ -107,7 +133,7 @@ public class Reading {
 		return bufferToMatrix(buffer);
 	}
 
-	private static int[] readPalette(File file) throws IOException {
+	public static int[] readPalette(File file) throws IOException {
 		List<String> lines = readFileLines(file);
 		
 		int[] output = new int[lines.size()];

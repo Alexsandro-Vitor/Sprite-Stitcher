@@ -27,7 +27,7 @@ public class Sprite extends JFrame {
 	public Sprite() {
 		setTitle("Sprite");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(950, 50, 300, 200);
+		setBounds(980, 50, 300, 200);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);

@@ -8,11 +8,16 @@ import javax.swing.SpinnerNumberModel;
 
 import classes.Folders;
 import classes.PartColor;
+import functions.Reading;
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -184,7 +189,38 @@ public class PartPanel extends JPanel {
 	}
 	
 	private void detectPalette() {
+		Set<Integer> imagePalette = Reading.detectPalette(this.generator.folders, this);
+
+		String[] paletteNames = generator.folders.files(Folders.PartTypes.PALETTES);
+		int chosenPalette = 0, matchedColors = 0, unmatchedColors = 0;
+		try {
+			for (int i = 1; i < paletteNames.length; i++) {
+				String paletteName = paletteNames[i];
+				int[] palette = Reading.readPalette(Paths.get(this.generator.folders.getPalettesPath(), paletteName).toFile());
+				int[] matches = checkPaletteMatches(imagePalette, palette);
+				if ((matches[0] > matchedColors) || (matches[0] == matchedColors && matches[1] < unmatchedColors)) {
+					matchedColors = matches[0];
+					unmatchedColors = matches[1];
+					chosenPalette = i;
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
+		this.cmbOriginal.setSelectedIndex(chosenPalette);
+	}
+	
+	int[] checkPaletteMatches(Set<Integer> imagePalette, int[] palette) {
+		int matchedColors = 0, unmatchedColors = 0;
+		for (int color : palette) {
+			if (imagePalette.contains(color))
+				matchedColors++;
+			else
+				unmatchedColors++;
+		}
+		int[] output = {matchedColors, unmatchedColors};
+		return output;
 	}
 
 	/**
