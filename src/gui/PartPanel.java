@@ -192,15 +192,15 @@ public class PartPanel extends JPanel {
 		Set<Integer> imagePalette = Reading.detectPalette(this.generator.folders, this);
 
 		String[] paletteNames = generator.folders.files(Folders.PartTypes.PALETTES);
-		int chosenPalette = 0, matchedColors = 0, unmatchedColors = 0;
+		int chosenPalette = 0, maxMatchedColors = 0, minUnmatchedColors = 0;
 		try {
 			for (int i = 1; i < paletteNames.length; i++) {
 				String paletteName = paletteNames[i];
 				int[] palette = Reading.readPalette(Paths.get(this.generator.folders.getPalettesPath(), paletteName).toFile());
 				int[] matches = checkPaletteMatches(imagePalette, palette);
-				if ((matches[0] > matchedColors) || (matches[0] == matchedColors && matches[1] < unmatchedColors)) {
-					matchedColors = matches[0];
-					unmatchedColors = matches[1];
+				if ((matches[1] < minUnmatchedColors) || (matches[1] == minUnmatchedColors && matches[0] > maxMatchedColors)) {
+					maxMatchedColors = matches[0];
+					minUnmatchedColors = matches[1];
 					chosenPalette = i;
 				}
 			}
