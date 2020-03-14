@@ -27,6 +27,7 @@ import gui.PartPanel;
  * @author Alexsandro Vítor Serafim de Carvalho
  */
 public class Reading {
+	
 	public static ArrayList<Dimensions> readTemplatesData() throws IOException {
 		File templateDataFile = Folders.getTemplatesDataPath().toFile();
 		ArrayList<String> lines = readFileLines(templateDataFile);
@@ -79,7 +80,7 @@ public class Reading {
 					String newPaletteName = part.cmbNew.getSelectedItem().toString();
 					int[] originalPalette = readPalette(Paths.get(folder.getPalettesPath(), originalPaletteName).toFile());
 					int[] newPalette = readPalette(Paths.get(folder.getPalettesPath(), newPaletteName).toFile());
-					colorImagePaletteSwap(matrix, originalPalette, newPalette);
+					colorImagePaletteSwap(matrix, part.color.getAlpha(), originalPalette, newPalette);
 				} else {
 					colorImageHueSwap(matrix, (int)part.spinHueSwap.getValue());
 					colorImageFilter(matrix, part.color);
@@ -194,14 +195,15 @@ public class Reading {
 	 * @param originalPalette The palette of the original colors.
 	 * @param newPalette The palette of the new colors.
 	 */
-	private static void colorImagePaletteSwap(int[][] matrix, int[] originalPalette, int[] newPalette) {
+	private static void colorImagePaletteSwap(int[][] matrix, int alpha, int[] originalPalette, int[] newPalette) {
 		Map<Integer, Integer> swapper = ImageFunctions.generatePaletteSwapper(originalPalette, newPalette);
 		
 		for (int column = 0; column < Dimensions.WIDTH; column++) {
 			for (int row = 0; row < Dimensions.HEIGHT; row++) {
 				if ((matrix[column][row] & 0xFF000000) != 0) {
 					int originalColor = matrix[column][row] & 0xFFFFFF;
-					matrix[column][row] = 0xFF000000 + (swapper.get(originalColor) != null ? swapper.get(originalColor) : originalColor);
+					matrix[column][row] = (alpha << 24)
+							+ (swapper.get(originalColor) != null ? swapper.get(originalColor) : originalColor);
 				}
 			}
 		}
