@@ -120,11 +120,11 @@ public class ImageFunctions {
 	public static int[][] capeFront(int[][] input) {
 		int height = Math.min(Dimensions.BACK_HEIGHT, Dimensions.HEIGHT);
 		for (int i = 0; i < Dimensions.WIDTH; i++) {
-			for (int j = 0; j < Dimensions.HEIGHT; j++) {
-				if (j == Dimensions.BACK_Y)
-					j = height - 1;
-				else
-					input[i][j] = 0;
+			for (int j = 0; j < Dimensions.BACK_Y; j++) {
+				input[i][j] = 0;
+			}
+			for (int j = height; j < Dimensions.HEIGHT; j++) {
+				input[i][j] = 0;
 			}
 		}
 		return input;
