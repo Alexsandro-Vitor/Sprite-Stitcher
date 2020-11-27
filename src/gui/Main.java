@@ -12,7 +12,6 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JTextField;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.event.ChangeListener;
 
@@ -25,7 +24,6 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.Color;
-import javax.swing.JRadioButton;
 import java.awt.Font;
 
 @SuppressWarnings("serial")

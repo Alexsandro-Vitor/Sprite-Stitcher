@@ -7,8 +7,6 @@ import javax.swing.border.EmptyBorder;
 import classes.Dimensions;
 
 import javax.swing.JLabel;
-import java.awt.Color;
-import java.awt.Dimension;
 
 import javax.swing.SwingConstants;
 
@@ -16,6 +14,7 @@ import javax.swing.SwingConstants;
  * Class responsible for showing the current state of the sprite.
  * @author Alexsandro Vítor Serafim de Carvalho
  */
+@SuppressWarnings("serial")
 public class Sprite extends JFrame {
 
 	private JPanel contentPane;

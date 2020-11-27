@@ -15,7 +15,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
@@ -24,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import java.awt.Font;
 
+@SuppressWarnings("serial")
 public class PartPanel extends JPanel {
 	private Generator generator;
 	public JComboBox<String> cmb;
@@ -60,7 +60,7 @@ public class PartPanel extends JPanel {
 		lblPartName.setBounds(0, 0, 45, 20);
 		add(lblPartName);
 		
-		cmb = new JComboBox(cmbOptions);
+		cmb = new JComboBox<String>(cmbOptions);
 		cmb.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		cmb.setBounds(55, 0, 215, 20);
 		add(cmb);
@@ -91,12 +91,12 @@ public class PartPanel extends JPanel {
 		spinHueSwap.setBounds(640, 0, 80, 20);
 		add(spinHueSwap);
 		
-		cmbOriginal = new JComboBox(generator.folders.files(Folders.PartTypes.PALETTES));
+		cmbOriginal = new JComboBox<String>(generator.folders.files(Folders.PartTypes.PALETTES));
 		cmbOriginal.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		cmbOriginal.setBounds(370, 0, 170, 20);
 		cmbOriginal.setBackground(cmbOptions.length > 1 ? Color.WHITE : Color.LIGHT_GRAY);
 		
-		cmbNew = new JComboBox(generator.folders.files(Folders.PartTypes.PALETTES));
+		cmbNew = new JComboBox<String>(generator.folders.files(Folders.PartTypes.PALETTES));
 		cmbNew.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		cmbNew.setBounds(550, 0, 170, 20);
 		cmbNew.setBackground(cmbOptions.length > 1 ? Color.WHITE : Color.LIGHT_GRAY);

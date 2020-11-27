@@ -355,7 +355,8 @@ public class Generator extends JFrame {
 	 * Updates the sprite with the selected parts.
 	 */
 	public void updateSprite() {
-		int[][] sprite;
+		int[][] sprite = ImageFunctions.getTransparency();
+
 		back.updateColor(rgba);
 		try {
 			sprite = ImageFunctions.capeBack(Reading.selectImage(folders, back));
@@ -363,6 +364,7 @@ public class Generator extends JFrame {
 			sprite = ImageFunctions.getTransparency();
 		}
 		System.out.println("Tempos:");
+
 		long tempo = System.nanoTime();
 		body.updateColor(rgba);
 		sprite = overlapImageWithFile(sprite, body);

@@ -6,6 +6,7 @@ import java.awt.Color;
  * The color of a sprite part.
  * @author Alexsandro Vítor Serafim de Carvalho
  */
+@SuppressWarnings("serial")
 public class PartColor extends Color {
 	public static final PartColor WHITE = new PartColor(255, 255, 255, 255);
 
