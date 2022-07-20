@@ -60,7 +60,7 @@ Character Spritesheet Generator, designed for usage with any spritesheet style.
 ### Setting up a new spritesheet template
 
 * Spritesheets are defined at ``Assets/Templates.tsv``. If this file doesn't exist, just create it.
-* Every line in the file is a template. The values to be defined are, in tis order:
+* Every line in the file is a template. The values to be defined are, in this order:
 	1. Name of the template (also the name of the folder for that spritesheet style).
 	2. Width of the spritesheet
 	3. Height of the spritesheet
